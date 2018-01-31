@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">ZunderApp</string>
+
+    <!-- Strings related to login -->
+    <string name="sign_up">Sign up</string>
+    <string name="login">Log in</string>
+    <string name="location">Locations</string>
+    <string name="calendar">Calendar</string>
+    <string name="car">Car Sharing</string>
+    <string name="Inbox">Inbox</string>
+    <string name="ecolock">EcoLock</string>
+    <string name="scontract">Smart Contract</string>
+    <string name="guradain">GuardAIn</string>
+
+</resources>
