@@ -1,5 +1,6 @@
 # Zunder
 ###### Android App for [European Blockchain Solutions](http://euroblockchain.solutions/)
+![alt text](http://euroblockchain.solutions/wp-content/uploads/2015/12/tech.png)
 
 ## Information
 **Zunder App** solves the biggest problem in the Fintech industry, the middlemen element. By implementing a revolutionary combination of cutting-edge technology such as **Blockchain, AI** and **IoT**. We are developing the first decentralized peer to peer marketplace for Fintech products and services powered by Smart Contracts.
@@ -13,7 +14,7 @@ If you want to participate to this project just fork it and send the project or 
 ### Design
 [Marvel Visual Prototype](https://marvelapp.com/project/2444817/)
 
-### Roadmap
+### [Roadmap](https://drive.google.com/open?id=1QoCi-DfRYoa19_vxnsDsPL16XilcRPyQ)
 :white_large_square: = Not Started  :white_check_mark: = Done :large_blue_circle: = Started  
 ##  
 
@@ -46,6 +47,7 @@ ML + DL :white_large_square:
 - [Ethereum](https://www.ethereum.org/)
 - [AragonOS](https://aragon.one/)
 - [Noise Protocol Framework](http://noiseprotocol.org/)
+- [Glode](https://github.com/bumptech/glide)
 
 ## History
 European Blockchain Solutions is a community of Blockchain enthusiats which are experts in offering Blockchain solutions for supply chain management, anti-counterfeit validation and software plaftorms based on an economic growth for a network of consumers and businesses within **Smart Cities.** The idea development took place back in 2016 with an approach focused on offering services for small-medium businesses that want to increase their cash flow with focus on cybersecurity and transparency while automating their financial accounting systems. 
