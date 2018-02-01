@@ -17,16 +17,27 @@
 
 
         <ImageView
-            android:id="@+id/imageViewQrButton"
+            android:id="@+id/QrButton"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:layout_marginEnd="4dp"
-            android:layout_marginRight="4dp"
-            app:srcCompat="@drawable/qr"
-            android:contentDescription="QR Code" />
+            android:contentDescription="QR Code"
+            app:srcCompat="@drawable/qr" />
+
+        <EditText
+            android:id="@+id/nameInput"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/deleteBtn"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="Full Name"
+            android:inputType="textPersonName"
+            android:visibility="invisible" />
 
         <ImageView
             android:id="@+id/profilePic"
@@ -62,8 +73,11 @@
         android:id="@+id/ProfileName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_thin"
         android:text="Joe Bloggs"
-        android:textSize="18sp"/>
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:textSize="28sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/ProfileTitle"
@@ -74,6 +88,7 @@
 
 
     <LinearLayout
+        android:id="@+id/subMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -84,8 +99,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/ProfileBookmarkLabel"
@@ -93,22 +108,22 @@
                 android:layout_height="wrap_content"
                 android:text="Bookmark"
                 android:textSize="14sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/ProfileBookmarkCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="87"
-                android:textSize="50sp"/>
+                android:textSize="50sp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="vertical">
 
             <ImageButton
                 android:id="@+id/messageUserButton"
@@ -120,18 +135,19 @@
 
 
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/profileHRule"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:gravity="center"
-        android:orientation="horizontal"
-        android:layout_marginBottom="8dp">
+        android:orientation="horizontal">
 
         <Space
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />
 
         <View
             android:layout_width="0dp"
@@ -142,13 +158,15 @@
         <Space
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />
 
     </LinearLayout>
 
     <ScrollView
+        android:id="@+id/scrollMenu"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -163,77 +181,88 @@
                 <ImageView
                     android:layout_width="92dp"
                     android:layout_height="92dp"
-                    android:scaleType="fitCenter"
                     android:background="#fff"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/scontract" />
+
                 <ImageView
                     android:layout_width="92dp"
                     android:layout_height="92dp"
-                    android:scaleType="fitCenter"
                     android:background="#fff"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/ecolock" />
+
                 <ImageView
                     android:layout_width="92dp"
                     android:layout_height="92dp"
-                    android:scaleType="fitCenter"
                     android:background="#fff"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/decentralized" />
+
                 <ImageView
                     android:layout_width="92dp"
                     android:layout_height="92dp"
-                    android:scaleType="fitCenter"
                     android:background="#fff"
-                    android:src="@drawable/scontract"
-                 />
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/scontract" />
+
                 <ImageView
                     android:layout_width="92dp"
                     android:layout_height="92dp"
-                    android:scaleType="fitCenter"
                     android:background="#fff"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/ecolock" />
+
                 <ImageView
                     android:layout_width="92dp"
                     android:layout_height="92dp"
-                    android:scaleType="fitCenter"
                     android:background="#fff"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/decentralized" />
+
                 <ImageView
                     android:layout_width="92dp"
                     android:layout_height="92dp"
-                    android:scaleType="fitCenter"
                     android:background="#fff"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/scontract" />
+
                 <ImageView
                     android:layout_width="92dp"
                     android:layout_height="92dp"
-                    android:scaleType="fitCenter"
                     android:background="#fff"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/ecolock" />
+
                 <ImageView
                     android:layout_width="92dp"
                     android:layout_height="92dp"
-                    android:scaleType="fitCenter"
                     android:background="#fff"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/decentralized" />
+
                 <ImageView
                     android:layout_width="92dp"
                     android:layout_height="92dp"
-                    android:scaleType="fitCenter"
                     android:background="#fff"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/scontract" />
+
                 <ImageView
                     android:layout_width="92dp"
                     android:layout_height="92dp"
-                    android:scaleType="fitCenter"
                     android:background="#fff"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/scontract" />
+
                 <ImageView
                     android:layout_width="92dp"
                     android:layout_height="92dp"
-                    android:scaleType="fitCenter"
                     android:background="#fff"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/scontract" />
             </GridLayout>
         </RelativeLayout>
     </ScrollView>
+
 </LinearLayout>

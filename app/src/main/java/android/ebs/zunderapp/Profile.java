@@ -8,7 +8,10 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +22,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -27,20 +31,33 @@ import java.io.IOException;
 
 public class Profile extends AppCompatActivity {
     private static final int CHOOSE_IMAGE = 101;
-    private TextView profileTextiew, profileTittle;
+    private TextView name, profileTittle;
     private FirebaseAuth mAuth;
     private ImageView profilePic;
-
+    private EditText nameInput;
     private Uri uriProfileImage;
     private String profileImageUrl;
+    private ImageView saveBtn, cancelBtn, qrButton;
+    private ScrollView scrollView;
+    private LinearLayout submenu;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-
+        saveBtn = (ImageView) findViewById(R.id.saveBtn);
+        cancelBtn = (ImageView) findViewById(R.id.deleteBtn);
+        nameInput = (EditText)findViewById(R.id.nameInput);
+        name = (TextView) findViewById(R.id.ProfileName);
+        profileTittle = (TextView) findViewById(R.id.ProfileTitle);
         profilePic = (ImageView) findViewById(R.id.profilePic);
+        qrButton = (ImageView) findViewById(R.id.QrButton);
+        submenu = (LinearLayout) findViewById(R.id.subMenu);
+        scrollView = (ScrollView) findViewById(R.id.scrollMenu);
+
+        name.setClickable(true);
+
         profilePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -48,9 +65,72 @@ public class Profile extends AppCompatActivity {
             }
         });
 
+        qrButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                nameInput.setVisibility(View.VISIBLE);
+                scrollView.setVisibility(View.GONE);
+                submenu.setVisibility(View.GONE);
+
+            }
+        });
+
+        saveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                saveUserInformation();
+                saveBtn.setVisibility(View.GONE);
+                cancelBtn.setVisibility(View.GONE);
+                scrollView.setVisibility(View.VISIBLE);
+                submenu.setVisibility(View.VISIBLE);
+
+            }
+        });
+
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                saveBtn.setVisibility(View.GONE);
+                cancelBtn.setVisibility(View.GONE);
+                scrollView.setVisibility(View.VISIBLE);
+                submenu.setVisibility(View.VISIBLE);
+            }
+        });
+
         mAuth = FirebaseAuth.getInstance();
 
         loadUserInformation();
+    }
+
+    private void saveUserInformation() {
+
+
+        String displayName = name.getText().toString();
+
+        if (displayName.isEmpty()) {
+            name.setError("Name required");
+            name.requestFocus();
+            return;
+        }
+
+        FirebaseUser user = mAuth.getCurrentUser();
+
+        if (user != null && profileImageUrl != null) {
+            UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder()
+                    .setDisplayName(displayName)
+                    .setPhotoUri(Uri.parse(profileImageUrl))
+                    .build();
+
+            user.updateProfile(profile)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(Profile.this, "Profile Updated", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+        }
     }
 
     @Override
