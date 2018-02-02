@@ -37,7 +37,7 @@
             android:ems="10"
             android:hint="Full Name"
             android:inputType="textPersonName"
-            android:visibility="invisible" />
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/profilePic"
@@ -83,8 +83,9 @@
         android:id="@+id/ProfileTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto"
         android:text="Managing Director"
-        android:textSize="14sp"/>
+        android:textSize="14sp" />
 
 
     <LinearLayout
@@ -200,67 +201,77 @@
                     android:src="@drawable/decentralized" />
 
                 <ImageView
+                    android:id="@+id/addItem"
                     android:layout_width="92dp"
                     android:layout_height="92dp"
                     android:background="#fff"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/scontract" />
+                    android:src="@drawable/scontract"
+                    app:srcCompat="@android:drawable/ic_input_add" />
 
                 <ImageView
                     android:layout_width="92dp"
                     android:layout_height="92dp"
                     android:background="#fff"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/ecolock" />
+                    android:src="@drawable/ecolock"
+                    android:visibility="invisible" />
 
                 <ImageView
                     android:layout_width="92dp"
                     android:layout_height="92dp"
                     android:background="#fff"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/decentralized" />
+                    android:src="@drawable/decentralized"
+                    android:visibility="invisible" />
 
                 <ImageView
                     android:layout_width="92dp"
                     android:layout_height="92dp"
                     android:background="#fff"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/scontract" />
+                    android:src="@drawable/scontract"
+                    android:visibility="invisible" />
 
                 <ImageView
                     android:layout_width="92dp"
                     android:layout_height="92dp"
                     android:background="#fff"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/ecolock" />
+                    android:src="@drawable/ecolock"
+                    android:visibility="invisible" />
 
                 <ImageView
                     android:layout_width="92dp"
                     android:layout_height="92dp"
                     android:background="#fff"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/decentralized" />
+                    android:src="@drawable/decentralized"
+                    android:visibility="invisible" />
 
                 <ImageView
                     android:layout_width="92dp"
                     android:layout_height="92dp"
                     android:background="#fff"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/scontract" />
+                    android:src="@drawable/scontract"
+                    android:visibility="invisible" />
 
                 <ImageView
                     android:layout_width="92dp"
                     android:layout_height="92dp"
                     android:background="#fff"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/scontract" />
+                    android:src="@drawable/scontract"
+                    android:visibility="invisible" />
 
                 <ImageView
                     android:layout_width="92dp"
                     android:layout_height="92dp"
                     android:background="#fff"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/scontract" />
+                    android:src="@drawable/scontract"
+                    android:visibility="invisible" />
             </GridLayout>
         </RelativeLayout>
     </ScrollView>

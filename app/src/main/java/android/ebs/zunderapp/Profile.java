@@ -2,6 +2,7 @@ package android.ebs.zunderapp;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.media.Image;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -33,7 +34,7 @@ public class Profile extends AppCompatActivity {
     private static final int CHOOSE_IMAGE = 101;
     private TextView name, profileTittle;
     private FirebaseAuth mAuth;
-    private ImageView profilePic;
+    private ImageView profilePic, addItem;
     private EditText nameInput;
     private Uri uriProfileImage;
     private String profileImageUrl;
@@ -41,22 +42,39 @@ public class Profile extends AppCompatActivity {
     private ScrollView scrollView;
     private LinearLayout submenu;
 
+    /**
+     * Method that creates the screen once it is running.
+     * the Main method
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        saveBtn = (ImageView) findViewById(R.id.saveBtn);
-        cancelBtn = (ImageView) findViewById(R.id.deleteBtn);
-        nameInput = (EditText)findViewById(R.id.nameInput);
-        name = (TextView) findViewById(R.id.ProfileName);
-        profileTittle = (TextView) findViewById(R.id.ProfileTitle);
-        profilePic = (ImageView) findViewById(R.id.profilePic);
-        qrButton = (ImageView) findViewById(R.id.QrButton);
-        submenu = (LinearLayout) findViewById(R.id.subMenu);
-        scrollView = (ScrollView) findViewById(R.id.scrollMenu);
+        // Link the XMl elements with the code
+        LinkElements();
 
-        name.setClickable(true);
+        //Action listeners for elements
+        ActionListeners();
+
+        //Get authentification from DB (Firebase)
+        mAuth = FirebaseAuth.getInstance();
+
+        //Load user Information
+        loadUserInformation();
+    }
+
+    /**
+     * Method that generates an action when an element is touched
+     */
+    private void ActionListeners() {
+        addItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
         profilePic.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,12 +83,14 @@ public class Profile extends AppCompatActivity {
             }
         });
 
-        qrButton.setOnClickListener(new View.OnClickListener() {
+        name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 nameInput.setVisibility(View.VISIBLE);
                 scrollView.setVisibility(View.GONE);
                 submenu.setVisibility(View.GONE);
+                cancelBtn.setVisibility(View.VISIBLE);
+                saveBtn.setVisibility(View.VISIBLE);
 
             }
         });
@@ -96,12 +116,28 @@ public class Profile extends AppCompatActivity {
                 submenu.setVisibility(View.VISIBLE);
             }
         });
-
-        mAuth = FirebaseAuth.getInstance();
-
-        loadUserInformation();
     }
 
+    /**
+     * Method that links the XMl elements from the Layour to the variables
+     * instantiated in this Java class
+     */
+    private void LinkElements() {
+        addItem = (ImageView) findViewById(R.id.addItem);
+        saveBtn = (ImageView) findViewById(R.id.saveBtn);
+        cancelBtn = (ImageView) findViewById(R.id.deleteBtn);
+        nameInput = (EditText)findViewById(R.id.nameInput);
+        name = (TextView) findViewById(R.id.ProfileName);
+        profileTittle = (TextView) findViewById(R.id.ProfileTitle);
+        profilePic = (ImageView) findViewById(R.id.profilePic);
+        qrButton = (ImageView) findViewById(R.id.QrButton);
+        submenu = (LinearLayout) findViewById(R.id.subMenu);
+        scrollView = (ScrollView) findViewById(R.id.scrollMenu);
+    }
+
+    /**
+     * Method that saves the
+     */
     private void saveUserInformation() {
 
 
@@ -133,6 +169,13 @@ public class Profile extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method that provides an action when an int is requested and
+     * provides an operational result in form of intent (new Screen)
+     * @param requestCode int requested as the beginning of the operation
+     * @param resultCode int as a result of the operation
+     * @param data Intent (Screen) which is directed to
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -152,6 +195,9 @@ public class Profile extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method that upload an image to the DB (Firebase)
+     */
     private void uploadImageToFirebaseStorage() {
         StorageReference profileImageReference = FirebaseStorage.getInstance().
                 getReference("profilepics/"+System.currentTimeMillis()+".jpg");
@@ -171,6 +217,9 @@ public class Profile extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method that loads the information from the user DB
+     */
     private void loadUserInformation() {
         FirebaseUser user = mAuth.getCurrentUser();
 
@@ -186,6 +235,9 @@ public class Profile extends AppCompatActivity {
 
     }
 
+    /**
+     * Method which is read when the activity is just created
+     */
     @Override
     protected void onStart() {
         super.onStart();
@@ -195,6 +247,10 @@ public class Profile extends AppCompatActivity {
         }
     }
 
+    /**
+     * Mehtod that disploys a native Image Chooser
+     * to choose the desired Profile Image
+     */
     private void showImageChooser(){
         Intent intent = new Intent();
         intent.setType("image/*");

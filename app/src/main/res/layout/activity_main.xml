@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavbar"
+        app:layout_constraintBottom_toTopOf="@+id/UpperNavbar"
         app:layout_constraintTop_toTopOf="parent">
 
 
@@ -372,7 +372,7 @@
 
     <!--Bottom navbar-->
     <LinearLayout
-        android:id="@+id/bottomNavbar"
+        android:id="@+id/UpperNavbar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/lighGrey"
