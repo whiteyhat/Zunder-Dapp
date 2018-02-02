@@ -14,6 +14,9 @@ If you want to participate to this project just fork it and send the project or 
 [Marvel Visual Prototype](https://marvelapp.com/project/2444817/)
 
 ### Roadmap
+[Internal](https://drive.google.com/open?id=1QoCi-DfRYoa19_vxnsDsPL16XilcRPyQ)
+[External](https://drive.google.com/open?id=1QoCi-DfRYoa19_vxnsDsPL16XilcRPyQ)
+##
 :white_large_square: = Not Started  :white_check_mark: = Done :large_blue_circle: = Started  
 ##  
 
@@ -43,9 +46,11 @@ ML + DL :white_large_square:
 
 ## Framework
 - [Waves Platform](https://wavesplatform.com/)
-- [Ethereum](https://www.ethereum.org/)
-- [AragonOS](https://aragon.one/)
+- [AragonOS](https://github.com/aragon/aragon)
 - [Noise Protocol Framework](http://noiseprotocol.org/)
+- [Web3.js](https://github.com/web3j/web3j)
+- [Gluide](https://github.com/bumptech/glide)
+- [Firebase](https://firebase.google.com)
 
 ## History
 European Blockchain Solutions is a community of Blockchain enthusiats which are experts in offering Blockchain solutions for supply chain management, anti-counterfeit validation and software plaftorms based on an economic growth for a network of consumers and businesses within **Smart Cities.** The idea development took place back in 2016 with an approach focused on offering services for small-medium businesses that want to increase their cash flow with focus on cybersecurity and transparency while automating their financial accounting systems. 
