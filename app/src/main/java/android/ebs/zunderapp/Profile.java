@@ -2,7 +2,6 @@ package android.ebs.zunderapp;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.media.Image;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -32,7 +31,7 @@ import java.io.IOException;
 
 public class Profile extends AppCompatActivity {
     private static final int CHOOSE_IMAGE = 101;
-    private TextView name, profileTittle;
+    private TextView name, tittle;
     private FirebaseAuth mAuth;
     private ImageView profilePic, addItem;
     private EditText nameInput;
@@ -41,10 +40,12 @@ public class Profile extends AppCompatActivity {
     private ImageView saveBtn, cancelBtn, qrButton;
     private ScrollView scrollView;
     private LinearLayout submenu;
+    private boolean Bname, Btitle;
 
     /**
      * Method that creates the screen once it is running.
      * the Main method
+     *
      * @param savedInstanceState
      */
     @Override
@@ -72,7 +73,9 @@ public class Profile extends AppCompatActivity {
         addItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(Profile.this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             }
         });
 
@@ -83,9 +86,25 @@ public class Profile extends AppCompatActivity {
             }
         });
 
+        tittle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setBtitle(true);
+                setBname(false);
+                nameInput.setVisibility(View.VISIBLE);
+                nameInput.setHint("Job role");
+                scrollView.setVisibility(View.INVISIBLE);
+                submenu.setVisibility(View.GONE);
+                cancelBtn.setVisibility(View.VISIBLE);
+                saveBtn.setVisibility(View.VISIBLE);
+            }
+        });
+
         name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                setBtitle(false);
+                setBname(true);
                 nameInput.setVisibility(View.VISIBLE);
                 scrollView.setVisibility(View.GONE);
                 submenu.setVisibility(View.GONE);
@@ -100,6 +119,8 @@ public class Profile extends AppCompatActivity {
             public void onClick(View view) {
                 saveUserInformation();
                 saveBtn.setVisibility(View.GONE);
+                nameInput.setText("");
+                nameInput.setVisibility(View.GONE);
                 cancelBtn.setVisibility(View.GONE);
                 scrollView.setVisibility(View.VISIBLE);
                 submenu.setVisibility(View.VISIBLE);
@@ -113,6 +134,7 @@ public class Profile extends AppCompatActivity {
                 saveBtn.setVisibility(View.GONE);
                 cancelBtn.setVisibility(View.GONE);
                 scrollView.setVisibility(View.VISIBLE);
+                nameInput.setVisibility(View.GONE);
                 submenu.setVisibility(View.VISIBLE);
             }
         });
@@ -126,9 +148,10 @@ public class Profile extends AppCompatActivity {
         addItem = (ImageView) findViewById(R.id.addItem);
         saveBtn = (ImageView) findViewById(R.id.saveBtn);
         cancelBtn = (ImageView) findViewById(R.id.deleteBtn);
-        nameInput = (EditText)findViewById(R.id.nameInput);
+        nameInput = (EditText) findViewById(R.id.nameInput);
         name = (TextView) findViewById(R.id.ProfileName);
-        profileTittle = (TextView) findViewById(R.id.ProfileTitle);
+        tittle = (TextView) findViewById(R.id.ProfileTitle);
+        tittle = (TextView) findViewById(R.id.ProfileTitle);
         profilePic = (ImageView) findViewById(R.id.profilePic);
         qrButton = (ImageView) findViewById(R.id.QrButton);
         submenu = (LinearLayout) findViewById(R.id.subMenu);
@@ -139,55 +162,120 @@ public class Profile extends AppCompatActivity {
      * Method that saves the
      */
     private void saveUserInformation() {
+        name.setText(nameInput.getText().toString());
 
-
-        String displayName = name.getText().toString();
-
-        if (displayName.isEmpty()) {
+        if (name.getText().toString().isEmpty()) {
             name.setError("Name required");
             name.requestFocus();
             return;
         }
 
         FirebaseUser user = mAuth.getCurrentUser();
-
-        if (user != null && profileImageUrl != null) {
-            UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder()
-                    .setDisplayName(displayName)
-                    .setPhotoUri(Uri.parse(profileImageUrl))
-                    .build();
-
-            user.updateProfile(profile)
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                Toast.makeText(Profile.this, "Profile Updated", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
+        if (user != null) {
+            if (isBname()){
+                updateName(user);
+            }
+            if (isBtitle()){
+                updateTitle(user);
+            }
         }
+    }
+
+    public boolean isBname() {
+        return Bname;
+    }
+
+    public void setBname(boolean bname) {
+        this.Bname = bname;
+    }
+
+    public boolean isBtitle() {
+        return Btitle;
+    }
+
+    public void setBtitle(boolean btitle) {
+        this.Btitle = btitle;
+    }
+
+    private void updateTitle(FirebaseUser user) {
+        tittle.setText(nameInput.getText().toString());
+    }
+
+    /**
+     * Method to save the the updated picture
+     *
+     * @param user is selecting the image
+     */
+    private void updatePicture(FirebaseUser user) {
+        UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder()
+                .setPhotoUri(Uri.parse(profileImageUrl))
+                .build();
+
+        user.updateProfile(profile)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(Profile.this, "Picture Updated", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(Profile.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+    }
+
+    /**
+     * method to save the updated Bname
+     *
+     * @param user is selecting the new Bname
+     */
+    private void updateName(FirebaseUser user) {
+        UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder()
+                .setDisplayName(name.getText().toString())
+                .build();
+
+        user.updateProfile(profile)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(Profile.this, "Name Updated", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(Profile.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
     }
 
     /**
      * Method that provides an action when an int is requested and
      * provides an operational result in form of intent (new Screen)
+     *
      * @param requestCode int requested as the beginning of the operation
-     * @param resultCode int as a result of the operation
-     * @param data Intent (Screen) which is directed to
+     * @param resultCode  int as a result of the operation
+     * @param data        Intent (Screen) which is directed to
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == CHOOSE_IMAGE && resultCode == RESULT_OK  &&  data != null &&
-                data.getData() != null){
+        if (requestCode == CHOOSE_IMAGE && resultCode == RESULT_OK && data != null &&
+                data.getData() != null) {
             uriProfileImage = data.getData();
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uriProfileImage);
                 profilePic.setImageBitmap(bitmap);
 
                 uploadImageToFirebaseStorage();
+                updatePicture(mAuth.getCurrentUser());
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -200,9 +288,9 @@ public class Profile extends AppCompatActivity {
      */
     private void uploadImageToFirebaseStorage() {
         StorageReference profileImageReference = FirebaseStorage.getInstance().
-                getReference("profilepics/"+System.currentTimeMillis()+".jpg");
+                getReference("profilepics/" + System.currentTimeMillis() + ".jpg");
 
-        if (uriProfileImage != null){
+        if (uriProfileImage != null) {
             profileImageReference.putFile(uriProfileImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -228,7 +316,7 @@ public class Profile extends AppCompatActivity {
                 Glide.with(this).load(user.getPhotoUrl().toString()).into(profilePic);
             }
             if (user.getDisplayName() != null) {
-                String displayName = user.getDisplayName();
+                name.setText(user.getDisplayName());
             }
 
         }
@@ -251,12 +339,11 @@ public class Profile extends AppCompatActivity {
      * Mehtod that disploys a native Image Chooser
      * to choose the desired Profile Image
      */
-    private void showImageChooser(){
+    private void showImageChooser() {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select Profile Image"), CHOOSE_IMAGE);
-
     }
 
 }
