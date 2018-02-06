@@ -11,8 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="50dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="80dp"
         android:layout_weight="1"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -89,18 +87,38 @@
             <RelativeLayout
                 android:id="@+id/featureTab"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/green">
+                android:layout_height="match_parent">
 
-                <TextView
-                    android:id="@+id/textView22"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="Image Slideshow with feature products / services, news, innovations..."
-                    android:textAlignment="center"
-                    android:textColor="@android:color/white"
-                    android:textSize="30sp" />
+                <ViewFlipper
+                    android:id="@+id/bckgrndViewFlipper1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <ImageView
+                        android:id="@+id/imageView5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:scaleType="fitCenter"
+                        app:srcCompat="@drawable/card" />
+
+                    <ImageView
+                        android:id="@+id/imageView3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        app:srcCompat="@drawable/scontract"
+                        tools:layout_editor_absoluteX="64dp"
+                        tools:layout_editor_absoluteY="80dp" />
+
+                    <ImageView
+                        android:id="@+id/imageView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/iot" />
+
+                </ViewFlipper>
+
             </RelativeLayout>
         </LinearLayout>
 
@@ -125,7 +143,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
-                    android:text="Features Services"
+                    android:text="Sponsored Services"
                     android:textColor="@android:color/white"
                     android:textSize="20sp" />
             </RelativeLayout>

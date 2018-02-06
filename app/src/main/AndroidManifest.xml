@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity
-            android:name=".Profile"
+            android:name=".Store"
             android:icon="@drawable/logo"
             android:label="">
             <intent-filter>
@@ -32,7 +32,7 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name=".Store"></activity>
+        <activity android:name=".Profile"></activity>
     </application>
 
 </manifest>

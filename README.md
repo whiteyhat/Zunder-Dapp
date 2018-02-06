@@ -1,6 +1,5 @@
 # Zunder
 ###### Android App for [European Blockchain Solutions](http://euroblockchain.solutions/)
-![alt text](http://euroblockchain.solutions/wp-content/uploads/2015/12/tech.png)
 
 ## Information
 **Zunder App** solves the biggest problem in the Fintech industry, the middlemen element. By implementing a revolutionary combination of cutting-edge technology such as **Blockchain, AI** and **IoT**. We are developing the first decentralized peer to peer marketplace for Fintech products and services powered by Smart Contracts.
