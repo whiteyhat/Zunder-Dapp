@@ -16,18 +16,18 @@ If you want to participate to this project just fork it and send the project or 
 ### [Roadmap](https://drive.google.com/open?id=1QoCi-DfRYoa19_vxnsDsPL16XilcRPyQ)
 :white_large_square: = Not Started  :white_check_mark: = Done :large_blue_circle: = Started  
 ##  
-User log in / sign up :white_check_mark:
-Home Screen :white_check_mark:
-User Management System  :large_blue_circle:
-Wallet Integration  :large_blue_circle:
-Map Integration :white_large_square:
-Store Intengration :large_blue_circle:
-Profile Integration :white_large_square:
-In-App messaging :white_large_square:
-In-App purchases :white_large_square:
-Smart Advertising :white_large_square:
-Smart Contracts :white_large_square:
-ML + DL :white_large_square:
+- User log in / sign up :white_check_mark:
+- Home Screen :white_check_mark:
+- User Management System  :large_blue_circle:
+- Wallet Integration  :large_blue_circle:
+- Map Integration :white_large_square:
+- Store Intengration :large_blue_circle:
+- Profile Integration :white_large_square:
+- In-App messaging :white_large_square:
+- In-App purchases :white_large_square:
+- Smart Advertising :white_large_square:
+- Smart Contracts :white_large_square:
+- ML + DL :white_large_square:
 
 ## Framework
 - [WAVES NODE REST](https://wavesplatform.com/)
