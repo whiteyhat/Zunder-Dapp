@@ -22,7 +22,7 @@ If you want to participate to this project just fork it and send the project or 
 - Wallet Integration  :large_blue_circle:
 - Map Integration :white_large_square:
 - Store Intengration :large_blue_circle:
-- Profile Integration :white_large_square:
+- Profile Integration :large_blue_circle:
 - In-App messaging :white_large_square:
 - In-App purchases :white_large_square:
 - Smart Advertising :white_large_square:
