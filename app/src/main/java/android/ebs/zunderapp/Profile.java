@@ -7,6 +7,7 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -23,6 +24,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -41,6 +48,8 @@ public class Profile extends AppCompatActivity {
     private ScrollView scrollView;
     private LinearLayout submenu;
     private boolean Bname, Btitle;
+
+    DatabaseReference myRef;
 
     /**
      * Method that creates the screen once it is running.
@@ -61,6 +70,7 @@ public class Profile extends AppCompatActivity {
 
         //Get authentification from DB (Firebase)
         mAuth = FirebaseAuth.getInstance();
+        myRef = FirebaseDatabase.getInstance().getReference("user");
 
         //Load user Information
         loadUserInformation();
@@ -117,7 +127,13 @@ public class Profile extends AppCompatActivity {
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveUserInformation();
+                if (isBname()) {
+                    saveUserInformation();
+                }
+
+                if (isBtitle()) {
+                    addTitle();
+                }
                 saveBtn.setVisibility(View.GONE);
                 nameInput.setText("");
                 nameInput.setVisibility(View.GONE);
@@ -138,6 +154,26 @@ public class Profile extends AppCompatActivity {
                 submenu.setVisibility(View.VISIBLE);
             }
         });
+    }
+
+    private void addTitle() {
+
+        if (!TextUtils.isEmpty(nameInput.getText().toString())) {
+
+            String id = myRef.push().getKey();
+
+            User user = new User(name.getText().toString(), nameInput.getText().toString().trim(), id);
+            myRef.child(id).setValue(user);
+
+            Toast.makeText(this, "Job Role updated", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Type job role", Toast.LENGTH_LONG).show();
+            ;
+        }
+
+        tittle.setText(nameInput.getText().toString());
+
+        nameInput.setText("");
     }
 
     /**
@@ -172,10 +208,10 @@ public class Profile extends AppCompatActivity {
 
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null) {
-            if (isBname()){
+            if (isBname()) {
                 updateName(user);
             }
-            if (isBtitle()){
+            if (isBtitle()) {
                 updateTitle(user);
             }
         }
@@ -333,12 +369,30 @@ public class Profile extends AppCompatActivity {
             finish();
             startActivity(new Intent(this, Login.class));
         }
+//        DatabaseReference ref = myRef.child("L4h33L1SjOlNQh7ob6R");
+//        Query phoneQuery = ref.orderByChild("user").equalTo("L4h33L1SjOlNQh7ob6R");
+//
+//        phoneQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
+//                    User user = singleSnapshot.getValue(User.class);
+//                    user.getTitle();
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//            }
+//        });
     }
+//
 
     /**
      * Mehtod that disploys a native Image Chooser
      * to choose the desired Profile Image
      */
+
     private void showImageChooser() {
         Intent intent = new Intent();
         intent.setType("image/*");
