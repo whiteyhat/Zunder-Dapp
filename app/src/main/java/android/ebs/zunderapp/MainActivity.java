@@ -1,5 +1,6 @@
 package android.ebs.zunderapp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -39,7 +40,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         item2 = (ImageButton) findViewById(R.id.SmartContractButton);
         item3 = (ImageButton) findViewById(R.id.GuardAInButton);
         carSharing = (ImageButton) findViewById(R.id.CarSharingButton);
-
         home = (ImageView) findViewById(R.id.Home);
         wallet = (ImageView) findViewById(R.id.Wallet);
         store = (ImageView) findViewById(R.id.Store);
@@ -80,6 +80,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()){
             case R.id.MessageButton:
                 break;
+            case R.id.Store:
+                Intent intent = new Intent(MainActivity.this, Store.class);
+                startActivity(intent);
+                break;
+            case R.id.Wallet:
+                Intent intento = new Intent(MainActivity.this, Wallet.class);
+                startActivity(intento);
         }
     }
 }

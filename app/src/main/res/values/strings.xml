@@ -15,5 +15,18 @@
     <string name="ecolock">EcoLock</string>
     <string name="scontract">Smart Contract</string>
     <string name="guradain">GuardAIn</string>
+    <string name="wallet">My Wallet</string>
+    <string name="send">Send</string>
+    <string name="history">History</string>
+    <string name="adress">Address</string>
+    <string name="sett">Wallet Settings</string>
+    <string name="bringWallet"><u>Import Wallet</u></string>
+    <string name="newwallet">Tap to generate a new wallet</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="showprivatekey">Show Private Key</string>
+    <string name="dontshowtotpublic">Take care on where you save your private key! This key can be used to recover/steal your wallet, including your funds.</string>
+    <string name="understand">Type \"I understand\"</string>
 
 </resources>

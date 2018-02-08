@@ -73,7 +73,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:id="@+id/UpperNavbar"
+        android:id="@+id/walletCreated"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/lighGrey"
@@ -116,30 +116,17 @@
 
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/generateWallet"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/walett" />
-
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="140dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="50dp"
         android:background="#3a8cb2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.898">
+        app:layout_constraintVertical_bias="0.0">
 
         <TextView
             android:id="@+id/output"
@@ -147,9 +134,9 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/bar"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="15dp"
+            android:layout_marginBottom="38dp"
             android:fontFamily="@font/roboto"
-            android:text="Tap to generate a new wallet"
+            android:text="@string/newwallet"
             android:textColor="@android:color/white"
             android:textSize="28sp" />
 
@@ -162,6 +149,43 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="12dp"
             android:visibility="invisible" />
+
+        <ImageView
+            android:id="@+id/generateWallet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/walett" />
+
+        <TextView
+            android:id="@+id/bringWallet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/bar"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="11dp"
+            android:fontFamily="@font/roboto"
+            android:text="@string/bringWallet"
+            android:textColor="@android:color/holo_orange_light"
+            android:textSize="15sp"
+            android:visibility="visible"
+            tools:layout_editor_absoluteX="121dp"
+            tools:layout_editor_absoluteY="516dp" />
+
+        <ImageView
+            android:id="@+id/walletDone"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignBottom="@+id/bar"
+            android:layout_centerHorizontal="true"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/check" />
     </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>

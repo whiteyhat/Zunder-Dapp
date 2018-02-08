@@ -44,7 +44,7 @@ public class Profile extends AppCompatActivity {
     private EditText nameInput;
     private Uri uriProfileImage;
     private String profileImageUrl;
-    private ImageView saveBtn, cancelBtn, qrButton;
+    private ImageView saveBtn, cancelBtn, qrButton, home, wallet, store, map;
     private ScrollView scrollView;
     private LinearLayout submenu;
     private boolean Bname, Btitle;
@@ -192,6 +192,10 @@ public class Profile extends AppCompatActivity {
         qrButton = (ImageView) findViewById(R.id.QrButton);
         submenu = (LinearLayout) findViewById(R.id.subMenu);
         scrollView = (ScrollView) findViewById(R.id.scrollMenu);
+        home = (ImageView)findViewById(R.id.Home);
+        wallet = (ImageView)findViewById(R.id.Wallet);
+        store = (ImageView)findViewById(R.id.Store);
+        map = (ImageView)findViewById(R.id.Map);
     }
 
     /**
