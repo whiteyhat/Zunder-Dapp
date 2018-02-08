@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity
-            android:name=".Profile"
+            android:name=".Store"
             android:icon="@drawable/logo"
             android:label="">
             <intent-filter>
@@ -25,14 +25,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".Profile" />
+        <activity android:name=".Wallet" />
         <activity android:name=".Login"></activity>
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name=".Store"></activity>
+        <activity android:name=".MainActivity"></activity>
     </application>
 
 </manifest>

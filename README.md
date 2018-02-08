@@ -30,9 +30,8 @@ If you want to participate to this project just fork it and send the project or 
 - ML + DL :white_large_square:
 
 ## Framework
-- [WAVES NODE REST](https://wavesplatform.com/)
 - [Firebase](https://firebase.google.com)
-- [Web3-js](https://github.com/web3j/web3j)
+- [Stellar SDK](https://github.com/stellar/java-stellar-android.ebs.zunderapp.sdk)
 - [AragonOS](https://aragon.one/)
 - [Noise Protocol Framework](http://noiseprotocol.org/)
 - [Glide](https://github.com/bumptech/glide)

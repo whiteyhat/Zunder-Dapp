@@ -9,6 +9,7 @@ android {
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -20,14 +21,13 @@ android {
 }
 
 dependencies {
-    implementation 'com.google.firebase:firebase-storage:11.0.4'
     implementation 'com.google.firebase:firebase-database:11.0.4'
     compile 'com.android.support:support-v4:26.0.2'
     compile 'com.android.support:appcompat-v7:26.0.2'
     compile 'com.android.support:recyclerview-v7:26.0.2'
     compile 'com.android.support:support-v13:26.0.2'
-
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.google.firebase:firebase-storage:11.0.4'
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support:design:26.1.0'
     implementation 'com.google.firebase:firebase-auth:11.0.4'
@@ -37,6 +37,7 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.5.0'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    implementation files('androidstellar.jar')
 }
 
 

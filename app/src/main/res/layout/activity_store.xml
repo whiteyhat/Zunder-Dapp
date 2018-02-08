@@ -166,7 +166,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/lighGrey"
             android:elevation="16dp"
             app:srcCompat="@drawable/home" />
 
@@ -182,6 +181,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@color/lighGrey"
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/store" />
 
