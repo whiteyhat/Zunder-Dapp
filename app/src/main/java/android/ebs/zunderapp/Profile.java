@@ -44,7 +44,7 @@ public class Profile extends AppCompatActivity {
     private EditText nameInput;
     private Uri uriProfileImage;
     private String profileImageUrl;
-    private ImageView saveBtn, cancelBtn, qrButton, home, wallet, store, map;
+    private ImageView saveBtn, cancelBtn, qrButton, home, wallet, store, map, back;
     private ScrollView scrollView;
     private LinearLayout submenu;
     private boolean Bname, Btitle;
@@ -154,6 +154,15 @@ public class Profile extends AppCompatActivity {
                 submenu.setVisibility(View.VISIBLE);
             }
         });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Profile.this, MainActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.push_right, R.anim.push_left);
+            }
+        });
     }
 
     private void addTitle() {
@@ -181,6 +190,7 @@ public class Profile extends AppCompatActivity {
      * instantiated in this Java class
      */
     private void LinkElements() {
+        back = (ImageView) findViewById(R.id.arrow);
         addItem = (ImageView) findViewById(R.id.addItem);
         saveBtn = (ImageView) findViewById(R.id.saveBtn);
         cancelBtn = (ImageView) findViewById(R.id.deleteBtn);

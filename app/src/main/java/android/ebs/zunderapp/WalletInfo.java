@@ -43,6 +43,29 @@ public class WalletInfo extends AppCompatActivity {
 
         showQR();
 
+        actionListeners();
+    }
+
+    public String getPrivateKey() {
+        return privateKey;
+    }
+
+    public String getPublicKey() {
+        return publicKey;
+    }
+
+    public String getBalance() {
+        return balance;
+    }
+
+    public String getBalanceInfo() {
+        return balanceInfo;
+    }
+
+    /**
+     * Method that contains action listeners for buttons
+     */
+    private void actionListeners() {
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,20 +81,36 @@ public class WalletInfo extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        gear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(WalletInfo.this, WalletSettings.class);
+                intent.putExtra("walletAddress", getPublicKey());
+                intent.putExtra("privateKey", getPrivateKey());
+                intent.putExtra("balance", getBalance());
+                intent.putExtra("balanceInfo", getBalanceInfo());
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_right, R.anim.slide_left);
+            }
+        });
 
-//        gear.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Bundle args = new Bundle();
-//                args.putParcelable("my_custom_object", myObject);
-//                FragmentManager manager = getFragmentManager();
-//                android.app.FragmentTransaction transaction = manager.beginTransaction();
-//                transaction.add(R.id.container,YOUR_FRAGMENT_NAME,YOUR_FRAGMENT_STRING_TAG);
-//                transaction.addToBackStack(null);
-//                transaction.commit();
-//            }
-//        });
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(WalletInfo.this, WalletSettings.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_right, R.anim.slide_left);
+            }
+        });
 
+        arrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(WalletInfo.this, WalletSettings.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_right, R.anim.slide_left);
+            }
+        });
     }
 
     /**

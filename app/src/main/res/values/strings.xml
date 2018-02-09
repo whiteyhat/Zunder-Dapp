@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ZunderApp</string>
+    <string name="app_name">Zunder</string>
 
     <!-- Strings related to login -->
     <string name="sign_up">Sign up</string>
@@ -28,5 +28,10 @@
     <string name="showprivatekey">Show Private Key</string>
     <string name="dontshowtotpublic">Take care on where you save your private key! This key can be used to recover/steal your wallet, including your funds.</string>
     <string name="understand">Type \"I understand\"</string>
+    <string name="scanner">QR Scanner</string>
+    <string name="scanntext">Scan a QR code to send a quick payment or add an address to Bookmark</string>
+    <string name="pass">Enable code</string>
+    <string name="walletsettin">Wallet Settings</string>
+    <string name="voting">Activate voting</string>
 
 </resources>

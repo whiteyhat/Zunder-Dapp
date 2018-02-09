@@ -14,6 +14,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+
 import org.stellar.sdk.KeyPair;
 import org.stellar.sdk.Server;
 import org.stellar.sdk.responses.AccountResponse;
@@ -30,6 +32,8 @@ public class Wallet extends AppCompatActivity {
     private ProgressBar bar;
     private KeyPair pair;
     private String privateKey, publicKey, balance, balanceInfo;
+    DatabaseReference myRef;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +49,8 @@ public class Wallet extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(Wallet.this, MainActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.quick_fade_in, R.anim.quick_fade_out);
+
             }
         });
 
@@ -53,9 +59,9 @@ public class Wallet extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(Wallet.this, Store.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.quick_fade_in, R.anim.quick_fade_out);
             }
         });
-
 
     }
 
