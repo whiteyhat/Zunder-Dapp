@@ -21,18 +21,12 @@ public class WalletSettings extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               try{
                    Intent intent = new Intent(WalletSettings.this, WalletInfo.class);
                    intent.putExtra("walletAddress", getPublicKey());
                    intent.putExtra("privateKey", getPrivateKey());
                    intent.putExtra("balance", getBalance());
                    intent.putExtra("balanceInfo", getBalanceInfo());
                    startActivity(intent);
-                   overridePendingTransition(R.anim.push_right, R.anim.push_left);
-               }catch (Exception e){
-                   e.getMessage();
-               }
-
             }
         });
 

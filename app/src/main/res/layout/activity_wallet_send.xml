@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="android.ebs.zunderapp.WalletSend">
+
+    <Button
+        android:id="@+id/cancelButton"
+        android:layout_width="206dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp"
+        android:layout_marginTop="9dp"
+        android:background="@android:color/holo_red_dark"
+        android:elevation="0dp"
+        android:text="CANCEL"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/datbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sendButton" />
+
+    <RelativeLayout
+        android:id="@+id/attachm"
+        android:layout_width="0dp"
+        android:layout_height="75dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="250dp"
+        android:layout_marginTop="80dp"
+        app:layout_constraintBottom_toTopOf="@+id/UpperNavbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout2"
+        app:layout_constraintVertical_bias="1.0">
+
+        <LinearLayout
+            android:id="@+id/nasspace"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:orientation="horizontal"
+            tools:layout_editor_absoluteX="40dp"
+            tools:layout_editor_absoluteY="196dp">
+
+        </LinearLayout>
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/attachmentInput"
+            android:layout_width="380dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/roboto"
+            android:hint="Enter attachment"
+            android:inputType="numberDecimal"
+            android:textSize="18sp"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="450dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="12dp"
+            android:layout_weight="10"
+            android:background="#ddd" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/entercash"
+        android:layout_width="0dp"
+        android:layout_height="75dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="319dp"
+        android:layout_marginTop="80dp"
+        app:layout_constraintBottom_toTopOf="@+id/UpperNavbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout2"
+        app:layout_constraintVertical_bias="1.0">
+
+        <LinearLayout
+            android:id="@+id/nas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:orientation="horizontal"
+            tools:layout_editor_absoluteX="40dp"
+            tools:layout_editor_absoluteY="196dp">
+
+        </LinearLayout>
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/amountInput"
+            android:layout_width="380dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/roboto"
+            android:hint="Enter amount"
+            android:inputType="numberDecimal"
+            android:textSize="18sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="12dp"
+            android:layout_weight="10"
+            android:background="#ddd" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginBottom="469dp"
+        app:layout_constraintBottom_toTopOf="@+id/UpperNavbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout2">
+
+        <LinearLayout
+            android:id="@+id/profileHRule"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="8dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            tools:layout_editor_absoluteX="40dp"
+            tools:layout_editor_absoluteY="196dp">
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/balance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="11dp"
+            android:fontFamily="@font/roboto"
+            android:text="@string/sned"
+            android:textSize="30sp" />
+
+        <LinearLayout
+            android:id="@+id/profileHRule2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="8dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            tools:layout_editor_absoluteX="40dp"
+            tools:layout_editor_absoluteY="196dp">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_weight="10"
+                android:background="#ddd" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/UpperNavbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/lighGrey"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/Home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:elevation="16dp"
+            app:srcCompat="@drawable/home" />
+
+        <ImageView
+            android:id="@+id/Wallet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/lighGrey"
+            app:srcCompat="@drawable/wallet" />
+
+        <ImageView
+            android:id="@+id/Store"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/store" />
+
+        <ImageView
+            android:id="@+id/Map"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/map" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+            android:id="@+id/walletHistory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/walletSend"
+            android:layout_alignBottom="@+id/walletSend"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="40dp"
+            android:layout_marginRight="40dp"
+            android:fontFamily="@font/roboto"
+            android:text="@string/history"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/walletSend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/walletInfo"
+            android:layout_alignBottom="@+id/walletInfo"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/roboto"
+            android:text="@string/send"
+            android:textColor="@android:color/black"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/walletInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="17dp"
+            android:layout_marginStart="17dp"
+            android:fontFamily="@font/roboto"
+            android:text="@string/wallet"
+            android:textSize="24sp" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_weight="10"
+            android:background="#ddd" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/dammiiit"
+        android:layout_width="0dp"
+        android:layout_height="75dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="319dp"
+        android:layout_marginTop="80dp"
+        app:layout_constraintBottom_toTopOf="@+id/UpperNavbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout2"
+        app:layout_constraintVertical_bias="0.0">
+
+        <LinearLayout
+            android:id="@+id/jamon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:orientation="horizontal"
+            tools:layout_editor_absoluteX="40dp"
+            tools:layout_editor_absoluteY="196dp">
+
+        </LinearLayout>
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/walletInput"
+            android:layout_width="380dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:defaultFocusHighlightEnabled="false"
+            android:fontFamily="@font/roboto"
+            android:hint="Enter address"
+            android:textSize="18sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="12dp"
+            android:layout_weight="10"
+            android:background="#ddd" />
+
+    </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/datbar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="23dp"
+        android:layout_marginTop="179dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/UpperNavbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/attachm" />
+
+    <Button
+        android:id="@+id/sendButton"
+        android:layout_width="206dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="9dp"
+        android:layout_marginTop="49dp"
+        android:background="#3a8cb2"
+        android:elevation="0dp"
+        android:text="SEND"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/cancelButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/attachm" />
+</android.support.constraint.ConstraintLayout>

@@ -47,7 +47,7 @@ public class Profile extends AppCompatActivity {
     private ImageView saveBtn, cancelBtn, qrButton, home, wallet, store, map, back;
     private ScrollView scrollView;
     private LinearLayout submenu;
-    private boolean Bname, Btitle;
+    private boolean Bname, Btitle, Bimage;
 
     DatabaseReference myRef;
 
@@ -65,8 +65,7 @@ public class Profile extends AppCompatActivity {
         // Link the XMl elements with the code
         LinkElements();
 
-        //Action listeners for elements
-        ActionListeners();
+
 
         //Get authentification from DB (Firebase)
         mAuth = FirebaseAuth.getInstance();
@@ -74,6 +73,9 @@ public class Profile extends AppCompatActivity {
 
         //Load user Information
         loadUserInformation();
+
+        //Action listeners for elements
+        ActionListeners();
     }
 
     /**
@@ -93,6 +95,8 @@ public class Profile extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 showImageChooser();
+                cancelBtn.setVisibility(View.VISIBLE);
+                saveBtn.setVisibility(View.VISIBLE);
             }
         });
 
@@ -129,6 +133,10 @@ public class Profile extends AppCompatActivity {
             public void onClick(View view) {
                 if (isBname()) {
                     saveUserInformation();
+                }
+
+                if (Bimage){
+                    updatePicture(mAuth.getCurrentUser());
                 }
 
                 if (isBtitle()) {
@@ -257,25 +265,22 @@ public class Profile extends AppCompatActivity {
      * @param user is selecting the image
      */
     private void updatePicture(FirebaseUser user) {
-        UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder()
-                .setPhotoUri(Uri.parse(profileImageUrl))
-                .build();
 
-        user.updateProfile(profile)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(Profile.this, "Picture Updated", Toast.LENGTH_SHORT).show();
+        if (user != null && profileImageUrl != null) {
+            UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder()
+                    .setPhotoUri(Uri.parse(profileImageUrl))
+                    .build();
+
+            user.updateProfile(profile)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(Profile.this, "Profile Updated", Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(Profile.this, e.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                });
+                    });
+        }
     }
 
     /**
@@ -325,7 +330,7 @@ public class Profile extends AppCompatActivity {
                 profilePic.setImageBitmap(bitmap);
 
                 uploadImageToFirebaseStorage();
-                updatePicture(mAuth.getCurrentUser());
+                Bimage = true;
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -337,21 +342,24 @@ public class Profile extends AppCompatActivity {
      * Method that upload an image to the DB (Firebase)
      */
     private void uploadImageToFirebaseStorage() {
-        StorageReference profileImageReference = FirebaseStorage.getInstance().
-                getReference("profilepics/" + System.currentTimeMillis() + ".jpg");
+        StorageReference profileImageRef =
+                FirebaseStorage.getInstance().getReference("profilepics/" + System.currentTimeMillis() + ".jpg");
 
         if (uriProfileImage != null) {
-            profileImageReference.putFile(uriProfileImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    profileImageUrl = taskSnapshot.getDownloadUrl().toString();
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(Profile.this, e.getMessage(), Toast.LENGTH_SHORT);
-                }
-            });
+            profileImageRef.putFile(uriProfileImage)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            //This is not working because it is null
+                            profileImageUrl = taskSnapshot.getDownloadUrl().toString();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(Profile.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
         }
     }
 
@@ -403,7 +411,7 @@ public class Profile extends AppCompatActivity {
 //
 
     /**
-     * Mehtod that disploys a native Image Chooser
+     * Mehtod that displays a native Image Chooser
      * to choose the desired Profile Image
      */
 

@@ -9,6 +9,9 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
 
     <application
         android:allowBackup="true"
@@ -18,7 +21,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity
-            android:name=".Login"
+            android:name=".Wallet"
             android:icon="@drawable/logo"
             android:label="">
             <intent-filter>
@@ -29,7 +32,7 @@
         </activity>
         <activity android:name=".Profile" />
         <activity android:name=".Store" />
-        <activity android:name=".Wallet" />
+        <activity android:name=".Login" />
 
         <meta-data
             android:name="preloaded_fonts"
@@ -38,7 +41,8 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".WalletInfo" />
         <activity android:name=".ScanQR" />
-        <activity android:name=".WalletSettings"></activity>
+        <activity android:name=".WalletSettings" />
+        <activity android:name=".WalletSend"></activity>
     </application>
 
 </manifest>

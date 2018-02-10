@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="preloaded_fonts" translatable="false">
+        <item>@font/butterfly_kids</item>
         <item>@font/capriola</item>
+        <item>@font/codystar</item>
         <item>@font/roboto</item>
         <item>@font/roboto_light</item>
         <item>@font/roboto_thin</item>

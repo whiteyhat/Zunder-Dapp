@@ -1,11 +1,15 @@
 package android.ebs.zunderapp;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.AsyncTask;
+import android.os.Environment;
 import android.os.StrictMode;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,15 +18,16 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.database.DatabaseReference;
-
 import org.stellar.sdk.KeyPair;
 import org.stellar.sdk.Server;
 import org.stellar.sdk.responses.AccountResponse;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 
@@ -32,15 +37,19 @@ public class Wallet extends AppCompatActivity {
     private ProgressBar bar;
     private KeyPair pair;
     private String privateKey, publicKey, balance, balanceInfo;
-    DatabaseReference myRef;
-
+    String[] permissions = new String[]{
+            android.Manifest.permission.READ_EXTERNAL_STORAGE,
+            android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+    };
+    private File PK;
+    private static final String path = Environment.getExternalStorageDirectory().getAbsolutePath()
+            + "/ZunderApp";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wallet);
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
+
 
         linkElements();
 
@@ -89,27 +98,6 @@ public class Wallet extends AppCompatActivity {
         });
     }
 
-    /**
-     * Method that connects to the Stellar Test Network server.
-     *
-     * @param pair is the user wallet Account manager
-     */
-    private void connectStellarTestNet(KeyPair pair) {
-        Server server = new Server("https://horizon-testnet.stellar.org");
-        AccountResponse account = null;
-        try {
-            account = server.accounts().account(pair);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        System.out.println("Balances for account " + pair.getAccountId());
-        for (AccountResponse.Balance balance : account.getBalances()) {
-            setBalance(balance.getBalance());
-            setBalanceInfo("Type of asset: " + balance.getAssetType() +
-                    "Asset code: " + balance.getAssetCode() +
-                    "Balance Amount: " + balance.getBalance());
-        }
-    }
 
     /**
      * Method that creates a Stellar Account (Wallet) in the Testnet.
@@ -181,8 +169,8 @@ public class Wallet extends AppCompatActivity {
         @Override
         protected String doInBackground(String... params) {
             pair = createWallet();
-            connectStellarTestNet(pair);
-
+            checkPermissions();
+            savePK();
             return "Executed";
         }
 
@@ -199,6 +187,8 @@ public class Wallet extends AppCompatActivity {
             intent.putExtra("balance", getBalance());
             intent.putExtra("balanceInfo", getBalanceInfo());
             startActivity(intent);
+            overridePendingTransition(R.anim.quick_fade_in, R.anim.quick_fade_out);
+            finishActivity(0);
         }
 
         @Override
@@ -214,4 +204,26 @@ public class Wallet extends AppCompatActivity {
         }
     }
 
+    private void savePK() {
+        PK = new File(path + "/" + getPrivateKey());
+        if (!PK.exists()) {
+            PK.mkdirs();
+        }
+    }
+
+    private boolean checkPermissions() {
+        int result;
+        List<String> listPermissionsNeeded = new ArrayList<>();
+        for (String p : permissions) {
+            result = ContextCompat.checkSelfPermission(this, p);
+            if (result != PackageManager.PERMISSION_GRANTED) {
+                listPermissionsNeeded.add(p);
+            }
+        }
+        if (!listPermissionsNeeded.isEmpty()) {
+            ActivityCompat.requestPermissions(this, listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]), 100);
+            return false;
+        }
+        return true;
+    }
 }

@@ -9,18 +9,15 @@
 
 
     <android.support.constraint.ConstraintLayout
-        android:layout_width="0dp"
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
         android:layout_height="89dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
         android:background="#3a8cb2"
         android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.081">
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout3">
 
         <SearchView
             android:id="@+id/searchview"
@@ -45,9 +42,11 @@
     </android.support.constraint.ConstraintLayout>
 
     <RelativeLayout
+        android:id="@+id/relativeLayout3"
         android:layout_width="match_parent"
         android:layout_height="54dp"
         android:background="#3a8cb2"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -87,7 +86,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.889">
+        app:layout_constraintVertical_bias="1.0">
 
 
         <LinearLayout
@@ -301,30 +300,12 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="150dp">
+                android:layout_height="450dp">
 
                 <WebView
                     android:id="@+id/webview"
-                    android:layout_width="252dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent" />
-
-                <ImageButton
-                    android:id="@+id/CarSharingButton1"
-                    android:layout_width="150dp"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginEnd="9dp"
-                    android:layout_marginRight="9dp"
-                    android:layout_weight="1"
-                    android:scaleType="centerInside"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.526"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.749" />
 
             </RelativeLayout>
 

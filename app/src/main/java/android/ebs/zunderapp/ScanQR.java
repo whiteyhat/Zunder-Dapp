@@ -32,6 +32,7 @@ public class ScanQR extends AppCompatActivity {
     private CameraSource cameraSource;
     private final int RequestCameraPermissionID = 1001;
     private ImageView back;
+    private String walletAddress;
 
 
     @Override
@@ -69,6 +70,8 @@ public class ScanQR extends AppCompatActivity {
                 overridePendingTransition(R.anim.slide_right, R.anim.slide_left);
             }
         });
+
+
 
         barcodeDetector = new BarcodeDetector.Builder(this)
                 .setBarcodeFormats(Barcode.QR_CODE)
@@ -121,12 +124,24 @@ public class ScanQR extends AppCompatActivity {
                         public void run() {
                             //Create vibrate
                             Vibrator vibrator = (Vibrator) getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
-                            vibrator.vibrate(1000);
-                            txtResult.setText(qrcodes.valueAt(0).displayValue);
+                            vibrator.vibrate(500);
+                            setWalletAddress(qrcodes.valueAt(0).displayValue);
+                            Intent intent = new Intent(ScanQR.this, WalletSend.class);
+                            intent.putExtra("destination", getWalletAddress());
+                            startActivity(intent);
+                            overridePendingTransition(R.anim.quick_fade_in, R.anim.quick_fade_out);
                         }
                     });
                 }
             }
         });
+    }
+
+    public String getWalletAddress() {
+        return walletAddress;
+    }
+
+    public void setWalletAddress(String walletAddress) {
+        this.walletAddress = walletAddress;
     }
 }

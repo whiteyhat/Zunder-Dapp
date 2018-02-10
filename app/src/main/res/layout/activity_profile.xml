@@ -51,9 +51,9 @@
             android:id="@+id/saveBtn"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
+            android:layout_alignBottom="@+id/profilePic"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
             android:visibility="invisible"
             app:srcCompat="@drawable/check" />
 
@@ -61,9 +61,9 @@
             android:id="@+id/deleteBtn"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_alignEnd="@+id/saveBtn"
-            android:layout_alignRight="@+id/saveBtn"
-            android:layout_below="@+id/saveBtn"
+            android:layout_alignBottom="@+id/profilePic"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:visibility="invisible"
             app:srcCompat="@drawable/delete" />
 

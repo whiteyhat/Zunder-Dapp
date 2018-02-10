@@ -30,8 +30,9 @@
     <string name="understand">Type \"I understand\"</string>
     <string name="scanner">QR Scanner</string>
     <string name="scanntext">Scan a QR code to send a quick payment or add an address to Bookmark</string>
-    <string name="pass">Enable code</string>
+    <string name="pass">Cipher Wallet</string>
     <string name="walletsettin">Wallet Settings</string>
     <string name="voting">Activate voting</string>
+    <string name="sned">New Transaction</string>
 
 </resources>
