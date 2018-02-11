@@ -181,11 +181,8 @@ public class Wallet extends AppCompatActivity {
             walletCreated.setVisibility(View.VISIBLE);
             output.setVisibility(View.VISIBLE);
 
+
             Intent intent = new Intent(Wallet.this, WalletInfo.class);
-            intent.putExtra("walletAddress", getPublicKey());
-            intent.putExtra("privateKey", getPrivateKey());
-            intent.putExtra("balance", getBalance());
-            intent.putExtra("balanceInfo", getBalanceInfo());
             startActivity(intent);
             overridePendingTransition(R.anim.quick_fade_in, R.anim.quick_fade_out);
             finishActivity(0);
@@ -193,9 +190,9 @@ public class Wallet extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-            bar.setVisibility(View.VISIBLE);
             importWallet.setVisibility(View.INVISIBLE);
             output.setText("Creating new Wallet...");
+            bar.setVisibility(View.VISIBLE);
             Toast.makeText(getApplicationContext(), "We are giving you some money to test it", Toast.LENGTH_LONG).show();
         }
 

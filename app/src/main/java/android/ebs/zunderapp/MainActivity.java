@@ -3,7 +3,10 @@ package android.ebs.zunderapp;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Environment;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -19,6 +22,8 @@ import android.widget.Toast;
 import net.i2p.crypto.eddsa.Utils;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private ImageButton inbox, locations, item1, item2, item3, carSharing;
@@ -29,6 +34,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             + "/ZunderApp";
     private File[] wanted;
     private  File PK;
+    String[] permissions = new String[]{
+            android.Manifest.permission.READ_EXTERNAL_STORAGE,
+            android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +50,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //Link the buttons to the method OnClick()
         addListening();
 
-
         openURL();
+
+        actionListeners();
+    }
+
+    private void actionListeners() {
         webview.setWebViewClient(new MyWebViewClient());
         searchView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,8 +81,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 overridePendingTransition(R.anim.push_right, R.anim.push_left);
             }
         });
-
-
+        wallet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkPermissions();
+                goToWallet();
+            }
+        });
     }
 
     /**
@@ -125,23 +143,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         map.setOnClickListener(this);
     }
 
+    private boolean checkPermissions() {
+        int result;
+        List<String> listPermissionsNeeded = new ArrayList<>();
+        for (String p : permissions) {
+            result = ContextCompat.checkSelfPermission(this, p);
+            if (result != PackageManager.PERMISSION_GRANTED) {
+                listPermissionsNeeded.add(p);
+            }
+        }
+        if (!listPermissionsNeeded.isEmpty()) {
+            ActivityCompat.requestPermissions(this, listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]), 100);
+            return false;
+        }
+        return true;
+    }
+
     /**
      * Method that checks if there is an
      * existing wallet in the local file
      * and if there is no it creates a new Wallet
      */
     private void goToWallet() {
-//        try {
-//            File root = new File(path);
-////            if (!root.exists()) {
-////                root.mkdirs();
-////            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-
         boolean valid = false;
         PK = new File(path);
+        //If there is an existing wallet directory
+        //access it if not, create one
         if (PK.exists()) {
             wanted = PK.listFiles();
             if (wanted.length == 1) {
@@ -149,6 +176,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             } else {
                 valid = false;
             }
+
             if (valid) {
                 Intent intent = new Intent(MainActivity.this, WalletInfo.class);
                 startActivity(intent);
@@ -176,9 +204,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Intent intent = new Intent(MainActivity.this, Store.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.quick_fade_in, R.anim.quick_fade_out);
-                break;
-            case R.id.Wallet:
-               goToWallet();
                 break;
             case R.id.qrimg:
                 Intent intenta = new Intent(MainActivity.this, Wallet.class);

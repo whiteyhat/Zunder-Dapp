@@ -5,12 +5,17 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Camera;
+import android.graphics.Rect;
+import android.hardware.Camera.AutoFocusCallback;
 import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.SparseArray;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -23,6 +28,10 @@ import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 import java.io.IOException;
+import java.security.Policy;
+import java.security.Policy.Parameters;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ScanQR extends AppCompatActivity {
 
@@ -33,6 +42,7 @@ public class ScanQR extends AppCompatActivity {
     private final int RequestCameraPermissionID = 1001;
     private ImageView back;
     private String walletAddress;
+    private static  final int FOCUS_AREA_SIZE= 300;
 
 
     @Override
@@ -79,6 +89,7 @@ public class ScanQR extends AppCompatActivity {
         cameraSource = new CameraSource
                 .Builder(this, barcodeDetector)
                 .setRequestedPreviewSize(640, 480)
+                .setAutoFocusEnabled(true)
                 .build();
         //Add Event
         cameraPreview.getHolder().addCallback(new SurfaceHolder.Callback() {
@@ -92,6 +103,7 @@ public class ScanQR extends AppCompatActivity {
                 }
                 try {
                     cameraSource.start(cameraPreview.getHolder());
+                    //set camera to continually auto-focu
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -101,13 +113,15 @@ public class ScanQR extends AppCompatActivity {
             public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int i1, int i2) {
 
             }
-
             @Override
             public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
                 cameraSource.stop();
 
             }
         });
+
+
+
 
         barcodeDetector.setProcessor(new Detector.Processor<Barcode>() {
             @Override
@@ -137,9 +151,11 @@ public class ScanQR extends AppCompatActivity {
         });
     }
 
+
     public String getWalletAddress() {
         return walletAddress;
     }
+
 
     public void setWalletAddress(String walletAddress) {
         this.walletAddress = walletAddress;

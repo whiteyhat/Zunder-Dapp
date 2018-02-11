@@ -112,10 +112,19 @@ public class WalletSend extends AppCompatActivity {
         });
     }
 
+    public void setDestination(String destination) {
+        this.destination = destination;
+    }
+
     private void sendTransaction() {
         Network.useTestNetwork();
         Server server = new Server("https://horizon-testnet.stellar.org");
 
+        try {
+            setDestination(getIntent().getStringExtra("destination"));
+        }catch (Exception e){
+
+        }
         if (destination == null){
             destination.equals(addressInput.getText().toString().trim());
         }

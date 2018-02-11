@@ -1,10 +1,16 @@
 package android.ebs.zunderapp;
 
+import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -33,7 +39,14 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
 
+import org.stellar.sdk.KeyPair;
+
+import java.io.File;
 import java.io.IOException;
 
 public class Profile extends AppCompatActivity {
@@ -43,13 +56,20 @@ public class Profile extends AppCompatActivity {
     private ImageView profilePic, addItem;
     private EditText nameInput;
     private Uri uriProfileImage;
-    private String profileImageUrl;
+    private String profileImageUrl, publicKey, privateKey;
     private ImageView saveBtn, cancelBtn, qrButton, home, wallet, store, map, back;
     private ScrollView scrollView;
     private LinearLayout submenu;
     private boolean Bname, Btitle, Bimage;
-
+    private static final String path = Environment.getExternalStorageDirectory().getAbsolutePath()
+            + "/ZunderApp";
+    private File[] wanted;
+    private  File PK;
     DatabaseReference myRef;
+    public final static int WHITE = 0xFFFFFFFF;
+    public final static int BLACK = 0xFF000000;
+    public final static int WIDTH = 700;
+    public final static int HEIGHT = 700;
 
     /**
      * Method that creates the screen once it is running.
@@ -134,7 +154,6 @@ public class Profile extends AppCompatActivity {
                 if (isBname()) {
                     saveUserInformation();
                 }
-
                 if (Bimage){
                     updatePicture(mAuth.getCurrentUser());
                 }
@@ -149,6 +168,13 @@ public class Profile extends AppCompatActivity {
                 scrollView.setVisibility(View.VISIBLE);
                 submenu.setVisibility(View.VISIBLE);
 
+            }
+        });
+
+        qrButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createAlert();
             }
         });
 
@@ -191,6 +217,14 @@ public class Profile extends AppCompatActivity {
         tittle.setText(nameInput.getText().toString());
 
         nameInput.setText("");
+    }
+
+    public String getPrivateKey() {
+        return privateKey;
+    }
+
+    public void setPrivateKey(String privateKey) {
+        this.privateKey = privateKey;
     }
 
     /**
@@ -237,6 +271,105 @@ public class Profile extends AppCompatActivity {
                 updateTitle(user);
             }
         }
+    }
+
+    private void getPK() {
+        try {
+            File root = new File(path);
+            if (!root.exists()) {
+                root.mkdirs();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        boolean valid = false;
+        PK = new File(path);
+        if (PK.exists()) {
+            wanted = PK.listFiles();
+            if (wanted.length == 1) {
+                valid = true;
+            } else {
+                valid = false;
+            }
+            if (valid) {
+                String PK = wanted[0].getName();
+                setPrivateKey(PK);
+            }
+        }
+
+    }
+
+    public String getPublicKey() {
+        return publicKey;
+    }
+
+    public void setPublicKey(String publicKey) {
+        this.publicKey = publicKey;
+    }
+
+    private void createAlert() {
+        ImageView image = new ImageView(this);
+        image.setImageResource(R.drawable.qr);
+
+        getPK();
+        try {
+            KeyPair pair = KeyPair.fromSecretSeed(getPrivateKey());
+            setPublicKey(pair.getAccountId());
+            try {
+                Bitmap bitmap = encodeAsBitmap(publicKey);
+                image.setImageBitmap(bitmap);
+            } catch (WriterException e) {
+                e.printStackTrace();
+            }
+        }catch (Exception e){
+            e.getMessage();
+        }
+
+
+
+        AlertDialog.Builder builder =
+                new AlertDialog.Builder(this).
+                        setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        }).
+                        setView(image);
+        builder.create().show();
+    }
+
+
+    /**
+     * Method that generates a QR code from a String
+     *
+     * @param str is converted into a QR code (Public key)
+     * @return a Bitmap object
+     * @throws WriterException if the String is null
+     */
+    @Nullable
+    private Bitmap encodeAsBitmap(String str) throws WriterException {
+        BitMatrix result;
+        try {
+            result = new MultiFormatWriter().encode(str, BarcodeFormat.QR_CODE, WIDTH, HEIGHT, null);
+        } catch (IllegalArgumentException iae) {
+            // Unsupported format
+            return null;
+        }
+
+        int width = result.getWidth();
+        int height = result.getHeight();
+        int[] pixels = new int[width * height];
+        for (int y = 0; y < height; y++) {
+            int offset = y * width;
+            for (int x = 0; x < width; x++) {
+                pixels[offset + x] = result.get(x, y) ? BLACK : WHITE;
+            }
+        }
+
+        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        bitmap.setPixels(pixels, 0, width, 0, 0, width, height);
+        return bitmap;
     }
 
     public boolean isBname() {
