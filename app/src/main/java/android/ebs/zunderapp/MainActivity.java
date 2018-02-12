@@ -1,25 +1,21 @@
 package android.ebs.zunderapp;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.ebs.zunderapp.Profile.Profile;
+import android.ebs.zunderapp.Wallet.Wallet;
+import android.ebs.zunderapp.Wallet.WalletInfo;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SearchView;
-import android.widget.Toast;
-
-import net.i2p.crypto.eddsa.Utils;
 
 import java.io.File;
 import java.util.ArrayList;

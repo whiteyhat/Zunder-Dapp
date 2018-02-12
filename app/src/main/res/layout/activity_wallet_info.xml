@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="android.ebs.zunderapp.WalletInfo">
+    tools:context="android.ebs.zunderapp.Wallet.WalletInfo">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -157,12 +157,12 @@
                 android:id="@+id/arrowToWallet"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
+                android:layout_alignEnd="@+id/walletAddress"
+                android:layout_alignRight="@+id/walletAddress"
                 android:layout_below="@+id/walletAddress"
-                android:layout_marginEnd="19dp"
-                android:layout_marginRight="19dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginEnd="14dp"
+                android:layout_marginRight="14dp"
+                android:layout_marginTop="11dp"
                 android:tint="@android:color/black"
                 app:srcCompat="@drawable/arrow" />
 
@@ -170,9 +170,10 @@
                 android:id="@+id/walletSet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/arrowToWallet"
+                android:layout_below="@+id/profileHRule4"
                 android:layout_marginEnd="61dp"
                 android:layout_marginRight="61dp"
+                android:layout_marginTop="8dp"
                 android:layout_toLeftOf="@+id/arrowToWallet"
                 android:layout_toStartOf="@+id/arrowToWallet"
                 android:text="@string/sett"
@@ -196,7 +197,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="60dp"
+        android:background="@color/lighGrey">
 
         <TextView
             android:id="@+id/wallettHistory"
@@ -238,14 +240,14 @@
             android:textStyle="bold" />
 
         <View
+            android:id="@+id/view"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_weight="10"
-            android:background="#ddd"
-            android:id="@+id/view" />
+            android:background="#ddd" />
     </RelativeLayout>
 
     <LinearLayout

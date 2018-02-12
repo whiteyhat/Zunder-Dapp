@@ -1,5 +1,6 @@
 package android.ebs.zunderapp;
 import android.content.Intent;
+import android.ebs.zunderapp.Profile.Profile;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

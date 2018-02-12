@@ -30,7 +30,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Wallet" />
+        <activity android:name=".Wallet.Wallet" />
         <activity android:name=".Store" />
         <activity android:name=".Login" />
 
@@ -38,11 +38,11 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name=".Profile" />
-        <activity android:name=".WalletInfo" />
+        <activity android:name=".Profile.Profile" />
+        <activity android:name=".Wallet.WalletInfo" />
         <activity android:name=".ScanQR" />
-        <activity android:name=".WalletSettings" />
-        <activity android:name=".WalletSend"></activity>
+        <activity android:name=".Wallet.WalletSettings" />
+        <activity android:name=".Wallet.WalletSend"></activity>
     </application>
 
 </manifest>

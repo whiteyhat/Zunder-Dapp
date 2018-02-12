@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="android.ebs.zunderapp.WalletSettings">
+    tools:context="android.ebs.zunderapp.Wallet.WalletSettings">
 
 
     <android.support.constraint.ConstraintLayout
@@ -81,6 +81,35 @@
                 android:layout_height="60dp">
 
                 <TextView
+                    android:id="@+id/passw"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="22dp"
+                    android:layout_marginStart="22dp"
+                    android:fontFamily="@font/roboto"
+                    android:text="@string/passcode"
+                    android:textSize="16sp" />
+
+                <Switch
+                    android:id="@+id/enablePasscode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="28dp"
+                    android:layout_marginRight="28dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp">
+
+                <TextView
                     android:id="@+id/textView3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -94,7 +123,7 @@
                     android:textSize="16sp" />
 
                 <Switch
-                    android:id="@+id/switcha"
+                    android:id="@+id/cipherWallet"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@+id/textView3"
@@ -122,12 +151,12 @@
                     android:textSize="16sp" />
 
                 <Switch
-                    android:id="@+id/daemon"
+                    android:id="@+id/voting"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/textView2"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
                     android:layout_marginEnd="28dp"
                     android:layout_marginRight="28dp" />
 
@@ -151,10 +180,10 @@
                     android:textSize="16sp" />
 
                 <Switch
-                    android:id="@+id/damndaniel"
+                    android:id="@+id/showKey"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/walletSend"
+                    android:layout_alignBottom="@+id/damn"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_marginEnd="28dp"
@@ -179,7 +208,7 @@
                     android:textColor="@android:color/black" />
 
                 <EditText
-                    android:id="@+id/editText2"
+                    android:id="@+id/inputText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
@@ -193,14 +222,14 @@
                     android:textSize="14sp" />
 
                 <ImageView
-                    android:id="@+id/imageView4"
+                    android:id="@+id/yesButton"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
-                    android:layout_alignTop="@+id/editText2"
+                    android:layout_alignTop="@+id/inputText"
                     android:layout_marginLeft="14dp"
                     android:layout_marginStart="14dp"
-                    android:layout_toEndOf="@+id/editText2"
-                    android:layout_toRightOf="@+id/editText2"
+                    android:layout_toEndOf="@+id/inputText"
+                    android:layout_toRightOf="@+id/inputText"
                     android:src="@drawable/check" />
 
             </RelativeLayout>

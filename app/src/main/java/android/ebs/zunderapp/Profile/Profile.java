@@ -1,11 +1,12 @@
-package android.ebs.zunderapp;
+package android.ebs.zunderapp.Profile;
 
 import android.app.AlertDialog;
-import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.ebs.zunderapp.Login;
+import android.ebs.zunderapp.MainActivity;
+import android.ebs.zunderapp.R;
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -30,12 +31,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -316,7 +313,7 @@ public class Profile extends AppCompatActivity {
             KeyPair pair = KeyPair.fromSecretSeed(getPrivateKey());
             setPublicKey(pair.getAccountId());
             try {
-                Bitmap bitmap = encodeAsBitmap(publicKey);
+                Bitmap bitmap = encodeAsBitmap(getPublicKey());
                 image.setImageBitmap(bitmap);
             } catch (WriterException e) {
                 e.printStackTrace();

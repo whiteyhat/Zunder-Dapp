@@ -1,6 +1,8 @@
 package android.ebs.zunderapp;
 
 import android.content.Intent;
+import android.ebs.zunderapp.Wallet.Wallet;
+import android.ebs.zunderapp.Wallet.WalletInfo;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

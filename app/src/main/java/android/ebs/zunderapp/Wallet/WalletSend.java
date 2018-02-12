@@ -1,10 +1,11 @@
-package android.ebs.zunderapp;
+package android.ebs.zunderapp.Wallet;
 
-import android.content.Context;
 import android.content.Intent;
+import android.ebs.zunderapp.MainActivity;
+import android.ebs.zunderapp.R;
+import android.ebs.zunderapp.Store;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.support.design.widget.TextInputEditText;
@@ -25,7 +26,6 @@ import org.stellar.sdk.PaymentOperation;
 import org.stellar.sdk.Server;
 import org.stellar.sdk.Transaction;
 import org.stellar.sdk.TransactionBuilderAccount;
-import org.stellar.sdk.responses.AccountResponse;
 import org.stellar.sdk.responses.SubmitTransactionResponse;
 
 import java.io.File;

@@ -1,12 +1,14 @@
-package android.ebs.zunderapp;
+package android.ebs.zunderapp.Wallet;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.ebs.zunderapp.MainActivity;
+import android.ebs.zunderapp.R;
+import android.ebs.zunderapp.Store;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Environment;
-import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -19,8 +21,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.stellar.sdk.KeyPair;
-import org.stellar.sdk.Server;
-import org.stellar.sdk.responses.AccountResponse;
 
 import java.io.File;
 import java.io.IOException;

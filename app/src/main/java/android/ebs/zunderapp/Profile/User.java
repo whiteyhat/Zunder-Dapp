@@ -1,4 +1,4 @@
-package android.ebs.zunderapp;
+package android.ebs.zunderapp.Profile;
 
 /**
  * Created by Carlos on 06/02/2018.

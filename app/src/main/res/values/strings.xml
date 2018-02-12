@@ -34,5 +34,6 @@
     <string name="walletsettin">Wallet Settings</string>
     <string name="voting">Activate voting</string>
     <string name="sned">New Transaction</string>
+    <string name="passcode">Enable Passcode</string>
 
 </resources>
