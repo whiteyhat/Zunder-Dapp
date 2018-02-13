@@ -36,23 +36,31 @@ public class Wallet extends AppCompatActivity {
     private ImageView generateWalllet, home, wallet, store, map, walletCreated;
     private ProgressBar bar;
     private KeyPair pair;
-    private String privateKey, publicKey, balance, balanceInfo;
-    String[] permissions = new String[]{
+    private String privateKey;
+    private String[] permissions = new String[]{
             android.Manifest.permission.READ_EXTERNAL_STORAGE,
             android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
     };
-    private File PK;
-    private static final String path = Environment.getExternalStorageDirectory().getAbsolutePath()
-            + "/ZunderApp";
+    private MyWallet myWallet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wallet);
 
-
+        //Instantiate elements from the XML layout
         linkElements();
 
+        //ACtivate action listeners for the Java Objects
+        actionListeners();
+
+    }
+
+    /**
+     * Method that stores all the action listeners
+     * form the Activity
+     */
+    private void actionListeners() {
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,7 +79,6 @@ public class Wallet extends AppCompatActivity {
                 overridePendingTransition(R.anim.quick_fade_in, R.anim.quick_fade_out);
             }
         });
-
     }
 
     /**
@@ -98,7 +105,6 @@ public class Wallet extends AppCompatActivity {
         });
     }
 
-
     /**
      * Method that creates a Stellar Account (Wallet) in the Testnet.
      *
@@ -108,7 +114,6 @@ public class Wallet extends AppCompatActivity {
     private KeyPair createWallet() {
         KeyPair pair = KeyPair.random();
         setPrivateKey(new String(pair.getSecretSeed()));
-        setPublicKey(pair.getAccountId());
         InputStream response = null;
 
         try {
@@ -126,40 +131,26 @@ public class Wallet extends AppCompatActivity {
         return pair;
     }
 
-    public String getPrivateKey() {
-        return privateKey;
-    }
-
+    /**
+     * method that sets a new private key
+     * @param privateKey is set
+     */
     public void setPrivateKey(String privateKey) {
         this.privateKey = privateKey;
     }
 
-    public String getPublicKey() {
-        return publicKey;
-    }
-
-    public String getBalanceInfo() {
-        return balanceInfo;
-    }
-
-    public void setBalanceInfo(String balanceInfo) {
-        this.balanceInfo = balanceInfo;
-    }
-
-    public void setPublicKey(String publicKey) {
-        this.publicKey = publicKey;
-    }
-
-    public String getBalance() {
-        return balance;
-    }
-
-    public void setBalance(String balance) {
-        this.balance = balance;
+    /**
+     * Method that gets the Private Key
+     * @return the private key
+     */
+    public String getPrivateKey() {
+        return privateKey;
     }
 
     /**
-     * Inner class that provides 3 key elements
+     * Inner class that connects to the stellar network,
+     * ask permissions to write and read and saves the PK locally.
+     * This inner class provides 3 key elements
      * - Run a task in background
      * - Run a task beforehand
      * - Run a task afterwards
@@ -170,7 +161,9 @@ public class Wallet extends AppCompatActivity {
         protected String doInBackground(String... params) {
             pair = createWallet();
             checkPermissions();
-            savePK();
+            myWallet = new MyWallet();
+            myWallet.setPrivateKey(getPrivateKey());
+            myWallet.savePK();
             return "Executed";
         }
 
@@ -201,13 +194,13 @@ public class Wallet extends AppCompatActivity {
         }
     }
 
-    private void savePK() {
-        PK = new File(path + "/" + getPrivateKey());
-        if (!PK.exists()) {
-            PK.mkdirs();
-        }
-    }
-
+    /**
+     * Method that check permission for READ + WRITE
+     * on File Storage. Without this permission it is
+     * no possible to store the Private Key generated, and
+     * thus manage the wallet
+     * @return the result of the permissions given
+     */
     private boolean checkPermissions() {
         int result;
         List<String> listPermissionsNeeded = new ArrayList<>();

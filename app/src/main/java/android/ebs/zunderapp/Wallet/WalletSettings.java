@@ -23,17 +23,27 @@ public class WalletSettings extends AppCompatActivity {
     private ImageView okayButton;
     private EditText input;
     private Switch showKey;
-
-    private static final String path = Environment.getExternalStorageDirectory().getAbsolutePath()
-            + "/ZunderApp";
-    private File[] wanted;
-    private File PK;
+    private MyWallet myWallet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wallet_settings);
 
+        myWallet = new MyWallet();
+        //Link XML layout with Java objects
+        linkElements();
+
+        //Set up action listeners for Java objects
+        actionListeners();
+
+    }
+
+    /**
+     * Method that links XML layout elemtns with Java objects
+     * from this class
+     */
+    private void linkElements() {
         back = (ImageView) findViewById(R.id.arrowtowal);
         understandRisks = (RelativeLayout) findViewById(R.id.understanRisks);
         okayButton = (ImageView) findViewById(R.id.yesButton);
@@ -41,15 +51,20 @@ public class WalletSettings extends AppCompatActivity {
         input = (EditText) findViewById(R.id.inputText);
 
         showKey.setChecked(false);
+    }
+
+    /**
+     * Set up action listeners for Java objects from this class
+     */
+    private void actionListeners() {
         showKey.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (showKey.isChecked()){
-                    input.setText("");
-                    understandRisks.setVisibility(View.VISIBLE);
-
+                if (showKey.isChecked()){ //if the switch is checked
+                    input.setText(""); //clean the input
+                    understandRisks.setVisibility(View.VISIBLE); //display the risks layout
                 }else {
-                    understandRisks.setVisibility(View.GONE);
+                    understandRisks.setVisibility(View.GONE); //otherwise dont display it
                 }
             }
         });
@@ -82,9 +97,12 @@ public class WalletSettings extends AppCompatActivity {
 
             }
         });
-
     }
 
+    /**
+     * Method that creates an alert dialog showing the PK
+     * @param privateKey is displayed for the user
+     */
     private void createAlert(String privateKey) {
         AlertDialog.Builder builder =
                 new AlertDialog.Builder(this).
@@ -99,67 +117,26 @@ public class WalletSettings extends AppCompatActivity {
         builder.create().show();
     }
 
+    /**
+     * Method that gets the Private Key
+     * @return the Private Key
+     */
     public String getPrivateKey() {
         return privateKey;
     }
 
-    private void getPK() {
-        try {
-            File root = new File(path);
-            if (!root.exists()) {
-                root.mkdirs();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        boolean valid = false;
-        PK = new File(path);
-        if (PK.exists()) {
-            wanted = PK.listFiles();
-            if (wanted.length == 1) {
-                valid = true;
-            } else {
-                valid = false;
-            }
-            if (valid) {
-                String PK = wanted[0].getName();
-                setPrivateKey(PK);
-            }
-        }
-
-    }
-
+    /**
+     * Method the sets a new private key
+     * @param privateKey is set
+     */
     public void setPrivateKey(String privateKey) {
         this.privateKey = privateKey;
     }
 
-    public void setPublicKey(String publicKey) {
-        this.publicKey = publicKey;
-    }
-
-    public void setBalance(String balance) {
-        this.balance = balance;
-    }
-
-    public void setBalanceInfo(String balanceInfo) {
-        this.balanceInfo = balanceInfo;
-    }
-
-    public String getPublicKey() {
-        return publicKey;
-    }
-
-    public String getBalance() {
-        return balance;
-    }
-
-    public String getBalanceInfo() {
-        return balanceInfo;
-    }
-
-
     /**
-     * Inner class that provides 3 key elements
+     * Inner class that displays the Private Key
+     * once the User has understood the risk factors.
+     * This class provides 3 key elements
      * - Run a task in background
      * - Run a task beforehand
      * - Run a task afterwards
@@ -179,7 +156,7 @@ public class WalletSettings extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-            getPK();
+            setPrivateKey(myWallet.searchWallet());
             createAlert(getPrivateKey());
 
         }

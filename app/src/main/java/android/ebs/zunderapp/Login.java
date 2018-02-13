@@ -32,20 +32,24 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         //link elements in the XML layout to the Java class
-        editTextEmail = (EditText) findViewById(R.id.email);
-        editTextPassword = (EditText) findViewById(R.id.pass);
-        progressBar = (ProgressBar) findViewById(R.id.progressBar2);
+        linkElements();
 
         //instantiate authentification with FIrebase
         mAuth = FirebaseAuth.getInstance();
+    }
 
+    /**
+     * link elements in the XML layout to the Java class
+     */
+    private void linkElements() {
+        editTextEmail = (EditText) findViewById(R.id.email);
+        editTextPassword = (EditText) findViewById(R.id.pass);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar2);
         //Set button listener
         login = (Button) findViewById(R.id.login);
         signup = (Button) findViewById(R.id.signup);
-
-
-        mAuth = FirebaseAuth.getInstance();
         login.setOnClickListener(this);
         signup.setOnClickListener(this);
     }

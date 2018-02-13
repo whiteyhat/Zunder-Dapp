@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             + "/ZunderApp";
     private File[] wanted;
     private  File PK;
-    String[] permissions = new String[]{
+    private String[] permissions = new String[]{
             android.Manifest.permission.READ_EXTERNAL_STORAGE,
             android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
     };
@@ -41,16 +41,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         //Instantiate XML elements to Java class
-        instantiateElements();
+        linkElements();
 
         //Link the buttons to the method OnClick()
         addListening();
 
+        //Method that opens a URL in the WebViewer
         openURL();
 
+        //set up action listeners from the Java objects
         actionListeners();
     }
 
+    /**
+     * Method that sets up action listeners from the Java objects
+     */
     private void actionListeners() {
         webview.setWebViewClient(new MyWebViewClient());
         searchView.setOnClickListener(new View.OnClickListener() {
@@ -90,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * Method that creates a link between the front end design
      * of the XML layout and its element with the logic Java class
      */
-    private void instantiateElements(){
+    private void linkElements(){
         qrImage = (ImageView) findViewById(R.id.qrimg);
         profile = (ImageView) findViewById(R.id.profile);
         searchView = (SearchView) findViewById(R.id.searchview);
@@ -108,6 +113,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    /**
+     * Method that generates a new WebView client to load an URL
+     */
     private class MyWebViewClient extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -117,6 +125,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    /**
+     * method that opens an URL in the WEb View Client
+     */
     private void openURL() {
         webview.loadUrl("https://twitter.com/aberblockchain");
     }
@@ -139,6 +150,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         map.setOnClickListener(this);
     }
 
+    /**
+     * Method that check for WRITE/READ permissions
+     * @return if permission have been granted
+     */
     private boolean checkPermissions() {
         int result;
         List<String> listPermissionsNeeded = new ArrayList<>();

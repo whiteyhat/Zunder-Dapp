@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.ebs.zunderapp.Login;
 import android.ebs.zunderapp.MainActivity;
 import android.ebs.zunderapp.R;
+import android.ebs.zunderapp.Wallet.CreateQR;
+import android.ebs.zunderapp.Wallet.MyWallet;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
@@ -54,19 +56,15 @@ public class Profile extends AppCompatActivity {
     private EditText nameInput;
     private Uri uriProfileImage;
     private String profileImageUrl, publicKey, privateKey;
-    private ImageView saveBtn, cancelBtn, qrButton, home, wallet, store, map, back;
+    private ImageView saveBtn, cancelBtn, qrButton, back;
     private ScrollView scrollView;
     private LinearLayout submenu;
     private boolean Bname, Btitle, Bimage;
-    private static final String path = Environment.getExternalStorageDirectory().getAbsolutePath()
-            + "/ZunderApp";
-    private File[] wanted;
-    private  File PK;
-    DatabaseReference myRef;
-    public final static int WHITE = 0xFFFFFFFF;
-    public final static int BLACK = 0xFF000000;
-    public final static int WIDTH = 700;
-    public final static int HEIGHT = 700;
+
+    private MyWallet myWallet;
+    private CreateQR createQR;
+    private DatabaseReference myRef;
+
 
     /**
      * Method that creates the screen once it is running.
@@ -82,9 +80,7 @@ public class Profile extends AppCompatActivity {
         // Link the XMl elements with the code
         LinkElements();
 
-
-
-        //Get authentification from DB (Firebase)
+        //Get authentication from DB (Firebase)
         mAuth = FirebaseAuth.getInstance();
         myRef = FirebaseDatabase.getInstance().getReference("user");
 
@@ -196,6 +192,9 @@ public class Profile extends AppCompatActivity {
         });
     }
 
+    /**
+     * method that ads a job role to the Firebase DB
+     */
     private void addTitle() {
 
         if (!TextUtils.isEmpty(nameInput.getText().toString())) {
@@ -216,10 +215,18 @@ public class Profile extends AppCompatActivity {
         nameInput.setText("");
     }
 
+    /**
+     * method that gets the private key
+     * @return the private key
+     */
     public String getPrivateKey() {
         return privateKey;
     }
 
+    /**
+     * method that sets a new private key
+     * @param privateKey is set up
+     */
     public void setPrivateKey(String privateKey) {
         this.privateKey = privateKey;
     }
@@ -241,10 +248,6 @@ public class Profile extends AppCompatActivity {
         qrButton = (ImageView) findViewById(R.id.QrButton);
         submenu = (LinearLayout) findViewById(R.id.subMenu);
         scrollView = (ScrollView) findViewById(R.id.scrollMenu);
-        home = (ImageView)findViewById(R.id.Home);
-        wallet = (ImageView)findViewById(R.id.Wallet);
-        store = (ImageView)findViewById(R.id.Store);
-        map = (ImageView)findViewById(R.id.Map);
     }
 
     /**
@@ -270,50 +273,39 @@ public class Profile extends AppCompatActivity {
         }
     }
 
-    private void getPK() {
-        try {
-            File root = new File(path);
-            if (!root.exists()) {
-                root.mkdirs();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        boolean valid = false;
-        PK = new File(path);
-        if (PK.exists()) {
-            wanted = PK.listFiles();
-            if (wanted.length == 1) {
-                valid = true;
-            } else {
-                valid = false;
-            }
-            if (valid) {
-                String PK = wanted[0].getName();
-                setPrivateKey(PK);
-            }
-        }
-
-    }
-
+    /**
+     * method that gets the public key
+     * @return the public key
+     */
     public String getPublicKey() {
         return publicKey;
     }
 
+    /**
+     * method tha sets a new public key
+     * @param publicKey is set up
+     */
     public void setPublicKey(String publicKey) {
         this.publicKey = publicKey;
     }
 
+    /**
+     * method that generates an Alert Dialog
+     * containing the QR code from the user wallet address
+     */
     private void createAlert() {
         ImageView image = new ImageView(this);
         image.setImageResource(R.drawable.qr);
 
-        getPK();
+        myWallet = new MyWallet();
+        setPrivateKey(myWallet.searchWallet());
+
+        createQR = new CreateQR(700, 700);
         try {
             KeyPair pair = KeyPair.fromSecretSeed(getPrivateKey());
             setPublicKey(pair.getAccountId());
             try {
-                Bitmap bitmap = encodeAsBitmap(getPublicKey());
+                Bitmap bitmap = createQR.encodeAsBitmap(getPublicKey());
                 image.setImageBitmap(bitmap);
             } catch (WriterException e) {
                 e.printStackTrace();
@@ -336,55 +328,42 @@ public class Profile extends AppCompatActivity {
         builder.create().show();
     }
 
-
     /**
-     * Method that generates a QR code from a String
-     *
-     * @param str is converted into a QR code (Public key)
-     * @return a Bitmap object
-     * @throws WriterException if the String is null
+     * method that gets a the boolean ready to save Name
+     * @return the boolean
      */
-    @Nullable
-    private Bitmap encodeAsBitmap(String str) throws WriterException {
-        BitMatrix result;
-        try {
-            result = new MultiFormatWriter().encode(str, BarcodeFormat.QR_CODE, WIDTH, HEIGHT, null);
-        } catch (IllegalArgumentException iae) {
-            // Unsupported format
-            return null;
-        }
-
-        int width = result.getWidth();
-        int height = result.getHeight();
-        int[] pixels = new int[width * height];
-        for (int y = 0; y < height; y++) {
-            int offset = y * width;
-            for (int x = 0; x < width; x++) {
-                pixels[offset + x] = result.get(x, y) ? BLACK : WHITE;
-            }
-        }
-
-        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-        bitmap.setPixels(pixels, 0, width, 0, 0, width, height);
-        return bitmap;
-    }
-
     public boolean isBname() {
         return Bname;
     }
 
+    /**
+     * method that sets if is ready to save the name
+     * @param bname the boolean
+     */
     public void setBname(boolean bname) {
         this.Bname = bname;
     }
 
+    /**
+     * method that gets a the boolean ready to save job role
+     * @return the boolean
+     */
     public boolean isBtitle() {
         return Btitle;
     }
 
+    /**
+     * method that sets if is ready to save the job role
+     * @param btitle is the boolean
+     */
     public void setBtitle(boolean btitle) {
         this.Btitle = btitle;
     }
 
+    /**
+     * method that updates the job role in the UI
+     * @param user FB user
+     */
     private void updateTitle(FirebaseUser user) {
         tittle.setText(nameInput.getText().toString());
     }
@@ -538,13 +517,11 @@ public class Profile extends AppCompatActivity {
 //            }
 //        });
     }
-//
 
     /**
-     * Mehtod that displays a native Image Chooser
+     * Method that displays a native Image Chooser
      * to choose the desired Profile Image
      */
-
     private void showImageChooser() {
         Intent intent = new Intent();
         intent.setType("image/*");

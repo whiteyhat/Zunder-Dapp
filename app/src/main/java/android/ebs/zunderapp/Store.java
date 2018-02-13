@@ -17,7 +17,7 @@ import java.io.File;
 public class Store extends AppCompatActivity {
     private Animation fade_in, fade_out;
     private ViewFlipper viewFlipper;
-    private ImageView home, map, wallet, store;
+    private ImageView home, map, wallet;
     private static final String path = Environment.getExternalStorageDirectory().getAbsolutePath()
             + "/ZunderApp";
     private File[] wanted;
@@ -27,12 +27,22 @@ public class Store extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store);
-        home = (ImageView)findViewById(R.id.Home);
-        wallet = (ImageView)findViewById(R.id.Wallet);
-        store = (ImageView)findViewById(R.id.Store);
-        map = (ImageView)findViewById(R.id.Map);
+
+        //link elements from the XML layout to Java objects
+        linkElements();
+
+        //Display slide show of images that link to products + services
         slideshow();
 
+        //set up action listeners from the Java objects
+        actionListeners();
+
+    }
+
+    /**
+     * Method that sets up action listeners from the Java objects
+     */
+    private void actionListeners() {
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,7 +59,15 @@ public class Store extends AppCompatActivity {
                goToWallet();
             }
         });
+    }
 
+    /**
+     * Method that links elements from the XML layout to Java objects
+     */
+    private void linkElements() {
+        home = (ImageView)findViewById(R.id.Home);
+        wallet = (ImageView)findViewById(R.id.Wallet);
+        map = (ImageView)findViewById(R.id.Map);
     }
 
     /**

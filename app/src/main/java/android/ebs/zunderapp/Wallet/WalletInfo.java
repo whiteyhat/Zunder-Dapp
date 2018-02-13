@@ -6,28 +6,20 @@ import android.ebs.zunderapp.MainActivity;
 import android.ebs.zunderapp.R;
 import android.ebs.zunderapp.Store;
 import android.graphics.Bitmap;
-import android.os.Environment;
 import android.os.StrictMode;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
-import com.google.zxing.common.BitMatrix;
 
 import org.stellar.sdk.KeyPair;
 import org.stellar.sdk.Server;
 import org.stellar.sdk.responses.AccountResponse;
 
-import java.io.File;
 import java.io.IOException;
-
-import javax.crypto.SecretKey;
 
 
 public class WalletInfo extends AppCompatActivity {
@@ -35,39 +27,41 @@ public class WalletInfo extends AppCompatActivity {
     private ImageView qrCode, arrow, gear, home, wallet, store, map;
     private String privateKey, publicKey, balance, balanceInfo;
 
-    public final static int WHITE = 0xFFFFFFFF;
-    public final static int BLACK = 0xFF000000;
-    public final static int WIDTH = 600;
-    public final static int HEIGHT = 600;
-    private SecretKey secret;
+    private CreateQR createQR;
     private AEShelper AESHelper;
-
-    private static final String path = Environment.getExternalStorageDirectory().getAbsolutePath()
-            + "/ZunderApp";
-    private File[] wanted;
-    private  File PK;
+    private MyWallet myWallet;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wallet_info);
+
+        myWallet = new MyWallet();
+        //Provide safe connection
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        wanted = new File[0];
+
+        //Generate new cipher
         AESHelper = new AEShelper();
 
+        //links elements from the XML layout to Java objects
         linkElements();
 
-       // getElementsFromPreviouClass();
-        autologin();
+       // Get wallet
+        setPrivateKey(myWallet.searchWallet());
 
+        //create required wallet elements from Private Key
         KeyPair pair = KeyPair.fromSecretSeed(getPrivateKey());
         setPublicKey(pair.getAccountId());
+
+        //Connect to the Stellar Network
         connectStellarTestNet(pair);
 
+        //Displays QR code of the Wallet address
         showQR();
 
+        //set up action listeners from the Java objects
         actionListeners();
     }
 
@@ -96,36 +90,68 @@ public class WalletInfo extends AppCompatActivity {
         walletAddress.setText(publicKey);
     }
 
+    /**
+     * Method to return the private ke
+     * @return the private key
+     */
     public String getPrivateKey() {
         return privateKey;
     }
 
-    public String getPublicKey() {
-        return publicKey;
-    }
-
-    public String getBalance() {
-        return balance;
-    }
-
-    public String getBalanceInfo() {
-        return balanceInfo;
-    }
-
+    /**
+     * method that sets a new private key
+     * @param privateKey is set
+     */
     public void setPrivateKey(String privateKey) {
         this.privateKey = privateKey;
     }
 
+    /**
+     * method the gets the public key
+     * @return
+     */
+    public String getPublicKey() {
+        return publicKey;
+    }
+
+    /**
+     * method that gets the balance information
+     * @return the balance information
+     */
+    public String getBalanceInfo() {
+        return balanceInfo;
+    }
+
+    /**
+     * method that sets the balance information
+     * @param balanceInfo is set
+     */
+    public void setBalanceInfo(String balanceInfo) {
+        this.balanceInfo = balanceInfo;
+    }
+
+    /**
+     * method that sets a new public key
+     * @param publicKey is set
+     */
     public void setPublicKey(String publicKey) {
         this.publicKey = publicKey;
     }
 
-    public void setBalance(String balance) {
-        this.balance = balance;
+    /**
+     * method that gets the Balance amount
+     * @return the balance amount
+     */
+    public String getBalance() {
+        return balance;
     }
 
-    public void setBalanceInfo(String balanceInfo) {
-        this.balanceInfo = balanceInfo;
+    /**
+     * method that sets a new Balance amount
+     * @param balance amount is set
+     */
+    public void setBalance(String balance) {
+        this.balance = balance;
     }
 
     /**
@@ -189,6 +215,9 @@ public class WalletInfo extends AppCompatActivity {
         });
     }
 
+    /**
+     * Method that starts the Wallet Settings activity
+     */
     private void goToWalletSettings() {
         Intent intent = new Intent(WalletInfo.this, WalletSettings.class);
         intent.putExtra("walletAddress", getPublicKey());
@@ -203,44 +232,14 @@ public class WalletInfo extends AppCompatActivity {
      * method that displays the QR code into the ImageView
      */
     private void showQR() {
+       createQR = new CreateQR(600, 600);
+
         try {
-            Bitmap bitmap = encodeAsBitmap(publicKey);
+            Bitmap bitmap = createQR.encodeAsBitmap(publicKey);
             qrCode.setImageBitmap(bitmap);
         } catch (WriterException e) {
             e.printStackTrace();
         }
-    }
-
-    /**
-     * Method that generates a QR code from a String
-     *
-     * @param str is converted into a QR code (Public key)
-     * @return a Bitmap object
-     * @throws WriterException if the String is null
-     */
-    @Nullable
-    private Bitmap encodeAsBitmap(String str) throws WriterException {
-        BitMatrix result;
-        try {
-            result = new MultiFormatWriter().encode(str, BarcodeFormat.QR_CODE, WIDTH, HEIGHT, null);
-        } catch (IllegalArgumentException iae) {
-            // Unsupported format
-            return null;
-        }
-
-        int width = result.getWidth();
-        int height = result.getHeight();
-        int[] pixels = new int[width * height];
-        for (int y = 0; y < height; y++) {
-            int offset = y * width;
-            for (int x = 0; x < width; x++) {
-                pixels[offset + x] = result.get(x, y) ? BLACK : WHITE;
-            }
-        }
-
-        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-        bitmap.setPixels(pixels, 0, width, 0, 0, width, height);
-        return bitmap;
     }
 
     /**
@@ -263,32 +262,11 @@ public class WalletInfo extends AppCompatActivity {
 
     }
 
-    private void autologin() {
-        try {
-            File root = new File(path);
-            if (!root.exists()) {
-                root.mkdirs();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        boolean valid = false;
-         PK = new File(path);
-        if (PK.exists()) {
-            wanted = PK.listFiles();
-            if (wanted.length == 1) {
-                valid = true;
-            } else {
-                valid = false;
-            }
-            if (valid) {
-                String PK = wanted[0].getName();
-                setPrivateKey(PK);
-            }
-        }
-
-    }
-
+    /**
+     * Method that encrypts a String using a key
+     * @param strNormalText string to cipher
+     * @return the encrypted text
+     */
     public String encryption(String strNormalText){
         String seedValue = "!QAZ££ERFD%T";
         String normalTextEnc="";
@@ -300,6 +278,11 @@ public class WalletInfo extends AppCompatActivity {
         return normalTextEnc;
     }
 
+    /**
+     * Method that decrypts a text using a key
+     * @param strEncryptedText string to decrypt
+     * @return the unencrypted String
+     */
     public String decryption(String strEncryptedText){
         String seedValue = "!QAZ££ERFD%T";
         String strDecryptedText="";

@@ -38,31 +38,33 @@ public class WalletSend extends AppCompatActivity {
     private TextView walletInfo, walletHistory;
     private ImageView home, map, store, wallet;
     private String privateKey, publicKey, balance, balanceInfo, destination;
-    private static final String path = Environment.getExternalStorageDirectory().getAbsolutePath()
-            + "/ZunderApp";
-    private File[] wanted;
-    private  File PK;
+    private MyWallet myWallet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wallet_send);
 
+        //links elements from the XML layout to Java objects
         linkElements();
 
-        autologin();
+        //Search for a Wallet locally
+        myWallet = new MyWallet();
+        setPrivateKey(myWallet.searchWallet());
 
+        //create required wallet elements from Private Key
         KeyPair pair = KeyPair.fromSecretSeed(getPrivateKey());
         setPublicKey(pair.getAccountId());
 
-        bar.getIndeterminateDrawable()
-                .setColorFilter(Color.GREEN, PorterDuff.Mode.SRC_IN);
-
+        //set up action listeners from the Java objects
         actionListeners();
 
 
     }
 
+    /**
+     * Method that sets up action listeners from the Java objects
+     */
     private void actionListeners() {
 
         send.setOnClickListener(new View.OnClickListener() {
@@ -110,12 +112,24 @@ public class WalletSend extends AppCompatActivity {
 
             }
         });
+        //set the a new color
+        bar.getIndeterminateDrawable()
+                .setColorFilter(Color.GREEN, PorterDuff.Mode.SRC_IN);
+
     }
 
+    /**
+     * method that sets a new destination address
+     * @param destination wallet address to send balance
+     */
     public void setDestination(String destination) {
         this.destination = destination;
     }
 
+    /**
+     * Method that generates a new transaction to the
+     * destination wallet address
+     */
     private void sendTransaction() {
         Network.useTestNetwork();
         Server server = new Server("https://horizon-testnet.stellar.org");
@@ -165,6 +179,9 @@ public class WalletSend extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method that links elements from the XML layout to Java objects
+     */
     private void linkElements() {
         walletInfo = (TextView) findViewById(R.id.walletInfo);
         walletHistory = (TextView) findViewById(R.id.wallettHistory);
@@ -182,64 +199,39 @@ public class WalletSend extends AppCompatActivity {
         map = (ImageView) findViewById(R.id.Map);
     }
 
-    private void autologin() {
-        try {
-            File root = new File(path);
-            if (!root.exists()) {
-                root.mkdirs();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        boolean valid = false;
-        PK = new File(path);
-        if (PK.exists()) {
-            wanted = PK.listFiles();
-            if (wanted.length == 1) {
-                valid = true;
-            } else {
-                valid = false;
-            }
-            if (valid) {
-                String PK = wanted[0].getName();
-                setPrivateKey(PK);
-            }
-        }
-
-    }
-
+    /**
+     * Mehod that gets the private key
+     * @return private key
+     */
     public String getPrivateKey() {
         return privateKey;
     }
 
+    /**
+     *  Method that sets a new Private Key
+     * @param privateKey is set up
+     */
     public void setPrivateKey(String privateKey) {
         this.privateKey = privateKey;
     }
 
-    public String getPublicKey() {
-        return publicKey;
-    }
-
+    /**
+     * method that sets a new Public key
+     * @param publicKey is set up
+     */
     public void setPublicKey(String publicKey) {
         this.publicKey = publicKey;
     }
 
-    public String getBalance() {
-        return balance;
-    }
-
-    public void setBalance(String balance) {
-        this.balance = balance;
-    }
-
-    public String getBalanceInfo() {
-        return balanceInfo;
-    }
-
-    public void setBalanceInfo(String balanceInfo) {
-        this.balanceInfo = balanceInfo;
-    }
-
+    /**
+     * Inner class that executes a few actions when building a new transaction.
+     * It displays a progressing bar before building the transaction.
+     * generate a new transaction.
+     * This inner class provides 3 key elements
+     * - Run a task in background
+     * - Run a task beforehand
+     * - Run a task afterwards
+     */
     private class SendTransaction extends AsyncTask<String, Void, String> {
 
         @Override

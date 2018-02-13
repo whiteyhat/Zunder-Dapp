@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.ebs.zunderapp.Wallet.CreateQR;
 import android.ebs.zunderapp.Wallet.WalletSend;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
@@ -43,11 +44,15 @@ public class ScanQR extends AppCompatActivity {
     private String walletAddress;
     private Button newTx, newContact, scanAgain;
     private ImageView qrImage;
-    public final static int WHITE = 0xFFFFFFFF;
-    public final static int BLACK = 0xFF000000;
-    public final static int WIDTH = 400;
-    public final static int HEIGHT = 400;
+    private CreateQR createQR;
 
+    /**
+     * Method that asks for camera permissions before executing the
+     * camera QR scanner.
+     * @param requestCode number of the permission request
+     * @param permissions open camera permission
+     * @param grantResults result from the request
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
@@ -72,18 +77,25 @@ public class ScanQR extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan_qr);
 
+        //links elements from the XML layout to Java objects
         linkElements();
 
+        //set up action listeners from the Java objects
         actionListeners();
 
+        //generate resources to display the camera in the Surface View
         generateResources();
 
+        //enable the camera preview with Autofocus and more settings
         enableCamera();
 
-
+        //c
         qrDetection();
     }
 
+    /**
+     * method that set up action listener from the Java objects
+     */
     private void actionListeners() {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,6 +128,9 @@ public class ScanQR extends AppCompatActivity {
         });
     }
 
+    /**
+     * Method that links elements from the XML layout to Java objects
+     */
     private void linkElements() {
         back = (ImageView) findViewById(R.id.arrowtomain);
         cameraPreview = (SurfaceView) findViewById(R.id.cameraPreview);
@@ -127,6 +142,9 @@ public class ScanQR extends AppCompatActivity {
         qrImage = (ImageView) findViewById(R.id.qrimg);
     }
 
+    /**
+     * method generate resources to display the camera in the Surface View
+     */
     private void generateResources() {
         barcodeDetector = new BarcodeDetector.Builder(this)
                 .setBarcodeFormats(Barcode.QR_CODE)
@@ -138,6 +156,9 @@ public class ScanQR extends AppCompatActivity {
                 .build();
     }
 
+    /**
+     * enable the camera preview with Autofocus and more settings
+     */
     private void enableCamera() {
         //Add Event
         cameraPreview.getHolder().addCallback(new SurfaceHolder.Callback() {
@@ -170,6 +191,9 @@ public class ScanQR extends AppCompatActivity {
         });
     }
 
+    /**
+     * method that contains QR detection algorithm
+     */
     private void qrDetection() {
         barcodeDetector.setProcessor(new Detector.Processor<Barcode>() {
             @Override
@@ -191,6 +215,10 @@ public class ScanQR extends AppCompatActivity {
         });
     }
 
+    /**
+     * Method that open the wallet to generate a new
+     * transaction to the scanned wallet address
+     */
     private void generateNewTx() {
         Intent intent = new Intent(ScanQR.this, WalletSend.class);
         intent.putExtra("destination", getWalletAddress());
@@ -199,48 +227,26 @@ public class ScanQR extends AppCompatActivity {
     }
 
     /**
-     * Method that generates a QR code from a String
-     *
-     * @param str is converted into a QR code (Public key)
-     * @return a Bitmap object
-     * @throws WriterException if the String is null
+     * method that gets the wallet adress
+     * @return the wallet address
      */
-    @Nullable
-    private Bitmap encodeAsBitmap(String str) throws WriterException {
-        BitMatrix result;
-        try {
-            result = new MultiFormatWriter().encode(str, BarcodeFormat.QR_CODE, WIDTH, HEIGHT, null);
-        } catch (IllegalArgumentException iae) {
-            // Unsupported format
-            return null;
-        }
-
-        int width = result.getWidth();
-        int height = result.getHeight();
-        int[] pixels = new int[width * height];
-        for (int y = 0; y < height; y++) {
-            int offset = y * width;
-            for (int x = 0; x < width; x++) {
-                pixels[offset + x] = result.get(x, y) ? BLACK : WHITE;
-            }
-        }
-
-        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-        bitmap.setPixels(pixels, 0, width, 0, 0, width, height);
-        return bitmap;
-    }
-
     public String getWalletAddress() {
         return walletAddress;
     }
 
-
+    /**
+     * method that sets a new wallet address
+     * @param walletAddress is set up
+     */
     public void setWalletAddress(String walletAddress) {
         this.walletAddress = walletAddress;
     }
 
     /**
-     * Inner class that provides 3 key elements
+     * Inner class that executes a few actions once a new QR code is scanned.
+     * When a QR code is scanned the user has the 2 options: Add to bookmark or
+     * generate a new transaction.
+     * This inner class provides 3 key elements
      * - Run a task in background
      * - Run a task beforehand
      * - Run a task afterwards
@@ -249,8 +255,9 @@ public class ScanQR extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... params) {
+           createQR = new CreateQR(600,600);
             try {
-                Bitmap bitmap = encodeAsBitmap(getWalletAddress());
+                Bitmap bitmap = createQR.encodeAsBitmap(getWalletAddress());
                 qrImage.setImageBitmap(bitmap);
             } catch (WriterException e) {
                 e.printStackTrace();
