@@ -10,8 +10,10 @@ import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.zxing.WriterException;
 
@@ -26,6 +28,7 @@ public class WalletInfo extends AppCompatActivity {
     private TextView balanceTextview, walletAddress, settings, walletSend, walletHistory;
     private ImageView qrCode, arrow, gear, home, wallet, store, map;
     private String privateKey, publicKey, balance, balanceInfo;
+    private Button cipher;
 
     private CreateQR createQR;
     private AEShelper AESHelper;
@@ -56,7 +59,11 @@ public class WalletInfo extends AppCompatActivity {
         setPublicKey(pair.getAccountId());
 
         //Connect to the Stellar Network
-        connectStellarTestNet(pair);
+        try {
+            connectStellarTestNet(pair);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
         //Displays QR code of the Wallet address
         showQR();
@@ -158,6 +165,13 @@ public class WalletInfo extends AppCompatActivity {
      * Method that contains action listeners for buttons
      */
     private void actionListeners() {
+        cipher.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), encryption(getPrivateKey()), Toast.LENGTH_SHORT).show();
+            }
+        });
+
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -247,6 +261,7 @@ public class WalletInfo extends AppCompatActivity {
      * Java objects
      */
     private void linkElements() {
+        cipher = (Button) findViewById(R.id.cipher);
         walletSend = (TextView) findViewById(R.id.walletSend);
         walletHistory = (TextView) findViewById(R.id.wallettHistory);
         balanceTextview = (TextView) findViewById(R.id.balance);
@@ -269,7 +284,7 @@ public class WalletInfo extends AppCompatActivity {
      */
     public String encryption(String strNormalText){
         String seedValue = "!QAZ££ERFD%T";
-        String normalTextEnc="";
+        String normalTextEnc="what da fuc";
         try {
             normalTextEnc = AESHelper.encrypt(seedValue, strNormalText);
         } catch (Exception e) {

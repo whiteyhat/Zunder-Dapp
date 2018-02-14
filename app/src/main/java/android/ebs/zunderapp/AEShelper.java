@@ -12,7 +12,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 public class AEShelper {
 
-    public static String encrypt(String seed, String cleartext) throws Exception {
+    public String encrypt(String seed, String cleartext) throws Exception {
         byte[] rawKey = getRawKey(seed.getBytes());
         byte[] result = encrypt(rawKey, cleartext.getBytes());
         return toHex(result);
