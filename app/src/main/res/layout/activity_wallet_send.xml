@@ -34,7 +34,7 @@
 
         </LinearLayout>
 
-        <android.support.design.widget.TextInputEditText
+        <EditText
             android:id="@+id/walletInput"
             android:layout_width="380dp"
             android:layout_height="wrap_content"
@@ -281,13 +281,13 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginBottom="8dp"
-        android:layout_marginTop="208dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="0.352">
 
         <LinearLayout
             android:id="@+id/nas"
@@ -303,7 +303,7 @@
 
         </LinearLayout>
 
-        <android.support.design.widget.TextInputEditText
+        <EditText
             android:id="@+id/amountInput"
             android:layout_width="380dp"
             android:layout_height="wrap_content"
@@ -354,7 +354,7 @@
 
         </LinearLayout>
 
-        <android.support.design.widget.TextInputEditText
+        <EditText
             android:id="@+id/attachmentInput"
             android:layout_width="380dp"
             android:layout_height="wrap_content"
@@ -362,7 +362,7 @@
             android:layout_centerHorizontal="true"
             android:fontFamily="@font/roboto"
             android:hint="Enter attachment"
-            android:inputType="text|numberDecimal"
+            android:inputType="text"
             android:textSize="18sp"
             tools:layout_editor_absoluteX="73dp"
             tools:layout_editor_absoluteY="517dp" />

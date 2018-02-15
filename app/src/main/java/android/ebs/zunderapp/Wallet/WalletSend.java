@@ -8,11 +8,13 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Environment;
+import android.os.StrictMode;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -32,18 +34,22 @@ import java.io.File;
 import java.io.IOException;
 
 public class WalletSend extends AppCompatActivity {
-    private TextInputEditText addressInput, amountInput, attachmentInput;
+    private EditText addressInput, amountInput, attachmentInput;
     private Button send, cancel;
     private ProgressBar bar;
     private TextView walletInfo, walletHistory;
     private ImageView home, map, store, wallet;
     private String privateKey, publicKey, balance, balanceInfo, destination;
     private MyWallet myWallet;
+    private boolean valid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wallet_send);
+        //Provide safe connection
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
         //links elements from the XML layout to Java objects
         linkElements();
@@ -131,17 +137,20 @@ public class WalletSend extends AppCompatActivity {
      * destination wallet address
      */
     private void sendTransaction() {
-        Network.useTestNetwork();
-        Server server = new Server("https://horizon-testnet.stellar.org");
+        Server server = null;
+        try {
+           Network.useTestNetwork();
+            server = new Server("https://horizon-testnet.stellar.org");
+       }catch (Exception e){
+            e.printStackTrace();
+       }
 
         try {
             setDestination(getIntent().getStringExtra("destination"));
         }catch (Exception e){
-
+            e.printStackTrace();
         }
-        if (destination == null){
-            destination.equals(addressInput.getText().toString().trim());
-        }
+        setDestination(addressInput.getText().toString());
         KeyPair source = KeyPair.fromSecretSeed(getPrivateKey());
         KeyPair destination = KeyPair.fromAccountId(this.destination);
 
@@ -172,11 +181,12 @@ public class WalletSend extends AppCompatActivity {
             transaction.sign(source);
 
             SubmitTransactionResponse response = server.submitTransaction(transaction);
-            Toast.makeText(getApplicationContext(), "Transaction sent", Toast.LENGTH_SHORT).show();
             System.out.println(response);
+            valid = true;
         } catch (IOException e) {
             Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
         }
+
     }
 
     /**
@@ -186,9 +196,9 @@ public class WalletSend extends AppCompatActivity {
         walletInfo = (TextView) findViewById(R.id.walletInfo);
         walletHistory = (TextView) findViewById(R.id.wallettHistory);
         bar = (ProgressBar) findViewById(R.id.datbar);
-        addressInput = (TextInputEditText) findViewById(R.id.walletInput);
-        amountInput = (TextInputEditText) findViewById(R.id.amountInput);
-        attachmentInput = (TextInputEditText) findViewById(R.id.attachmentInput);
+        addressInput = (EditText) findViewById(R.id.walletInput);
+        amountInput = (EditText) findViewById(R.id.amountInput);
+        attachmentInput = (EditText) findViewById(R.id.attachmentInput);
         send = (Button) findViewById(R.id.sendButton);
         cancel = (Button) findViewById(R.id.cancelButton);
         walletHistory = (TextView) findViewById(R.id.walletHistory);
@@ -236,14 +246,23 @@ public class WalletSend extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... params) {
-            sendTransaction();
-
+            try {
+                sendTransaction();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
             return "Executed";
         }
 
         @Override
         protected void onPostExecute(String result) {
+            if (valid){
+                Toast.makeText(getApplicationContext(), "Transaction sent", Toast.LENGTH_SHORT).show();
+            }
             bar.setVisibility(View.INVISIBLE);
+            addressInput.setText("");
+            amountInput.setText("");
+            attachmentInput.setText("");
         }
 
         @Override

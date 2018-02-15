@@ -1,7 +1,7 @@
 package android.ebs.zunderapp.Wallet;
 
 import android.content.Intent;
-import android.ebs.zunderapp.AEShelper;
+import android.ebs.zunderapp.Crypto;
 import android.ebs.zunderapp.MainActivity;
 import android.ebs.zunderapp.R;
 import android.ebs.zunderapp.Store;
@@ -23,6 +23,8 @@ import org.stellar.sdk.responses.AccountResponse;
 
 import java.io.IOException;
 
+import javax.crypto.SecretKey;
+
 
 public class WalletInfo extends AppCompatActivity {
     private TextView balanceTextview, walletAddress, settings, walletSend, walletHistory;
@@ -31,8 +33,8 @@ public class WalletInfo extends AppCompatActivity {
     private Button cipher;
 
     private CreateQR createQR;
-    private AEShelper AESHelper;
     private MyWallet myWallet;
+    Server server;
 
 
     @Override
@@ -41,17 +43,16 @@ public class WalletInfo extends AppCompatActivity {
         setContentView(R.layout.activity_wallet_info);
 
         myWallet = new MyWallet();
-        //Provide safe connection
+        //Provide connection
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
         //Generate new cipher
-        AESHelper = new AEShelper();
 
         //links elements from the XML layout to Java objects
         linkElements();
 
-       // Get wallet
+        // Get wallet
         setPrivateKey(myWallet.searchWallet());
 
         //create required wallet elements from Private Key
@@ -61,7 +62,7 @@ public class WalletInfo extends AppCompatActivity {
         //Connect to the Stellar Network
         try {
             connectStellarTestNet(pair);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -70,7 +71,68 @@ public class WalletInfo extends AppCompatActivity {
 
         //set up action listeners from the Java objects
         actionListeners();
+
+
+        //receiveTransaction();
+        SecretKey secret = null;
+
+
     }
+
+//    private void receiveTransaction() {
+//        KeyPair account = KeyPair.fromSecretSeed(getPrivateKey());
+//
+//        // Create an API call to query payments involving the account.
+//        PaymentsRequestBuilder paymentsRequest = server.payments().forAccount(account);
+//
+//        // If some payments have already been handled, start the results from the
+//        // last seen payment. (See below in `handlePayment` where it gets saved.)
+//        String lastToken = loadLastPagingToken();
+//        if (lastToken != null) {
+//            paymentsRequest.cursor(lastToken);
+//        }
+//
+//        // `stream` will send each recorded payment, one by one, then keep the
+//        // connection open and continue to send you new payments as they occur.
+//        paymentsRequest.stream(new EventListener<OperationResponse>() {
+//            @Override
+//            public void onEvent(OperationResponse payment) {
+//                // Record the paging token so we can start from here next time.
+//                savePagingToken(payment.getPagingToken());
+//
+//                // The payments stream includes both sent and received payments. We only
+//                // want to process received payments here.
+//                if (payment instanceof PaymentOperationResponse) {
+//                    if (((PaymentOperationResponse) payment).getTo().equals(account)) {
+//                        return;
+//                    }
+//
+//                    String amount = ((PaymentOperationResponse) payment).getAmount();
+//
+//                    Asset asset = ((PaymentOperationResponse) payment).getAsset();
+//                    String assetName;
+//                    if (asset.equals(new AssetTypeNative())) {
+//                        assetName = "lumens";
+//                    } else {
+//                        StringBuilder assetNameBuilder = new StringBuilder();
+//                        assetNameBuilder.append(((AssetTypeCreditAlphaNum) asset).getCode());
+//                        assetNameBuilder.append(":");
+//                        assetNameBuilder.append(((AssetTypeCreditAlphaNum) asset).getIssuer().getAccountId());
+//                        assetName = assetNameBuilder.toString();
+//                    }
+//
+//                    StringBuilder output = new StringBuilder();
+//                    output.append(amount);
+//                    output.append(" ");
+//                    output.append(assetName);
+//                    output.append(" from ");
+//                    output.append(((PaymentOperationResponse) payment).getFrom().getAccountId());
+//                    System.out.println(output.toString());
+//                }
+//
+//            }
+//        });
+//    }
 
     /**
      * Method that connects to the Stellar Test Network server.
@@ -78,7 +140,7 @@ public class WalletInfo extends AppCompatActivity {
      * @param pair is the user wallet Account manager
      */
     private void connectStellarTestNet(KeyPair pair) {
-        Server server = new Server("https://horizon-testnet.stellar.org");
+        server = new Server("https://horizon-testnet.stellar.org");
         AccountResponse account = null;
         try {
             account = server.accounts().account(pair);
@@ -99,6 +161,7 @@ public class WalletInfo extends AppCompatActivity {
 
     /**
      * Method to return the private ke
+     *
      * @return the private key
      */
     public String getPrivateKey() {
@@ -107,6 +170,7 @@ public class WalletInfo extends AppCompatActivity {
 
     /**
      * method that sets a new private key
+     *
      * @param privateKey is set
      */
     public void setPrivateKey(String privateKey) {
@@ -115,6 +179,7 @@ public class WalletInfo extends AppCompatActivity {
 
     /**
      * method the gets the public key
+     *
      * @return
      */
     public String getPublicKey() {
@@ -123,6 +188,7 @@ public class WalletInfo extends AppCompatActivity {
 
     /**
      * method that gets the balance information
+     *
      * @return the balance information
      */
     public String getBalanceInfo() {
@@ -131,6 +197,7 @@ public class WalletInfo extends AppCompatActivity {
 
     /**
      * method that sets the balance information
+     *
      * @param balanceInfo is set
      */
     public void setBalanceInfo(String balanceInfo) {
@@ -139,6 +206,7 @@ public class WalletInfo extends AppCompatActivity {
 
     /**
      * method that sets a new public key
+     *
      * @param publicKey is set
      */
     public void setPublicKey(String publicKey) {
@@ -147,6 +215,7 @@ public class WalletInfo extends AppCompatActivity {
 
     /**
      * method that gets the Balance amount
+     *
      * @return the balance amount
      */
     public String getBalance() {
@@ -155,6 +224,7 @@ public class WalletInfo extends AppCompatActivity {
 
     /**
      * method that sets a new Balance amount
+     *
      * @param balance amount is set
      */
     public void setBalance(String balance) {
@@ -165,12 +235,20 @@ public class WalletInfo extends AppCompatActivity {
      * Method that contains action listeners for buttons
      */
     private void actionListeners() {
-        cipher.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), encryption(getPrivateKey()), Toast.LENGTH_SHORT).show();
-            }
-        });
+//        cipher.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Crypto crypto = new Crypto();
+//                String Shit = "this shit is real";
+//                try {
+//                    byte[] text = crypto.encrypt(Shit);
+//
+//                Toast.makeText(getApplicationContext(), String.valueOf(text), Toast.LENGTH_SHORT).show();
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
 
         home.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -246,7 +324,7 @@ public class WalletInfo extends AppCompatActivity {
      * method that displays the QR code into the ImageView
      */
     private void showQR() {
-       createQR = new CreateQR(600, 600);
+        createQR = new CreateQR(600, 600);
 
         try {
             Bitmap bitmap = createQR.encodeAsBitmap(publicKey);
@@ -275,37 +353,5 @@ public class WalletInfo extends AppCompatActivity {
         store = (ImageView) findViewById(R.id.Store);
         map = (ImageView) findViewById(R.id.Map);
 
-    }
-
-    /**
-     * Method that encrypts a String using a key
-     * @param strNormalText string to cipher
-     * @return the encrypted text
-     */
-    public String encryption(String strNormalText){
-        String seedValue = "!QAZ££ERFD%T";
-        String normalTextEnc="what da fuc";
-        try {
-            normalTextEnc = AESHelper.encrypt(seedValue, strNormalText);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return normalTextEnc;
-    }
-
-    /**
-     * Method that decrypts a text using a key
-     * @param strEncryptedText string to decrypt
-     * @return the unencrypted String
-     */
-    public String decryption(String strEncryptedText){
-        String seedValue = "!QAZ££ERFD%T";
-        String strDecryptedText="";
-        try {
-            strDecryptedText = AESHelper.decrypt(seedValue, strEncryptedText);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return strDecryptedText;
     }
 }
