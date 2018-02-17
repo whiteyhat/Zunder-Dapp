@@ -1,10 +1,10 @@
 package android.ebs.zunderapp.Wallet;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.ebs.zunderapp.Crypto;
 import android.ebs.zunderapp.MainActivity;
 import android.ebs.zunderapp.R;
-import android.ebs.zunderapp.Store;
 import android.graphics.Bitmap;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
@@ -13,16 +13,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.google.zxing.WriterException;
-
 import org.stellar.sdk.KeyPair;
 import org.stellar.sdk.Server;
 import org.stellar.sdk.responses.AccountResponse;
-
 import java.io.IOException;
-
 import javax.crypto.SecretKey;
 
 
@@ -41,8 +36,8 @@ public class WalletInfo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wallet_info);
-
         myWallet = new MyWallet();
+
         //Provide connection
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -54,17 +49,22 @@ public class WalletInfo extends AppCompatActivity {
 
         // Get wallet
         setPrivateKey(myWallet.searchWallet());
-
-        //create required wallet elements from Private Key
-        KeyPair pair = KeyPair.fromSecretSeed(getPrivateKey());
-        setPublicKey(pair.getAccountId());
-
-        //Connect to the Stellar Network
         try {
-            connectStellarTestNet(pair);
+            //create required wallet elements from Private Key
+            KeyPair pair = KeyPair.fromSecretSeed(getPrivateKey());
+            setPublicKey(pair.getAccountId());
+            //Connect to the Stellar Network
+            try {
+                connectStellarTestNet(pair);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+
+
 
         //Displays QR code of the Wallet address
         showQR();
@@ -77,6 +77,24 @@ public class WalletInfo extends AppCompatActivity {
         SecretKey secret = null;
 
 
+    }
+
+    /**
+     * method that generates an Alert Dialog
+     * containing the QR code from the user wallet address
+     */
+    private void createAlert(String title, String message) {
+        AlertDialog.Builder builder =
+                new AlertDialog.Builder(this)
+                        .setTitle(title)
+                        .setMessage(message)
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+        builder.create().show();
     }
 
 //    private void receiveTransaction() {
@@ -263,9 +281,11 @@ public class WalletInfo extends AppCompatActivity {
         store.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(WalletInfo.this, Store.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.quick_fade_in, R.anim.quick_fade_out);
+//                Intent intent = new Intent(WalletInfo.this, Store.class);
+//                startActivity(intent);
+//                overridePendingTransition(R.anim.quick_fade_in, R.anim.quick_fade_out);
+//
+                createAlert("Soon", "We are working so hard daily to provide Store integration.");
             }
         });
         gear.setOnClickListener(new View.OnClickListener() {
@@ -303,6 +323,13 @@ public class WalletInfo extends AppCompatActivity {
                 intent.putExtra("balanceInfo", getBalanceInfo());
                 startActivity(intent);
                 overridePendingTransition(R.anim.quick_fade_in, R.anim.quick_fade_out);
+            }
+        });
+
+        map.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createAlert("Soon", "We are working hard daily to provide the Map integration");
             }
         });
     }

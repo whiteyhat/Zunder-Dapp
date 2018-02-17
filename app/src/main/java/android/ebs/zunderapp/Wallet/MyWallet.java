@@ -1,5 +1,6 @@
 package android.ebs.zunderapp.Wallet;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.ebs.zunderapp.MainActivity;
@@ -13,14 +14,14 @@ import java.io.File;
  * Created by Carlos on 13/02/2018.
  */
 
-public class MyWallet extends AppCompatActivity{
+public class MyWallet{
     private static final String path = Environment.getExternalStorageDirectory().getAbsolutePath()
             + "/ZunderApp";
     private File[] wanted;
     private  File PK;
     private String privateKey;
 
-    public void MyWalley(){
+    public MyWallet(){
         wanted = new File[0];
 
     }
@@ -83,34 +84,4 @@ public class MyWallet extends AppCompatActivity{
         }
     }
 
-    /**
-     * Method that checks if there is an
-     * existing wallet in the local file
-     * and if there is no it creates a new Wallet
-     */
-    public void goToWallet(Context context) {
-        boolean valid = false;
-        PK = new File(path);
-        //If there is an existing wallet directory
-        //access it if not, create one
-        if (PK.exists()) {
-            wanted = PK.listFiles();
-            if (wanted.length == 1) {
-                valid = true;
-            } else {
-                valid = false;
-            }
-
-            if (valid) {
-                Intent intent = new Intent(context, WalletInfo.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.quick_fade_in, R.anim.quick_fade_out);
-            } else {
-                Intent intent = new Intent(context, Wallet.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.quick_fade_in, R.anim.quick_fade_out);
-            }
-        }
-
-    }
 }

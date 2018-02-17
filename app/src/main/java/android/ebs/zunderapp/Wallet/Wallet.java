@@ -1,5 +1,7 @@
 package android.ebs.zunderapp.Wallet;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.ebs.zunderapp.MainActivity;
@@ -37,16 +39,13 @@ public class Wallet extends AppCompatActivity {
     private ProgressBar bar;
     private KeyPair pair;
     private String privateKey;
-    private String[] permissions = new String[]{
-            android.Manifest.permission.READ_EXTERNAL_STORAGE,
-            android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-    };
     private MyWallet myWallet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wallet);
+        myWallet = new MyWallet();
 
         //Instantiate elements from the XML layout
         linkElements();
@@ -97,10 +96,11 @@ public class Wallet extends AppCompatActivity {
         walletCreated = (ImageView)findViewById(R.id.walletDone);
         bar.getIndeterminateDrawable()
                 .setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
+
         generateWalllet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ConnectStellar().execute("");
+                askToWallet();
             }
         });
     }
@@ -112,8 +112,9 @@ public class Wallet extends AppCompatActivity {
      */
     @NonNull
     private KeyPair createWallet() {
-        KeyPair pair = KeyPair.random();
+         pair = KeyPair.random();
         setPrivateKey(new String(pair.getSecretSeed()));
+        myWallet.setPrivateKey(new String(pair.getSecretSeed()));
         InputStream response = null;
 
         try {
@@ -140,12 +141,30 @@ public class Wallet extends AppCompatActivity {
     }
 
     /**
-     * Method that gets the Private Key
-     * @return the private key
+     * Method that delivers to the use rinformation
+     * about the storage of the secret key + suggest
+     * to export it
      */
-    public String getPrivateKey() {
-        return privateKey;
+    private void askToWallet() {
+        final boolean[] bool = {false};
+        AlertDialog.Builder builder =
+                new AlertDialog.Builder(this)
+                        .setTitle("Export a secret key!")
+                        .setMessage("Attention! For security" +
+                                " reasons Zunder App does not store your secret keys to the purses on " +
+                                "the server. You must take care of the safe storage of your secret key." +
+                                " This is necessary to restore the purse in the future, in case of changing" +
+                                " or losing the device or reinstalling the application, etc.")
+                        .setPositiveButton("I Understand", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                                new ConnectStellar().execute("");
+                            }
+                        });
+        builder.create().show();
     }
+
 
     /**
      * Inner class that connects to the stellar network,
@@ -159,61 +178,49 @@ public class Wallet extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... params) {
-            pair = createWallet();
-            checkPermissions();
-            myWallet = new MyWallet();
-            myWallet.setPrivateKey(getPrivateKey());
-            myWallet.savePK();
+           try {
+               myWallet = new MyWallet();
+               pair = createWallet();
+               myWallet.savePK();
+           }catch (Exception e){
+               e.printStackTrace();
+           }
             return "Executed";
         }
 
         @Override
         protected void onPostExecute(String result) {
-            output.setText("Wallet created");
-            bar.setVisibility(View.INVISIBLE);
-            walletCreated.setVisibility(View.VISIBLE);
-            output.setVisibility(View.VISIBLE);
+           try {
 
+               output.setText("Wallet created");
+               bar.setVisibility(View.INVISIBLE);
+               walletCreated.setVisibility(View.VISIBLE);
+               output.setVisibility(View.VISIBLE);
 
-            Intent intent = new Intent(Wallet.this, WalletInfo.class);
-            startActivity(intent);
-            overridePendingTransition(R.anim.quick_fade_in, R.anim.quick_fade_out);
-            finishActivity(0);
+               Intent intent = new Intent(Wallet.this, WalletInfo.class);
+               startActivity(intent);
+               overridePendingTransition(R.anim.quick_fade_in, R.anim.quick_fade_out);
+               finishActivity(0);
+           }catch (Exception e){
+               e.printStackTrace();
+           }
         }
 
         @Override
         protected void onPreExecute() {
-            importWallet.setVisibility(View.INVISIBLE);
-            output.setText("Creating new Wallet...");
-            bar.setVisibility(View.VISIBLE);
-            Toast.makeText(getApplicationContext(), "We are giving you some money to test it", Toast.LENGTH_LONG).show();
+            try {
+
+                importWallet.setVisibility(View.INVISIBLE);
+                output.setText("Creating new Wallet...");
+                bar.setVisibility(View.VISIBLE);
+                Toast.makeText(getApplicationContext(), "We are giving you some money to test it", Toast.LENGTH_LONG).show();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
 
         @Override
         protected void onProgressUpdate(Void... values) {
         }
-    }
-
-    /**
-     * Method that check permission for READ + WRITE
-     * on File Storage. Without this permission it is
-     * no possible to store the Private Key generated, and
-     * thus manage the wallet
-     * @return the result of the permissions given
-     */
-    private boolean checkPermissions() {
-        int result;
-        List<String> listPermissionsNeeded = new ArrayList<>();
-        for (String p : permissions) {
-            result = ContextCompat.checkSelfPermission(this, p);
-            if (result != PackageManager.PERMISSION_GRANTED) {
-                listPermissionsNeeded.add(p);
-            }
-        }
-        if (!listPermissionsNeeded.isEmpty()) {
-            ActivityCompat.requestPermissions(this, listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]), 100);
-            return false;
-        }
-        return true;
     }
 }

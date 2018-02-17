@@ -1,8 +1,6 @@
 package android.ebs.zunderapp;
 
-import java.security.KeyPair;
 import java.security.NoSuchAlgorithmException;
-
 import javax.crypto.Cipher;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.IvParameterSpec;

@@ -1,10 +1,16 @@
 package android.ebs.zunderapp;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.ebs.zunderapp.Profile.Profile;
+import android.ebs.zunderapp.Wallet.CreateQR;
+import android.ebs.zunderapp.Wallet.MyWallet;
 import android.ebs.zunderapp.Wallet.Wallet;
 import android.ebs.zunderapp.Wallet.WalletInfo;
+import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -16,10 +22,16 @@ import android.webkit.WebViewClient;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SearchView;
+import android.widget.Toast;
+
+import com.google.zxing.WriterException;
+
+import org.stellar.sdk.KeyPair;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private ImageButton inbox, locations, item1, item2, item3, carSharing;
@@ -29,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static final String path = Environment.getExternalStorageDirectory().getAbsolutePath()
             + "/ZunderApp";
     private File[] wanted;
-    private  File PK;
+    private File PK;
     private String[] permissions = new String[]{
             android.Manifest.permission.READ_EXTERNAL_STORAGE,
             android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -39,6 +51,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        wanted = new File[0];
+        PK = new File(path);
 
         //Instantiate XML elements to Java class
         linkElements();
@@ -51,6 +65,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //set up action listeners from the Java objects
         actionListeners();
+
+        checkPermissions();
     }
 
     /**
@@ -70,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, Profile.class);
                 startActivity(intent);
-                overridePendingTransition( R.anim.slide_right, R.anim.slide_left);
+                overridePendingTransition(R.anim.slide_right, R.anim.slide_left);
             }
         });
 
@@ -85,7 +101,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         wallet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkPermissions();
                 goToWallet();
             }
         });
@@ -95,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * Method that creates a link between the front end design
      * of the XML layout and its element with the logic Java class
      */
-    private void linkElements(){
+    private void linkElements() {
         qrImage = (ImageView) findViewById(R.id.qrimg);
         profile = (ImageView) findViewById(R.id.profile);
         searchView = (SearchView) findViewById(R.id.searchview);
@@ -137,7 +152,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * buttons when the user touch each button it is forwarded
      * to the onClick() function
      */
-    private void addListening(){
+    private void addListening() {
         inbox.setOnClickListener(this);
         locations.setOnClickListener(this);
         item1.setOnClickListener(this);
@@ -151,7 +166,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     /**
+     * method that generates an Alert Dialog
+     * containing the QR code from the user wallet address
+     */
+    private void createAlert(String title, String message) {
+        AlertDialog.Builder builder =
+                new AlertDialog.Builder(this)
+                        .setTitle(title)
+                        .setMessage(message)
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+        builder.create().show();
+    }
+
+    /**
      * Method that check for WRITE/READ permissions
+     *
      * @return if permission have been granted
      */
     private boolean checkPermissions() {
@@ -164,7 +198,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
         if (!listPermissionsNeeded.isEmpty()) {
-            ActivityCompat.requestPermissions(this, listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]), 100);
+            ActivityCompat.requestPermissions(this,
+                    listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]), 100);
             return false;
         }
         return true;
@@ -177,7 +212,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      */
     private void goToWallet() {
         boolean valid = false;
-        PK = new File(path);
+
         //If there is an existing wallet directory
         //access it if not, create one
         if (PK.exists()) {
@@ -187,40 +222,47 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             } else {
                 valid = false;
             }
-
             if (valid) {
                 Intent intent = new Intent(MainActivity.this, WalletInfo.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.quick_fade_in, R.anim.quick_fade_out);
-            }else {
+            } else {
                 Intent intent = new Intent(MainActivity.this, Wallet.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.quick_fade_in, R.anim.quick_fade_out);
             }
         }
-
     }
+
 
     /**
      * Method to create a new event/activity when the
      * user touch any button
+     *
      * @param view get the user touch
      */
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.MessageButton:
-                break;
-            case R.id.Store:
-                Intent intent = new Intent(MainActivity.this, Store.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.quick_fade_in, R.anim.quick_fade_out);
                 break;
             case R.id.qrimg:
                 Intent intenta = new Intent(MainActivity.this, Wallet.class);
                 startActivity(intenta);
                 overridePendingTransition(R.anim.push_right, R.anim.push_left);
                 break;
+            case R.id.Map:
+                createAlert("Soon", "We are working so hard to provide the Map integration");
+                break;
+            case R.id.Store:
+//                Intent intent = new Intent(MainActivity.this, Store.class);
+//                startActivity(intent);
+//                overridePendingTransition(R.anim.quick_fade_in, R.anim.quick_fade_out);
+
+                createAlert("Soon", "We are working so hard to provide the Store integration");
+                break;
         }
     }
+
+
 }
