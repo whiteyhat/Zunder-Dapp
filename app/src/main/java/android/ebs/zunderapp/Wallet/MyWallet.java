@@ -1,12 +1,7 @@
 package android.ebs.zunderapp.Wallet;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.ebs.zunderapp.MainActivity;
-import android.ebs.zunderapp.R;
+import org.stellar.sdk.KeyPair;
 import android.os.Environment;
-import android.support.v7.app.AppCompatActivity;
 
 import java.io.File;
 
@@ -19,11 +14,26 @@ public class MyWallet{
             + "/ZunderApp";
     private File[] wanted;
     private  File PK;
-    private String privateKey;
+    private String privateKey, publicKey;
 
     public MyWallet(){
         wanted = new File[0];
+        searchWallet();
+        try {
+            KeyPair pair = KeyPair.fromSecretSeed(getPrivateKey());
+            setPublicKey(pair.getAccountId());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
+    }
+
+    public String getPublicKey() {
+        return publicKey;
+    }
+
+    public void setPublicKey(String publicKey) {
+        this.publicKey = publicKey;
     }
 
     /**

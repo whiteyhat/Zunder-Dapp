@@ -7,9 +7,7 @@ import android.ebs.zunderapp.Store;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.AsyncTask;
-import android.os.Environment;
 import android.os.StrictMode;
-import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -30,7 +28,6 @@ import org.stellar.sdk.Transaction;
 import org.stellar.sdk.TransactionBuilderAccount;
 import org.stellar.sdk.responses.SubmitTransactionResponse;
 
-import java.io.File;
 import java.io.IOException;
 
 public class WalletSend extends AppCompatActivity {
@@ -39,7 +36,7 @@ public class WalletSend extends AppCompatActivity {
     private ProgressBar bar;
     private TextView walletInfo, walletHistory;
     private ImageView home, map, store, wallet;
-    private String privateKey, publicKey, balance, balanceInfo, destination;
+    private String privateKey, publicKey, destination;
     private MyWallet myWallet;
     private boolean valid;
 
@@ -193,7 +190,7 @@ public class WalletSend extends AppCompatActivity {
      * Method that links elements from the XML layout to Java objects
      */
     private void linkElements() {
-        walletInfo = (TextView) findViewById(R.id.walletInfo);
+        walletInfo = (TextView) findViewById(R.id.gotowallet);
         walletHistory = (TextView) findViewById(R.id.wallettHistory);
         bar = (ProgressBar) findViewById(R.id.datbar);
         addressInput = (EditText) findViewById(R.id.walletInput);
@@ -202,7 +199,7 @@ public class WalletSend extends AppCompatActivity {
         send = (Button) findViewById(R.id.sendButton);
         cancel = (Button) findViewById(R.id.cancelButton);
         walletHistory = (TextView) findViewById(R.id.walletHistory);
-        walletInfo = (TextView) findViewById(R.id.walletInfo);
+        walletInfo = (TextView) findViewById(R.id.gotowallet);
         home = (ImageView) findViewById(R.id.Home);
         wallet = (ImageView) findViewById(R.id.Wallet);
         store = (ImageView) findViewById(R.id.Store);
@@ -243,7 +240,6 @@ public class WalletSend extends AppCompatActivity {
      * - Run a task afterwards
      */
     private class SendTransaction extends AsyncTask<String, Void, String> {
-
         @Override
         protected String doInBackground(String... params) {
             try {

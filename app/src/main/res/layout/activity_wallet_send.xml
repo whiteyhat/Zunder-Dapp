@@ -6,58 +6,6 @@
     android:layout_height="match_parent"
     tools:context="android.ebs.zunderapp.Wallet.WalletSend">
 
-    <RelativeLayout
-        android:id="@+id/dammiiit"
-        android:layout_width="match_parent"
-        android:layout_height="85dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/UpperNavbar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.237">
-
-        <LinearLayout
-            android:id="@+id/jamon"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:gravity="center"
-            android:orientation="horizontal"
-            tools:layout_editor_absoluteX="40dp"
-            tools:layout_editor_absoluteY="196dp">
-
-        </LinearLayout>
-
-        <EditText
-            android:id="@+id/walletInput"
-            android:layout_width="380dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="9dp"
-            android:defaultFocusHighlightEnabled="false"
-            android:fontFamily="@font/roboto"
-            android:hint="Enter address"
-            android:textSize="18sp" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginBottom="12dp"
-            android:layout_weight="10"
-            android:background="#ddd" />
-
-    </RelativeLayout>
-
     <Button
         android:id="@+id/cancelButton"
         android:layout_width="206dp"
@@ -183,6 +131,7 @@
         android:id="@+id/relativeLayout2"
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:background="@color/lighGrey"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -194,8 +143,8 @@
             android:id="@+id/walletHistory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/walletSend"
-            android:layout_alignBottom="@+id/walletSend"
+            android:layout_alignBaseline="@+id/gotosend"
+            android:layout_alignBottom="@+id/gotosend"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_marginEnd="40dp"
@@ -205,11 +154,11 @@
             android:textSize="24sp" />
 
         <TextView
-            android:id="@+id/walletSend"
+            android:id="@+id/gotosend"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/walletInfo"
-            android:layout_alignBottom="@+id/walletInfo"
+            android:layout_alignBaseline="@+id/gotowallet"
+            android:layout_alignBottom="@+id/gotowallet"
             android:layout_centerHorizontal="true"
             android:fontFamily="@font/roboto"
             android:text="@string/send"
@@ -218,7 +167,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/walletInfo"
+            android:id="@+id/gotowallet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -239,6 +188,7 @@
             android:layout_alignParentStart="true"
             android:layout_weight="10"
             android:background="#ddd" />
+
     </RelativeLayout>
 
     <ProgressBar
@@ -281,13 +231,13 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.352">
+        app:layout_constraintVertical_bias="0.372">
 
         <LinearLayout
             android:id="@+id/nas"
@@ -366,6 +316,60 @@
             android:textSize="18sp"
             tools:layout_editor_absoluteX="73dp"
             tools:layout_editor_absoluteY="517dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="12dp"
+            android:layout_weight="10"
+            android:background="#ddd" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/dammiiit"
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="120dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.044">
+
+        <LinearLayout
+            android:id="@+id/jamon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:orientation="horizontal"
+            tools:layout_editor_absoluteX="40dp"
+            tools:layout_editor_absoluteY="196dp">
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/walletInput"
+            android:layout_width="380dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="9dp"
+            android:defaultFocusHighlightEnabled="false"
+            android:fontFamily="@font/roboto"
+            android:hint="Enter address"
+            android:textSize="18sp" />
 
         <View
             android:layout_width="match_parent"

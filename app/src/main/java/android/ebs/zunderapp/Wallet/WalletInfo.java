@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.ebs.zunderapp.MainActivity;
 import android.ebs.zunderapp.R;
+import android.ebs.zunderapp.WalletHistory;
 import android.graphics.Bitmap;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
@@ -42,12 +43,25 @@ public class WalletInfo extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        //Generate new cipher
+        // TODO Generate new ecnryption
 
         //links elements from the XML layout to Java objects
         linkElements();
 
         // Get wallet
+        lookUpWallet();
+
+        //Displays QR code of the Wallet address
+        showQR();
+
+        //set up action listeners from the Java objects
+        actionListeners();
+
+        //receiveTransaction();
+        SecretKey secret = null;
+    }
+
+    private void lookUpWallet() {
         setPrivateKey(myWallet.searchWallet());
         try {
             //create required wallet elements from Private Key
@@ -62,21 +76,6 @@ public class WalletInfo extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
-
-
-        //Displays QR code of the Wallet address
-        showQR();
-
-        //set up action listeners from the Java objects
-        actionListeners();
-
-
-        //receiveTransaction();
-        SecretKey secret = null;
-
-
     }
 
     /**
@@ -317,10 +316,6 @@ public class WalletInfo extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(WalletInfo.this, WalletSend.class);
-                intent.putExtra("walletAddress", getPublicKey());
-                intent.putExtra("privateKey", getPrivateKey());
-                intent.putExtra("balance", getBalance());
-                intent.putExtra("balanceInfo", getBalanceInfo());
                 startActivity(intent);
                 overridePendingTransition(R.anim.quick_fade_in, R.anim.quick_fade_out);
             }
@@ -330,6 +325,15 @@ public class WalletInfo extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 createAlert("Soon", "We are working hard daily to provide the Map integration");
+            }
+        });
+
+        walletHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(WalletInfo.this, WalletHistory.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.quick_fade_in, R.anim.quick_fade_out);
             }
         });
     }
@@ -367,7 +371,7 @@ public class WalletInfo extends AppCompatActivity {
      */
     private void linkElements() {
         cipher = (Button) findViewById(R.id.cipher);
-        walletSend = (TextView) findViewById(R.id.walletSend);
+        walletSend = (TextView) findViewById(R.id.gotosend);
         walletHistory = (TextView) findViewById(R.id.wallettHistory);
         balanceTextview = (TextView) findViewById(R.id.balance);
         walletAddress = (TextView) findViewById(R.id.walletAddress);

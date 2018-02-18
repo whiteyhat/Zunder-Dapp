@@ -225,18 +225,18 @@
             android:textSize="24sp" />
 
         <TextView
-            android:id="@+id/walletSend"
+            android:id="@+id/gotosend"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/walletInfo"
-            android:layout_alignBottom="@+id/walletInfo"
+            android:layout_alignBaseline="@+id/gotowallet"
+            android:layout_alignBottom="@+id/gotowallet"
             android:layout_centerHorizontal="true"
             android:fontFamily="@font/roboto"
             android:text="@string/send"
             android:textSize="24sp" />
 
         <TextView
-            android:id="@+id/walletInfo"
+            android:id="@+id/gotowallet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
