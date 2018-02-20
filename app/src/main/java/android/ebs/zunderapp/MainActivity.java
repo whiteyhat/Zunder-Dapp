@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.ebs.zunderapp.Map.MapActivity;
 import android.ebs.zunderapp.Profile.Profile;
 import android.ebs.zunderapp.Wallet.CreateQR;
 import android.ebs.zunderapp.Wallet.MyWallet;
@@ -252,7 +253,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 overridePendingTransition(R.anim.push_right, R.anim.push_left);
                 break;
             case R.id.Map:
-                createAlert("Soon", "We are working so hard to provide the Map integration");
+                Intent intent = new Intent(MainActivity.this, MapActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.quick_fade_in, R.anim.quick_fade_out);
                 break;
             case R.id.Store:
 //                Intent intent = new Intent(MainActivity.this, Store.class);

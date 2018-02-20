@@ -44,7 +44,16 @@
         <activity android:name=".Wallet.WalletSend" />
         <activity
             android:name=".WalletHistory"
-            android:label="@string/title_activity_wallet_history"></activity>
+            android:label="@string/title_activity_wallet_history" />
+        <activity android:name=".Map.MapActivity">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="">
+
+        </meta-data>
+
+        </activity>
     </application>
 
 </manifest>

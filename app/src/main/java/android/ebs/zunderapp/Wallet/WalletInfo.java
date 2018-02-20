@@ -324,7 +324,7 @@ public class WalletInfo extends AppCompatActivity {
         map.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createAlert("Soon", "We are working hard daily to provide the Map integration");
+                createAlert("Soon", "We are working hard daily to provide the MapActivity integration");
             }
         });
 

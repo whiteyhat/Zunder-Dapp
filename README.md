@@ -5,7 +5,7 @@
 ## Information
 **Zunder App** solves the biggest problem in the Fintech industry, the middlemen element. By implementing a revolutionary combination of cutting-edge technology such as **Blockchain, AI** and **IoT**. We are developing the first decentralized peer to peer marketplace for Fintech products and services powered by Smart Contracts.
 
-This MVP contains the essential features for the project. Includes a Blockchain wallet based on Waves Platform, a market-place for Fintech Product and Services and a Map tracking location.
+This MVP contains the essential features for the project. Includes a Blockchain wallet based on Waves Platform, a market-place for Fintech Product and Services and a android.ebs.zunderapp.Map tracking location.
 
 ## Contributor?
 ###### Become part of Zunder App. Join us!
@@ -20,7 +20,7 @@ If you want to participate to this project just fork it and send the project or 
 - Home Screen :white_check_mark:
 - User Management System  :large_blue_circle:
 - Wallet Integration  :large_blue_circle:
-- Map Integration :white_large_square:
+- android.ebs.zunderapp.Map Integration :white_large_square:
 - Store Intengration :large_blue_circle:
 - Profile Integration :large_blue_circle:
 - In-App messaging :white_large_square:
