@@ -38,7 +38,7 @@ public class MapActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new FirstFragment(), "First");
+        adapter.addFragment(new FirstFragment(), "Fragm");
         adapter.addFragment(new SecondFragment(), "Second");
         adapter.addFragment(new ThirdFragment(), "Third");
         viewPager.setAdapter(adapter);

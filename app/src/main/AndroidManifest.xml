@@ -11,6 +11,9 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATIONS" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
 
     <application
         android:allowBackup="true"
@@ -23,37 +26,46 @@
             android:name=".MainActivity"
             android:icon="@drawable/logo"
             android:label="">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity android:name=".Wallet.Wallet" />
         <activity android:name=".Store" />
         <activity android:name=".Login" />
-
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
         <activity android:name=".Profile.Profile" />
+
         <activity android:name=".Wallet.WalletInfo" />
+
         <activity android:name=".ScanQR" />
+
         <activity android:name=".Wallet.WalletSettings" />
+
         <activity android:name=".Wallet.WalletSend" />
+
         <activity
             android:name=".WalletHistory"
             android:label="@string/title_activity_wallet_history" />
         <activity android:name=".Map.MapActivity">
 
+        </activity>
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="">
-
+            android:value="AIzaSyBrPzA7_DTu9-8mbp59bbFyruNWMLTAsBc">
         </meta-data>
 
-        </activity>
     </application>
+
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true"/>
 
 </manifest>
