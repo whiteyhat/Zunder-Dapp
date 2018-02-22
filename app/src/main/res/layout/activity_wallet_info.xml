@@ -1,308 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="android.ebs.zunderapp.Wallet.WalletInfo">
 
-    <LinearLayout
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#3a8cb2"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#3a8cb2"
+            app:tabGravity="fill"
+            app:tabMode="fixed" />
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="50dp"
-        android:layout_marginTop="60dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="80dp">
-
-            <LinearLayout
-                android:id="@+id/profileHRule"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginBottom="8dp"
-                android:gravity="center"
-                android:orientation="horizontal"
-                tools:layout_editor_absoluteX="40dp"
-                tools:layout_editor_absoluteY="196dp">
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/balance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="11dp"
-                android:fontFamily="@font/roboto"
-                android:text="Balance"
-                android:textSize="30sp" />
-
-            <LinearLayout
-                android:id="@+id/profileHRule2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginBottom="8dp"
-                android:gravity="center"
-                android:orientation="horizontal"
-                tools:layout_editor_absoluteX="40dp"
-                tools:layout_editor_absoluteY="196dp">
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_weight="10"
-                    android:background="#ddd" />
-
-            </LinearLayout>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="280dp"
-            android:background="@android:color/white">
-
-            <ImageView
-                android:id="@+id/qrWallet"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:contentDescription="shit"
-                app:srcCompat="@drawable/qr" />
-
-            <Button
-                android:id="@+id/cipher"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginLeft="153dp"
-                android:layout_marginStart="153dp"
-                android:text="Cipher" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <LinearLayout
-                android:id="@+id/profileHRule3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignTop="@+id/balance2"
-                android:gravity="center"
-                android:orientation="horizontal"
-                tools:layout_editor_absoluteX="40dp"
-                tools:layout_editor_absoluteY="196dp">
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_weight="10"
-                    android:background="#ddd" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/profileHRule4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/arrowToWallet"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:gravity="center"
-                android:orientation="horizontal"
-                tools:layout_editor_absoluteX="40dp"
-                tools:layout_editor_absoluteY="196dp">
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_weight="10"
-                    android:background="#ddd" />
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/balance2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="13dp"
-                android:fontFamily="@font/roboto"
-                android:text="@string/adress"
-                android:textSize="30sp" />
-
-            <TextView
-                android:id="@+id/walletAddress"
-                android:layout_width="400dp"
-                android:layout_height="50dp"
-                android:textIsSelectable="true"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:text="TextView"
-                android:textAlignment="center"
-                android:textColor="@android:color/black" />
-
-            <ImageView
-                android:id="@+id/arrowToWallet"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_alignEnd="@+id/walletAddress"
-                android:layout_alignRight="@+id/walletAddress"
-                android:layout_below="@+id/walletAddress"
-                android:layout_marginEnd="14dp"
-                android:layout_marginRight="14dp"
-                android:layout_marginTop="11dp"
-                android:tint="@android:color/black"
-                app:srcCompat="@drawable/arrow" />
-
-            <TextView
-                android:id="@+id/walletSet"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/profileHRule4"
-                android:layout_marginEnd="61dp"
-                android:layout_marginRight="61dp"
-                android:layout_marginTop="8dp"
-                android:layout_toLeftOf="@+id/arrowToWallet"
-                android:layout_toStartOf="@+id/arrowToWallet"
-                android:text="@string/sett"
-                android:textColor="@android:color/black"
-                android:textSize="24sp" />
-
-            <ImageView
-                android:id="@+id/gearWallet"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_alignBottom="@+id/walletSet"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginLeft="31dp"
-                android:layout_marginStart="31dp"
-                app:srcCompat="@drawable/gear" />
-
-        </RelativeLayout>
-
-    </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@color/lighGrey">
-
-        <TextView
-            android:id="@+id/wallettHistory"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="40dp"
-            android:layout_marginRight="40dp"
-            android:fontFamily="@font/roboto"
-            android:text="@string/history"
-            android:textSize="24sp" />
-
-        <TextView
-            android:id="@+id/gotosend"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/gotowallet"
-            android:layout_alignBottom="@+id/gotowallet"
-            android:layout_centerHorizontal="true"
-            android:fontFamily="@font/roboto"
-            android:text="@string/send"
-            android:textSize="24sp" />
-
-        <TextView
-            android:id="@+id/gotowallet"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="17dp"
-            android:layout_marginStart="17dp"
-            android:fontFamily="@font/roboto"
-            android:text="@string/wallet"
-            android:textColor="@android:color/black"
-            android:textSize="24sp"
-            android:textStyle="bold" />
-
-        <View
-            android:id="@+id/view"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_weight="10"
-            android:background="#ddd" />
-    </RelativeLayout>
-
-    <LinearLayout
-        android:id="@+id/UpperNavbar"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/lighGrey"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <ImageView
-            android:id="@+id/Home"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:elevation="16dp"
-            app:srcCompat="@drawable/home" />
-
-        <ImageView
-            android:id="@+id/Wallet"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/lighGrey"
-            app:srcCompat="@drawable/wallet" />
-
-        <ImageView
-            android:id="@+id/Store"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/store" />
-
-        <ImageView
-            android:id="@+id/Map"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/map" />
-
-    </LinearLayout>
-
-</android.support.constraint.ConstraintLayout>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+</android.support.design.widget.CoordinatorLayout>

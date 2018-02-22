@@ -5,12 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.ebs.zunderapp.Wallet.CreateQR;
-import android.ebs.zunderapp.Wallet.WalletSend;
+import android.ebs.zunderapp.Wallet.WalletInfo;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Vibrator;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,10 +25,7 @@ import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
-import com.google.zxing.common.BitMatrix;
 
 import java.io.IOException;
 
@@ -220,7 +216,7 @@ public class ScanQR extends AppCompatActivity {
      * transaction to the scanned wallet address
      */
     private void generateNewTx() {
-        Intent intent = new Intent(ScanQR.this, WalletSend.class);
+        Intent intent = new Intent(ScanQR.this, WalletInfo.class);
         intent.putExtra("destination", getWalletAddress());
         startActivity(intent);
         overridePendingTransition(R.anim.quick_fade_in, R.anim.quick_fade_out);

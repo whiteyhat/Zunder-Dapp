@@ -68,58 +68,6 @@
             android:layout_weight="10"
             android:background="#ddd" />
 
-        <RelativeLayout
-            android:id="@+id/dammiiit"
-            android:layout_width="match_parent"
-            android:layout_height="85dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="69dp"
-            app:layout_constraintBottom_toTopOf="@+id/UpperNavbar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.237">
-
-            <LinearLayout
-                android:id="@+id/jamon"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:gravity="center"
-                android:orientation="horizontal"
-                tools:layout_editor_absoluteX="40dp"
-                tools:layout_editor_absoluteY="196dp">
-
-            </LinearLayout>
-
-            <EditText
-                android:id="@+id/walletInput"
-                android:layout_width="380dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="9dp"
-                android:defaultFocusHighlightEnabled="false"
-                android:fontFamily="@font/roboto"
-                android:hint="Enter address"
-                android:textSize="18sp" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginBottom="12dp"
-                android:layout_weight="10"
-                android:background="#ddd" />
-
-        </RelativeLayout>
     </RelativeLayout>
 
     <WebView

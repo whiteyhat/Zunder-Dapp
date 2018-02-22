@@ -23,7 +23,6 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.Scanner;
 
-
 public class Wallet extends AppCompatActivity {
     private TextView output, importWallet;
     private ImageView generateWalllet, home, wallet, store, map, walletCreated;
