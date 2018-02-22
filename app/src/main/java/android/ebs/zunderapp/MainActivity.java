@@ -281,7 +281,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                startActivity(intent);
 //                overridePendingTransition(R.anim.quick_fade_in, R.anim.quick_fade_out);
 
-                createAlert("Coming Soon", "We are working tiressly to bring new and exciting features to Zunder Dapp");
+                createAlert("Coming Soon", "We are working tirelessly to bring new and exciting features to Zunder Dapp");
                 break;
         }
     }

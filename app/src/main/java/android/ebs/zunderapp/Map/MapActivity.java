@@ -61,9 +61,9 @@ public class MapActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new FirstFragment(), "Fragm");
-        adapter.addFragment(new SecondFragment(), "Second");
-        adapter.addFragment(new ThirdFragment(), "Third");
+        adapter.addFragment(new FirstFragment(), "Map");
+        adapter.addFragment(new SecondFragment(), "List");
+        adapter.addFragment(new ThirdFragment(), "Filter");
         viewPager.setAdapter(adapter);
     }
 

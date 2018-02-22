@@ -6,10 +6,12 @@
     tools:context="android.ebs.zunderapp.Map.FirstFragment">
 
     <com.google.android.gms.maps.MapView
+        android:id="@+id/mapa"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/mapa"
-        />
+        android:apiKey="AIzaSyBrPzA7_DTu9-8mbp59bbFyruNWMLTAsBc"
+        android:enabled = "true"
+        android:clickable="true"/>
 
 
 </FrameLayout>

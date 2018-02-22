@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -14,9 +14,8 @@
             android:id="@+id/balance4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="16dp"
             android:fontFamily="@font/roboto"
             android:text="@string/balance"
             android:textColor="@android:color/black"
@@ -114,7 +113,6 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_alignTop="@+id/balance2"
                 android:gravity="center"
                 android:orientation="horizontal"
                 tools:layout_editor_absoluteX="40dp"
@@ -147,18 +145,6 @@
                     android:background="#ddd" />
 
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/balance2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="29dp"
-                android:fontFamily="@font/roboto"
-                android:text="@string/adress"
-                android:textColor="@android:color/black"
-                android:textSize="30sp" />
 
             <TextView
                 android:id="@+id/walletAddress"
@@ -267,4 +253,4 @@
             <!--android:background="#ddd" />-->
     <!--</RelativeLayout>-->
 
-</FrameLayout>
+</android.support.constraint.ConstraintLayout>
