@@ -1,17 +1,14 @@
 package android.ebs.zunderapp;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.ebs.zunderapp.Map.MapActivity;
 import android.ebs.zunderapp.Profile.Profile;
-import android.ebs.zunderapp.Wallet.CreateQR;
-import android.ebs.zunderapp.Wallet.MyWallet;
 import android.ebs.zunderapp.Wallet.Wallet;
 import android.ebs.zunderapp.Wallet.WalletInfo;
-import android.graphics.Bitmap;
-import android.os.AsyncTask;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -23,16 +20,10 @@ import android.webkit.WebViewClient;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SearchView;
-import android.widget.Toast;
-
-import com.google.zxing.WriterException;
-
-import org.stellar.sdk.KeyPair;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private ImageButton inbox, locations, item1, item2, item3, carSharing;
@@ -47,6 +38,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             android.Manifest.permission.READ_EXTERNAL_STORAGE,
             android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
     };
+    private String[] mapPermissions = new String[]{
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,8 +63,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //set up action listeners from the Java objects
         actionListeners();
 
-        checkPermissions();
+        checkReadPermissions();
     }
+
 
     /**
      * Method that sets up action listeners from the Java objects
@@ -185,11 +182,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     /**
+     * Method that check for Location permissions
+     *
+     * @return if permission have been granted
+     */
+    private boolean checkMapPermissions() {
+        int result;
+        List<String> listPermissionsNeeded = new ArrayList<>();
+        for (String p : mapPermissions) {
+            result = ContextCompat.checkSelfPermission(this, p);
+            if (result != PackageManager.PERMISSION_GRANTED) {
+                listPermissionsNeeded.add(p);
+            }
+        }
+        if (!listPermissionsNeeded.isEmpty()) {
+            ActivityCompat.requestPermissions(this,
+                    listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]), 100);
+            return false;
+        }
+        return true;
+    }
+    /**
      * Method that check for WRITE/READ permissions
      *
      * @return if permission have been granted
      */
-    private boolean checkPermissions() {
+    private boolean checkReadPermissions() {
         int result;
         List<String> listPermissionsNeeded = new ArrayList<>();
         for (String p : permissions) {
@@ -253,6 +271,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 overridePendingTransition(R.anim.push_right, R.anim.push_left);
                 break;
             case R.id.Map:
+                checkMapPermissions();
                 Intent intent = new Intent(MainActivity.this, MapActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.quick_fade_in, R.anim.quick_fade_out);
@@ -262,7 +281,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                startActivity(intent);
 //                overridePendingTransition(R.anim.quick_fade_in, R.anim.quick_fade_out);
 
-                createAlert("Soon", "We are working so hard to provide the Store integration");
+                createAlert("Coming Soon", "We are working tiressly to bring new and exciting features to Zunder Dapp");
                 break;
         }
     }

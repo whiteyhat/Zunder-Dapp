@@ -14,7 +14,7 @@ public class MyWallet{
             + "/ZunderApp";
     private File[] wanted;
     private  File PK;
-    private String privateKey, publicKey;
+    private String privateKey, publicKey, accountID;
 
     public MyWallet(){
         wanted = new File[0];
@@ -22,6 +22,8 @@ public class MyWallet{
         try {
             KeyPair pair = KeyPair.fromSecretSeed(getPrivateKey());
             setPublicKey(pair.getAccountId());
+            setAccountID(new String(pair.getPublicKey()));
+
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -30,6 +32,14 @@ public class MyWallet{
 
     public String getPublicKey() {
         return publicKey;
+    }
+
+    public String getAccountID() {
+        return accountID;
+    }
+
+    public void setAccountID(String accountID) {
+        this.accountID = accountID;
     }
 
     public void setPublicKey(String publicKey) {

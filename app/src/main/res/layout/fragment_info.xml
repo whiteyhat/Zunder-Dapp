@@ -8,15 +8,15 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp">
+        android:layout_height="50dp">
 
         <TextView
             android:id="@+id/balance4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="11dp"
+            android:layout_marginTop="16dp"
             android:fontFamily="@font/roboto"
             android:text="@string/balance"
             android:textColor="@android:color/black"
@@ -38,7 +38,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp">
+            android:layout_height="50dp">
 
             <LinearLayout
                 android:id="@+id/profileHRule"
@@ -61,7 +61,6 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="11dp"
                 android:fontFamily="@font/roboto"
                 android:text="Balance"
                 android:textSize="21sp" />
@@ -155,7 +154,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="13dp"
+                android:layout_marginTop="29dp"
                 android:fontFamily="@font/roboto"
                 android:text="@string/adress"
                 android:textColor="@android:color/black"
@@ -165,8 +164,8 @@
                 android:id="@+id/walletAddress"
                 android:layout_width="400dp"
                 android:layout_height="50dp"
+                android:layout_above="@+id/arrowToWallet"
                 android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
                 android:text="TextView"
                 android:textAlignment="center"
                 android:textColor="@android:color/black"
@@ -177,11 +176,11 @@
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_alignEnd="@+id/walletAddress"
+                android:layout_alignParentBottom="true"
                 android:layout_alignRight="@+id/walletAddress"
-                android:layout_below="@+id/walletAddress"
+                android:layout_marginBottom="9dp"
                 android:layout_marginEnd="14dp"
                 android:layout_marginRight="14dp"
-                android:layout_marginTop="11dp"
                 android:tint="@android:color/black"
                 app:srcCompat="@drawable/arrow" />
 
@@ -189,10 +188,9 @@
                 android:id="@+id/walletSet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/profileHRule4"
-                android:layout_marginEnd="61dp"
-                android:layout_marginRight="61dp"
-                android:layout_marginTop="8dp"
+                android:layout_alignBottom="@+id/arrowToWallet"
+                android:layout_marginEnd="64dp"
+                android:layout_marginRight="64dp"
                 android:layout_toLeftOf="@+id/arrowToWallet"
                 android:layout_toStartOf="@+id/arrowToWallet"
                 android:text="@string/sett"

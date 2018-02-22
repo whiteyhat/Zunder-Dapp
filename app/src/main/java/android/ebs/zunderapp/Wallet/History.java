@@ -55,9 +55,11 @@ public class History extends Fragment {
      * The events in the Activity
      */
     private void actionListeners() {
+        final String address = myWallet.getPublicKey();
         webView.setWebViewClient(new MyWebViewClient());
         //webView.loadUrl("https://google.com");
-        webView.loadUrl("http://testnet.stellarchain.io/address/" + myWallet.getPublicKey());
+        webView.loadUrl("http://testnet.stellarchain.io/address/" + address);
+        //webView.loadUrl("https://stellar.expert/explorer/public/account/" + address);
         webView.requestFocus();
     }
 
