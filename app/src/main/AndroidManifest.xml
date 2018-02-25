@@ -36,6 +36,7 @@
         <activity android:name=".Wallet.Wallet" />
         <activity android:name=".Store" />
         <activity android:name=".Login" />
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

@@ -1,12 +1,20 @@
 package android.ebs.zunderapp.Map;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.ebs.zunderapp.R;
+import android.ebs.zunderapp.Wallet.CreateQR;
+import android.ebs.zunderapp.Wallet.MyWallet;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -16,7 +24,11 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.zxing.WriterException;
+
+import org.stellar.sdk.KeyPair;
 
 
 public class FirstFragment extends Fragment implements OnMapReadyCallback {
@@ -55,6 +67,45 @@ public class FirstFragment extends Fragment implements OnMapReadyCallback {
         }
     }
 
+    private void createAlert(String title, String message) {
+        ImageView image = new ImageView(getContext());
+
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.logo);
+        image.setImageBitmap(bitmap);
+
+        AlertDialog.Builder builder =
+                new AlertDialog.Builder(getContext())
+                        .setTitle(title)
+                        .setMessage(message)
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+
+                            }
+                        })
+                        .setPositiveButton("View Profile", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Create new fragment and transaction
+                                Fragment newFragment = new InfoCompany();
+                                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+                                // Replace whatever is in the fragment_container view with this fragment,
+                                // and add the transaction to the back stack if needed
+                                transaction.replace(getId(), newFragment);
+                                transaction.addToBackStack(null);
+
+                                // Commit the transaction
+                                transaction.commit();
+                            }
+                        })
+
+                        .setView(image);
+        builder.create().show();
+
+    }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         MapsInitializer.initialize(getContext());
@@ -63,9 +114,18 @@ public class FirstFragment extends Fragment implements OnMapReadyCallback {
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
         googleMap.addMarker(new MarkerOptions().position(new LatLng(52.415834, -4.065656))
-                .title("European Blockchain Solutions")
+                .title("European Blockchain Solutions").visible(true)
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.logo))
                 .snippet("The place where the Blockchain revolution for IoT was born."));
+        googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                createAlert("European Blockchain Solutions", "Research center " +
+                        "focused on providing the next generation of digital revolution" +
+                        " based on Peer-to-Peer protocols");
+                return false;
+            }
+        });
 
 
         CameraPosition ebs = CameraPosition.builder().target(new LatLng(52.415834, -4.065656)).zoom(16).bearing(0).tilt(45).build();

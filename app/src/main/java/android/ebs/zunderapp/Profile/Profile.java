@@ -293,26 +293,26 @@ public class Profile extends AppCompatActivity {
      * method that generates an Alert Dialog
      * containing the QR code from the user wallet address
      */
-    private void createAlert() {
-        ImageView image = new ImageView(this);
-        image.setImageResource(R.drawable.qr);
+        private void createAlert() {
+            ImageView image = new ImageView(this);
+            image.setImageResource(R.drawable.qr);
 
-        myWallet = new MyWallet();
-        setPrivateKey(myWallet.searchWallet());
+            myWallet = new MyWallet();
+            setPrivateKey(myWallet.searchWallet());
 
-        createQR = new CreateQR(700, 700);
-        try {
-            KeyPair pair = KeyPair.fromSecretSeed(getPrivateKey());
-            setPublicKey(pair.getAccountId());
+            createQR = new CreateQR(700, 700);
             try {
-                Bitmap bitmap = createQR.encodeAsBitmap(getPublicKey());
-                image.setImageBitmap(bitmap);
-            } catch (WriterException e) {
-                e.printStackTrace();
+                KeyPair pair = KeyPair.fromSecretSeed(getPrivateKey());
+                setPublicKey(pair.getAccountId());
+                try {
+                    Bitmap bitmap = createQR.encodeAsBitmap(getPublicKey());
+                    image.setImageBitmap(bitmap);
+                } catch (WriterException e) {
+                    e.printStackTrace();
+                }
+            }catch (Exception e){
+                e.getMessage();
             }
-        }catch (Exception e){
-            e.getMessage();
-        }
 
 
 

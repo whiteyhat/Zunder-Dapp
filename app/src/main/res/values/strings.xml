@@ -37,5 +37,15 @@
     <string name="passcode">Enable Passcode</string>
     <string name="title_activity_wallet_history">WalletHistory</string>
     <string name="balance">Balance</string>
+    <string name="ebstext">European Blockchain Solutions</string>
+    <string name="ebsinfotext">European Blockchain Solutions is a DAO
+        (Decentralized Autonomour Organization) specialised in offering
+        peer-to-peer solutions for economic growth for a network of consumers
+        and businesses within ‘Smart Cities’. EBS born in 2016 as small project
+        group of blockchain enthusiasts sharing the same goal: Research. Now
+        European Blockchain Solutions is focused on offering services for
+        small-medium businesses that want to increase their cash flow with focus
+        on cybersecurity and transparency using distributed ledgers.</string>
+    <string name="mssage">Send a message</string>
 
 </resources>
