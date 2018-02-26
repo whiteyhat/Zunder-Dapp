@@ -3,6 +3,8 @@ package android.ebs.zunderapp.Map;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.ebs.zunderapp.MainActivity;
 import android.ebs.zunderapp.R;
 import android.ebs.zunderapp.Wallet.CreateQR;
 import android.ebs.zunderapp.Wallet.MyWallet;
@@ -87,17 +89,8 @@ public class FirstFragment extends Fragment implements OnMapReadyCallback {
                         .setPositiveButton("View Profile", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                // Create new fragment and transaction
-                                Fragment newFragment = new InfoCompany();
-                                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-
-                                // Replace whatever is in the fragment_container view with this fragment,
-                                // and add the transaction to the back stack if needed
-                                transaction.replace(getId(), newFragment);
-                                transaction.addToBackStack(null);
-
-                                // Commit the transaction
-                                transaction.commit();
+                                Intent intent = new Intent(getContext(), CompanyProfile.class);
+                                startActivity(intent);
                             }
                         })
 

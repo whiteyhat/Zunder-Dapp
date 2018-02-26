@@ -47,5 +47,13 @@
         small-medium businesses that want to increase their cash flow with focus
         on cybersecurity and transparency using distributed ledgers.</string>
     <string name="mssage">Send a message</string>
+    <string name="portfolio">Portfolio</string>
+    <string name="ratiung">Rate us!</string>
+    <string name="sconractt">Smart Contract</string>
+    <string name="contracttext">Templates for any given case and with a custom approach. The most beneficial service to provide a service within Zunder with an Proof of Fraud and no middlemen.</string>
+    <string name="Slock">Smart Lock</string>
+    <string name="slocktect">Physical lock connected to Zunder. The Smart Lock is connected to the network through a Smart Contract built into the lock.</string>
+    <string name="aitext">AI-based node powered by a Smart Contract able to read and process other’s Smart Contracts, nodes, internal information and structure to provide a Proof of Fraud and avoid corruptive practices.</string>
+    <string name="ai">GuardAIn</string>
 
 </resources>

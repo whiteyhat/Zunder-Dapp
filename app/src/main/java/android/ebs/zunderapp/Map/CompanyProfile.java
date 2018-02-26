@@ -1,49 +1,39 @@
 package android.ebs.zunderapp.Map;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
 import android.ebs.zunderapp.R;
-import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.os.Bundle;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MapActivity extends AppCompatActivity {
-
-    private TabLayout tabLayout;
+public class CompanyProfile extends AppCompatActivity {
     private ViewPager viewPager;
-    private final int location1 = 104;
+    private TabLayout tabLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_map);
-
+        setContentView(R.layout.activity_company_profile);
 
         if (getActionBar() != null) {
             getActionBar().setDisplayHomeAsUpEnabled(true);
         }
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
-
-
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
-
     }
 
     private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new FirstFragment(), "Map");
-        adapter.addFragment(new SecondFragment(), "List");
-        adapter.addFragment(new ThirdFragment(), "Filter");
+       ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new InfoCompany(), "Info");
+        adapter.addFragment(new Portfolio(), "Portfolio");
         viewPager.setAdapter(adapter);
     }
 

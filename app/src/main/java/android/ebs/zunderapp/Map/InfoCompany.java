@@ -57,7 +57,6 @@ public class InfoCompany extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        tabHost = getView().findViewById(R.id.tabHost);
 
     }
 }
