@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.ebs.zunderapp.MainActivity;
 import android.ebs.zunderapp.R;
-import android.ebs.zunderapp.Store;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.AsyncTask;
@@ -60,14 +59,6 @@ public class Wallet extends AppCompatActivity {
             }
         });
 
-        store.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Wallet.this, Store.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.quick_fade_in, R.anim.quick_fade_out);
-            }
-        });
     }
 
     /**

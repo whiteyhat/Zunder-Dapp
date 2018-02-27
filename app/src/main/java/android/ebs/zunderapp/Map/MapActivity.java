@@ -1,17 +1,13 @@
 package android.ebs.zunderapp.Map;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
 import android.ebs.zunderapp.R;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,9 +37,9 @@ public class MapActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new FirstFragment(), "Map");
-        adapter.addFragment(new SecondFragment(), "List");
-        adapter.addFragment(new ThirdFragment(), "Filter");
+        adapter.addFragment(new MapFragment(), "Map");
+        adapter.addFragment(new StoreFragment(), "List");
+        adapter.addFragment(new FilterFragment(), "Filter");
         viewPager.setAdapter(adapter);
     }
 

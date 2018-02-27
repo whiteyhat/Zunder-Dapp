@@ -55,5 +55,6 @@
     <string name="slocktect">Physical lock connected to Zunder. The Smart Lock is connected to the network through a Smart Contract built into the lock.</string>
     <string name="aitext">AI-based node powered by a Smart Contract able to read and process other’s Smart Contracts, nodes, internal information and structure to provide a Proof of Fraud and avoid corruptive practices.</string>
     <string name="ai">GuardAIn</string>
+    <string name="workingtiressly">We are working tirelessly to bring new and exciting features to Zunder!</string>
 
 </resources>

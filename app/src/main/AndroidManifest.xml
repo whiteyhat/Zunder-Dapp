@@ -36,7 +36,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".Wallet.Wallet" />
-        <activity android:name=".Store" />
         <activity android:name=".Login" />
 
         <meta-data

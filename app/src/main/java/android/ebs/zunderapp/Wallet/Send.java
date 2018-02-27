@@ -1,12 +1,7 @@
 package android.ebs.zunderapp.Wallet;
 
-import android.content.Context;
-import android.content.Intent;
-import android.ebs.zunderapp.MainActivity;
-import android.ebs.zunderapp.Store;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -34,8 +29,6 @@ import org.stellar.sdk.TransactionBuilderAccount;
 import org.stellar.sdk.responses.SubmitTransactionResponse;
 
 import java.io.IOException;
-
-import javax.crypto.SecretKey;
 
 
 public class Send extends Fragment {

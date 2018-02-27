@@ -32,8 +32,8 @@ public class CompanyProfile extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new InfoCompany(), "Info");
-        adapter.addFragment(new Portfolio(), "Portfolio");
+        adapter.addFragment(new InfoCompanyFragment(), "Info");
+        adapter.addFragment(new PortfolioFragment(), "Portfolio");
         viewPager.setAdapter(adapter);
     }
 
