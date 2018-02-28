@@ -25,5 +25,8 @@
 
     <style name="Theme.AppCompat.Light.DarkActionBar" parent="Base.Theme.AppCompat.Light.DarkActionBar" />
 
-
+    <style name="AppTheme.OmiseGOButton" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:background">@drawable/ripple_round_shape</item>
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
 </resources>

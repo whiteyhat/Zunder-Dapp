@@ -38,12 +38,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             android.Manifest.permission.READ_EXTERNAL_STORAGE,
             android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
     };
-    private String[] mapPermissions = new String[]{
-            Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.ACCESS_COARSE_LOCATION,
-    };
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //set up action listeners from the Java objects
         actionListeners();
 
+        //Ask for reading permissions to look up the wallet
         checkReadPermissions();
     }
 
@@ -182,27 +177,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     /**
-     * Method that check for Location permissions
-     *
-     * @return if permission have been granted
-     */
-    private boolean checkMapPermissions() {
-        int result;
-        List<String> listPermissionsNeeded = new ArrayList<>();
-        for (String p : mapPermissions) {
-            result = ContextCompat.checkSelfPermission(this, p);
-            if (result != PackageManager.PERMISSION_GRANTED) {
-                listPermissionsNeeded.add(p);
-            }
-        }
-        if (!listPermissionsNeeded.isEmpty()) {
-            ActivityCompat.requestPermissions(this,
-                    listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]), 100);
-            return false;
-        }
-        return true;
-    }
-    /**
      * Method that check for WRITE/READ permissions
      *
      * @return if permission have been granted
@@ -222,6 +196,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return false;
         }
         return true;
+    }
+
+    /**
+     * Empty that avoids going backwards
+     */
+    @Override
+    public void onBackPressed() {
     }
 
     /**
@@ -253,7 +234,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-
     /**
      * Method to create a new event/activity when the
      * user touch any button
@@ -284,6 +264,4 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
     }
-
-
 }

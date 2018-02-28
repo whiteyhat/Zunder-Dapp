@@ -1,17 +1,18 @@
 package android.ebs.zunderapp;
+
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.ebs.zunderapp.Profile.Profile;
+import android.ebs.zunderapp.Wallet.MyWallet;
+import android.ebs.zunderapp.Wallet.Wallet;
+import android.ebs.zunderapp.Wallet.WalletInfo;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,23 +22,17 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 
-public class Login extends AppCompatActivity implements View.OnClickListener {
+public class Register extends AppCompatActivity {
     private EditText editTextEmail, editTextPassword;
-    private Button login;
-    private TextView signup;
     private FirebaseAuth mAuth;
+    private Button register;
     private ProgressDialog dialog;
 
-    /**
-     * Main method. Create variables and
-     * call functions when the screen is created.
-     * @param savedInstanceState
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        dialog = new ProgressDialog(Login.this);
+        setContentView(R.layout.activity_register);
+        dialog = new ProgressDialog(Register.this);
         dialog.setTitle("Please wait");
         dialog.setMessage("Registering...");
         //link elements in the XML layout to the Java class
@@ -45,37 +40,22 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
         //instantiate authentification with FIrebase
         mAuth = FirebaseAuth.getInstance();
+
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            new registerUser().execute("");
+            }
+        });
     }
 
     /**
-     * link elements in the XML layout to the Java class
+     * Method to create a new user.
+     * There are some conditions in the password
+     * that the user must complete such as 6 char length is
+     * the minimum for password
      */
-    private void linkElements() {
-        editTextEmail = (EditText) findViewById(R.id.email);
-        editTextPassword = (EditText) findViewById(R.id.pass);
-        //Set button listener
-        login = (Button) findViewById(R.id.login);
-        signup = (TextView) findViewById(R.id.signup);
-        login.setOnClickListener(this);
-        signup.setOnClickListener(this);
-    }
-
-
-    private void progress(){
-        ProgressDialog dialog = new ProgressDialog(Login.this);
-        dialog.setTitle("Please wait");
-        dialog.setMessage("Logging in...");
-        dialog.show();
-    }
-
-    /**
-     * Method to sign in an existing user.
-     * There are some conditions in the form where
-     * the user types its email or password. Such
-     * as when the user types the email the char
-     * @ must be typed
-     */
-    private void loginUser(){
+    private void registerUser() {
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
 
@@ -104,51 +84,46 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         }
 
 
-        mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()){
-                    Intent intent = new Intent(Login.this, Profile.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.quick_fade_in, R.anim.quick_fade_out);
-                }else {
-                    Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                if (task.isSuccessful()) {
+                    Toast.makeText(getApplicationContext(), "User registered", Toast.LENGTH_SHORT).show();
+
+                } else {
+
+                    if (task.getException() instanceof FirebaseAuthUserCollisionException) {
+                        Toast.makeText(getApplicationContext(), "You are already registered", Toast.LENGTH_SHORT).show();
+
+                    } else {
+                        Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                    }
+
                 }
             }
         });
+
     }
 
+
     /**
-     * Method to execute events when tapping
-     * certain buttons. In this case there are
-     * 2 buttons. Sign in + Sign up
-     * @param view
+     * link elements in the XML layout to the Java class
      */
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.signup:
-                Intent intent = new Intent(Login.this, Register.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                overridePendingTransition(R.anim.quick_fade_in, R.anim.quick_fade_out);
-                break;
-
-            case R.id.login:
-                new loginUser().execute("");
-                break;
-        }
+    private void linkElements() {
+        editTextEmail = (EditText) findViewById(R.id.email);
+        editTextPassword = (EditText) findViewById(R.id.pass);
+        //Set button listener
+        register = (Button) findViewById(R.id.btnRegister);
     }
 
     /**
-     * Inner class that logins the user.
+     * Inner class that registers a new user.
      * This inner class provides 3 key elements
      * - Run a task in background
      * - Run a task beforehand
      * - Run a task afterwards
      */
-    private class loginUser extends AsyncTask<String, Void, String> {
+    private class registerUser extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
             try {
@@ -156,7 +131,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            loginUser();
+            registerUser();
             return "Executed";
         }
 

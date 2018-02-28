@@ -27,8 +27,7 @@
         android:theme="@style/AppTheme.NoActionBar">
         <activity
             android:name=".MainActivity"
-            android:icon="@drawable/logo"
-            android:label="">
+            android:icon="@drawable/iconzunder">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -53,6 +52,7 @@
             android:value="AIzaSyBrPzA7_DTu9-8mbp59bbFyruNWMLTAsBc" />
 
         <activity android:name=".Map.CompanyProfile" />
+        <activity android:name=".Register"></activity>
     </application>
 
 </manifest>
