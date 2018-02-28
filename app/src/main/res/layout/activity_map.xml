@@ -11,18 +11,6 @@
         android:background="#3a8cb2"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-        <SearchView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:animateLayoutChanges="true"
-            android:background="@android:color/white"
-            android:backgroundTint="#3a8cb2"
-            android:gravity="center"
-            android:iconifiedByDefault="true"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:queryHint="Search Zunders" />
-
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"

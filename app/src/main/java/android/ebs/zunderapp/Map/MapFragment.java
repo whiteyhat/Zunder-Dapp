@@ -8,11 +8,16 @@ import android.ebs.zunderapp.R;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.SearchView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -30,6 +35,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private GoogleMap mGoogleMap;
     private MapView mMapView;
     private View mView;
+    private FloatingActionButton btnMap, btnAdd, btnSearch;
+    private Animation open, close, rotationright, rotationleft;
+    private boolean isOpen = false, isSearch = false;
+    private AppBarLayout search;
+    private SearchView searchView;
 
     public MapFragment() {
         // Required empty public constructor
@@ -54,6 +64,72 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        //Instantiate elemnts from XML
+        linkElements();
+
+        //Action listeners for buttons
+        actionListeners();
+
+
+    }
+
+    private void actionListeners() {
+        btnMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isOpen) {
+                    btnMap.startAnimation(rotationleft);
+                    btnAdd.startAnimation(close);
+                    btnSearch.startAnimation(close);
+
+                    btnSearch.setClickable(false);
+                    btnAdd.setClickable(false);
+                    isOpen = false;
+                }
+                if (isSearch) {
+                    search.setVisibility(View.GONE);
+                    isSearch = false;
+                } else {
+
+                    btnMap.startAnimation(rotationright);
+                    btnAdd.startAnimation(open);
+                    btnSearch.startAnimation(open);
+
+                    btnSearch.setClickable(true);
+                    btnAdd.setClickable(true);
+                    btnMap.setClickable(true);
+                    isOpen = true;
+                }
+            }
+        });
+
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isSearch) {
+                    search.setVisibility(View.GONE);
+                    isSearch = false;
+                } else {
+                    search.setVisibility(View.VISIBLE);
+                    searchView.setIconified(false);
+                    searchView.setFocusable(true);
+                    searchView.requestFocusFromTouch();
+                    isSearch = true;
+                }
+            }
+        });
+    }
+
+    private void linkElements() {
+        btnMap = (FloatingActionButton) getView().findViewById(R.id.btnMap);
+        btnAdd = (FloatingActionButton) getView().findViewById(R.id.btnAdd);
+        btnSearch = (FloatingActionButton) getView().findViewById(R.id.btnSearch);
+        open = AnimationUtils.loadAnimation(getContext(), R.anim.open);
+        close = AnimationUtils.loadAnimation(getContext(), R.anim.close);
+        rotationright = AnimationUtils.loadAnimation(getContext(), R.anim.rotation);
+        rotationleft = AnimationUtils.loadAnimation(getContext(), R.anim.rotationleft);
+        search = (AppBarLayout) getView().findViewById(R.id.search);
+        searchView = (SearchView) getView().findViewById(R.id.searchit);
         mMapView = (MapView) mView.findViewById(R.id.mapa);
         if (mMapView != null) {
             mMapView.onCreate(null);
@@ -61,6 +137,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             mMapView.getMapAsync(this);
         }
     }
+
 
     private void createAlert(String title, String message) {
         ImageView image = new ImageView(getContext());
@@ -93,7 +170,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     }
 
     @Override
-    public void onMapReady(GoogleMap googleMap) {
+    public void onMapReady(final GoogleMap googleMap) {
         MapsInitializer.initialize(getContext());
 
         mGoogleMap = googleMap;
@@ -117,5 +194,17 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         CameraPosition ebs = CameraPosition.builder().target(new LatLng(52.415834, -4.065656)).zoom(16).bearing(0).tilt(45).build();
 
         googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(ebs));
+
+
+//          ADD A NEW MARKER WHEN TOUCHING
+
+//        googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+//            @Override
+//            public void onMapClick(LatLng point) {
+//                MarkerOptions marker = new MarkerOptions().position(
+//                        new LatLng(point.latitude, point.longitude)).title("New Marker");
+//                googleMap.addMarker(marker);
+//            }
+//        });
     }
 }
