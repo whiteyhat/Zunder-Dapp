@@ -20,7 +20,7 @@ If you want to participate to this project just fork it and send the project or 
 - Home Screen :white_check_mark:
 - User Management System  :large_blue_circle:
 - Wallet Integration  :large_blue_circle:
-- android.ebs.zunderapp.Map Integration :white_large_square:
+- Map Integration :white_check_mark:
 - Store Intengration :large_blue_circle:
 - Profile Integration :large_blue_circle:
 - In-App messaging :white_large_square:
