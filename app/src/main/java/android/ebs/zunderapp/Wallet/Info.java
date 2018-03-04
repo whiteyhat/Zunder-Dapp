@@ -281,7 +281,7 @@ public class Info extends Fragment {
 //        cipher.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                Crypto crypto = new Crypto();
+//                Crytpography crypto = new Crytpography();
 //                String Shit = "this shit is real";
 //                try {
 //                    byte[] text = crypto.encrypt(Shit);

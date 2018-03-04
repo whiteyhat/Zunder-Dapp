@@ -22,19 +22,24 @@ public class MapActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
-
+        // set up display action bar
         if (getActionBar() != null) {
             getActionBar().setDisplayHomeAsUpEnabled(true);
         }
+        // set up page viewer
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
 
-
+        // set up tab layout
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
     }
 
+    /**
+     * method to create the layout of view
+     * @param viewPager is the page viewer
+     */
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new MapFragment(), "Map");
@@ -42,7 +47,9 @@ public class MapActivity extends AppCompatActivity {
         adapter.addFragment(new FilterFragment(), "Filter");
         viewPager.setAdapter(adapter);
     }
-
+    /**
+     * Class to create a dynamic layout based on tabs and fragments
+     */
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();

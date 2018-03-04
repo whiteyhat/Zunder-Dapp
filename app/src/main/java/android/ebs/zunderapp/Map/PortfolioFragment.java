@@ -56,7 +56,11 @@ public class PortfolioFragment extends Fragment {
         });
 
     }
-
+    /**
+     * method that creates an alert
+     * @param title string to display tittle
+     * @param message string to display body message
+     */
     private void createAlert(String title, String message) {
 
         AlertDialog.Builder builder =

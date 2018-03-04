@@ -42,7 +42,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private SearchView searchView;
 
     public MapFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -69,10 +68,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         //Action listeners for buttons
         actionListeners();
-
-
     }
 
+    /**
+     * Method that contains action listeners for events
+     */
     private void actionListeners() {
         btnMap.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,6 +120,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         });
     }
 
+    /**
+     * method that links XMl layout objects with
+     * java objects
+     */
     private void linkElements() {
         btnMap = (FloatingActionButton) getView().findViewById(R.id.btnMap);
         btnAdd = (FloatingActionButton) getView().findViewById(R.id.btnAdd);
@@ -138,7 +142,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         }
     }
 
-
+    /**
+     * method that creates an alert
+     * @param title string to display tittle
+     * @param message string to display body message
+     */
     private void createAlert(String title, String message) {
         ImageView image = new ImageView(getContext());
 
@@ -169,6 +177,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     }
 
+    /**
+     * method that contains map logics
+     * @param googleMap is the map being displayed
+     */
     @Override
     public void onMapReady(final GoogleMap googleMap) {
         MapsInitializer.initialize(getContext());
