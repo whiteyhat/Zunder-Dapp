@@ -3,17 +3,15 @@ package android.ebs.zunderapp.Profile;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.ebs.zunderapp.Login;
-import android.ebs.zunderapp.MainActivity;
+import android.ebs.zunderapp.Utils.Login;
+import android.ebs.zunderapp.Utils.MainActivity;
 import android.ebs.zunderapp.R;
 import android.ebs.zunderapp.Wallet.CreateQR;
 import android.ebs.zunderapp.Wallet.MyWallet;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -38,14 +36,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
-import com.google.zxing.common.BitMatrix;
 
 import org.stellar.sdk.KeyPair;
 
-import java.io.File;
 import java.io.IOException;
 
 public class Profile extends AppCompatActivity {

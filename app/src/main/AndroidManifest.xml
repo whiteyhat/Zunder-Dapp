@@ -26,7 +26,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity
-            android:name=".MainActivity"
+            android:name=".Utils.MainActivity"
             android:icon="@drawable/iconzunder">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -35,7 +35,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Wallet.Wallet" />
-        <activity android:name=".Login" />
+        <activity android:name=".Utils.Login" />
 
         <meta-data
             android:name="preloaded_fonts"
@@ -43,7 +43,7 @@
 
         <activity android:name=".Profile.Profile" />
         <activity android:name=".Wallet.WalletInfo" />
-        <activity android:name=".ScanQR" />
+        <activity android:name=".Utils.ScanQR" />
         <activity android:name=".Wallet.WalletSettings" />
         <activity android:name=".Map.MapActivity" />
 
@@ -52,7 +52,7 @@
             android:value="AIzaSyBrPzA7_DTu9-8mbp59bbFyruNWMLTAsBc" />
 
         <activity android:name=".Map.CompanyProfile" />
-        <activity android:name=".Register"></activity>
+        <activity android:name=".Utils.Register"></activity>
     </application>
 
 </manifest>

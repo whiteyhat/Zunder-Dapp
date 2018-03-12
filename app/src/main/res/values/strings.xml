@@ -71,5 +71,6 @@
     <string name="ai">GuardAIn</string>
     <string name="workingtiressly">We are working tirelessly to bring new and exciting features to Zunder!</string>
     <string name="register"><![CDATA[>Don\'t have an account yet? Register]]></string>
+    <string name="taptogeneratemarker">Tap on the map where your business is located</string>
 
 </resources>

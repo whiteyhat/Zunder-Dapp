@@ -3,7 +3,7 @@ package android.ebs.zunderapp.Wallet;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.ebs.zunderapp.MainActivity;
+import android.ebs.zunderapp.Utils.MainActivity;
 import android.ebs.zunderapp.R;
 import android.graphics.Color;
 import android.graphics.PorterDuff;

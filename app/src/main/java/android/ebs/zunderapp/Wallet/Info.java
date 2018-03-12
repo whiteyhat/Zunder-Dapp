@@ -3,7 +3,6 @@ package android.ebs.zunderapp.Wallet;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.ebs.zunderapp.MainActivity;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.StrictMode;
