@@ -52,7 +52,8 @@
             android:value="AIzaSyBrPzA7_DTu9-8mbp59bbFyruNWMLTAsBc" />
 
         <activity android:name=".Map.CompanyProfile" />
-        <activity android:name=".Utils.Register"></activity>
+        <activity android:name=".Utils.Register" />
+        <activity android:name=".Map.RegisterCompany"></activity>
     </application>
 
 </manifest>

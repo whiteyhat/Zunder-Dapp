@@ -72,5 +72,7 @@
     <string name="workingtiressly">We are working tirelessly to bring new and exciting features to Zunder!</string>
     <string name="register"><![CDATA[>Don\'t have an account yet? Register]]></string>
     <string name="taptogeneratemarker">Tap on the map where your business is located</string>
+    <string name="confirmation">confirm</string>
+    <string name="textblockforcompanysection">Association or Companies are groups of individuals which can create a collective entity able to act as a DAO. The members of an association have access to propose and sign to perform group transactions.</string>
 
 </resources>
