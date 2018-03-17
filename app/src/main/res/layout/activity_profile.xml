@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:gravity="top|center"
     android:background="#fff"
-    tools:context="android.ebs.zunderapp.Profile.Profile">
+    tools:context="android.ebs.zunderapp.zunder.ebs.zunderapp.Profile.Profile">
 
     <RelativeLayout
         android:layout_width="match_parent"

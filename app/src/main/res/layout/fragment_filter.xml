@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="android.ebs.zunderapp.Map.FilterFragment">
+    tools:context="android.ebs.zunderapp.zunder.ebs.zunderapp.Map.FilterFragment">
 
     <ImageView
         android:id="@+id/imageView15"

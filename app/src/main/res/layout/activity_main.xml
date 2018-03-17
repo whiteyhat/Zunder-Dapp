@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="android.ebs.zunderapp.Utils.MainActivity"
+    tools:context="android.ebs.zunderapp.zunder.ebs.zunderapp.Utils.MainActivity"
     tools:layout_editor_absoluteY="81dp">
 
 
@@ -13,7 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="89dp"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/qrimg"
         android:background="#3a8cb2"
         android:gravity="center"
         app:layout_constraintBottom_toTopOf="@+id/scrollView"

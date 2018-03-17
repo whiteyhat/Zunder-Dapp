@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="android.ebs.zunderapp.Map.StoreFragment">
+    tools:context="android.ebs.zunderapp.zunder.ebs.zunderapp.Map.StoreFragment">
 
     <RelativeLayout
         android:id="@+id/relativeLayout"

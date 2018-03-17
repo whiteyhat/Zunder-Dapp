@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="android.ebs.zunderapp">
+    package="zunder.ebs.zunderapp">
 
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
@@ -26,7 +26,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity
-            android:name=".Utils.MainActivity"
+            android:name="zunder.ebs.zunderapp.Utils.MainActivity"
             android:icon="@drawable/iconzunder">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,26 +34,26 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Wallet.Wallet" />
-        <activity android:name=".Utils.Login" />
+        <activity android:name="zunder.ebs.zunderapp.Wallet.Wallet" />
+        <activity android:name="zunder.ebs.zunderapp.Utils.Login" />
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name=".Profile.Profile" />
-        <activity android:name=".Wallet.WalletInfo" />
-        <activity android:name=".Utils.ScanQR" />
-        <activity android:name=".Wallet.WalletSettings" />
-        <activity android:name=".Map.MapActivity" />
+        <activity android:name="zunder.ebs.zunderapp.Profile.Profile" />
+        <activity android:name="zunder.ebs.zunderapp.Wallet.WalletInfo" />
+        <activity android:name="zunder.ebs.zunderapp.Utils.ScanQR" />
+        <activity android:name="zunder.ebs.zunderapp.Wallet.WalletSettings" />
+        <activity android:name="zunder.ebs.zunderapp.Map.MapActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBrPzA7_DTu9-8mbp59bbFyruNWMLTAsBc" />
 
-        <activity android:name=".Map.CompanyProfile" />
-        <activity android:name=".Utils.Register" />
-        <activity android:name=".Map.RegisterCompany"></activity>
+        <activity android:name="zunder.ebs.zunderapp.Map.CompanyProfile" />
+        <activity android:name="zunder.ebs.zunderapp.Utils.Register" />
+        <activity android:name="zunder.ebs.zunderapp.Map.RegisterCompany"></activity>
     </application>
 
 </manifest>

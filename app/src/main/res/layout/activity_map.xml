@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="android.ebs.zunderapp.Map.MapActivity">
+    tools:context="android.ebs.zunderapp.zunder.ebs.zunderapp.Map.MapActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
