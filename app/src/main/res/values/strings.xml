@@ -74,5 +74,10 @@
     <string name="taptogeneratemarker">Tap on the map where your business is located</string>
     <string name="confirmation">confirm</string>
     <string name="textblockforcompanysection">Association or Companies are groups of individuals which can create a collective entity able to act as a DAO. The members of an association have access to propose and sign to perform group transactions.</string>
+    <string name="inbox">Inbox</string>
+    <string name="gps">Locations</string>
+    <string name="calendarx">Calendar</string>
+    <string name="tittleCalendar">Deliver parcel to John</string>
+    <string name="dateforcalendar">Friday at 09:30</string>
 
 </resources>
