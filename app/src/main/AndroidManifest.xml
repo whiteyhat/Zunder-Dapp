@@ -25,6 +25,10 @@
         android:roundIcon="@drawable/iconzunder"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDEFiEVZidmESbB4u_d4XQfHF8baXnuqIg" />
+
         <activity
             android:name="zunder.ebs.zunderapp.Utils.MainActivity"
             android:icon="@drawable/iconzunder">
@@ -46,11 +50,6 @@
         <activity android:name="zunder.ebs.zunderapp.Utils.ScanQR" />
         <activity android:name="zunder.ebs.zunderapp.Wallet.WalletSettings" />
         <activity android:name="zunder.ebs.zunderapp.Map.MapActivity" />
-
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBrPzA7_DTu9-8mbp59bbFyruNWMLTAsBc" />
-
         <activity android:name="zunder.ebs.zunderapp.Map.CompanyProfile" />
         <activity android:name="zunder.ebs.zunderapp.Utils.Register" />
         <activity android:name="zunder.ebs.zunderapp.Map.RegisterCompany"></activity>

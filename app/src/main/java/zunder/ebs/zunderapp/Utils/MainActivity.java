@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * method that opens an URL in the WEb View Client
      */
     private void openURL() {
-        webview.loadUrl("https://twitter.com/aberblockchain");
+        webview.loadUrl("https://twitter.com/AberBlockchain/status/929737528013451279");
     }
 
     /**

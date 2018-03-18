@@ -109,6 +109,8 @@
                     android:layout_alignParentTop="true"
                     android:layout_marginLeft="8dp"
                     android:layout_marginStart="8dp"
+                    android:src="@android:drawable/ic_dialog_email"
+                    android:tint="@android:color/black"
                     android:visibility="visible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -121,11 +123,31 @@
                     android:layout_alignParentTop="true"
                     android:layout_toEndOf="@+id/MessageButton"
                     android:layout_toRightOf="@+id/MessageButton"
+                    android:scaleType="centerInside"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.958"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/location" />
+
+                <TextView
+                    android:id="@+id/textView19"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignStart="@+id/MessageButton"
+                    android:layout_marginStart="9dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/inbox" />
+
+                <TextView
+                    android:id="@+id/textView20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/textView19"
+                    android:layout_marginStart="9dp"
+                    android:layout_toEndOf="@+id/MessageButton"
+                    android:text="@string/gps" />
 
             </RelativeLayout>
 
@@ -215,6 +237,43 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.254" />
 
+                <ImageView
+                    android:id="@+id/imageView16"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_alignEnd="@+id/calendarButton"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/calendar" />
+
+                <TextView
+                    android:id="@+id/textView21"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/calendarButton"
+                    android:layout_alignTop="@+id/imageView16"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/calendar" />
+
+                <TextView
+                    android:id="@+id/textView22"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/viewsButton"
+                    android:layout_alignStart="@+id/textView21"
+                    android:text="@string/tittleCalendar"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/textView23"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/textView22"
+                    android:layout_below="@+id/viewsButton"
+                    android:text="@string/dateforcalendar" />
+
 
             </RelativeLayout>
 
@@ -280,7 +339,8 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="150dp">
+                android:layout_height="150dp"
+                android:visibility="gone">
 
                 <ImageButton
                     android:id="@+id/CarSharingButton"
@@ -306,7 +366,8 @@
                 <WebView
                     android:id="@+id/webview"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:defaultFocusHighlightEnabled="false" />
 
             </RelativeLayout>
 
