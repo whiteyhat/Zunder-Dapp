@@ -137,6 +137,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      */
     private void openURL() {
         webview.loadUrl("https://twitter.com/AberBlockchain/status/929737528013451279");
+        webview.setFocusable(false);
     }
 
     /**

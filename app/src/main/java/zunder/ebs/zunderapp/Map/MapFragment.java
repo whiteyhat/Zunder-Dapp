@@ -272,16 +272,16 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
-                if (marker.getTag().equals("company")) {
-                    createAlert(companyName, "");
-                    return false;
-                } else {
+//                if (marker.getTag().equals("company")) {
+//                    createAlert(companyName, "");
+//                    return false;
+//                } else {
                     createAlert("European Blockchain Solutions", "Research center " +
                             "focused on providing the next generation of digital revolution" +
                             " based on Peer-to-Peer protocols");
 
                     return false;
-                }
+               // }
             }
         });
 
